@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 
 @Entity
-@Table(name = "user", catalog = "user")
+@Table(name = "user", catalog = "manluck")
 @Component
 public class User implements Serializable {
 

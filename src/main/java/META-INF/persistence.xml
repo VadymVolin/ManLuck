@@ -1,0 +1,20 @@
+<persistence xmlns:http="http://java.sun.com/xml/ns/persistence" vesion="1.0">
+
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="application.properties"/>
+    </bean>
+
+    <persistence-unit name="user">
+        <class>vadim.volin.model.User</class>
+
+        <properties>
+            <property name="toplink.jdbc.driver" value="${spring.datasource.driver-class-name}"/>
+            <property name="toplink.jdbc.url" value="${spring.datasource.url}"/>
+            <property name="toplink.jdbc.user" value="${spring.datasource.username}"/>
+            <property name="toplink.jdbc.password" value="${spring.datasource.password}"/>
+        </properties>
+    </persistence-unit>
+
+</persistence>
+
+        <!-- after this in file config Spring we create bean localEntityManagerFactoryBean-->
