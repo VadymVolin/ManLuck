@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+    <title>Title</title>
+    <link type="text/css" rel="stylesheet" href="../../resources/css/logreg.css"/>
+</head>
+<body>
+<form method="POST" action="/login">
+    <div class="form__block">
+        <div class="last__row row">
+            <p>Registration</p>
+        </div>
+        <div class="row">
+            <label for="username">Full name</label>
+            <input id="username" name="username" type="text" required
+                   autocomplete="false"
+                   placeholder="Tom Hagen">
+        </div>
+        <div class="row">
+            <label for="usermail">E-mail</label>
+            <input id="usermail" name="usermail" type="email" required
+                   autocomplete="false"
+                   pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
+                   placeholder="mail@mail.mail">
+        </div>
+        <div class="row">
+            <label for="userphone">Telephone</label>
+            <input id="userphone" name="userphone" type="tel" required
+                   autocomplete="false"
+                   pattern="^((8|\+7)[\- ]?)?(\(?\d{3,4}\)?[\- ]?)?[\d\- ]{5,10}$"
+                   placeholder="+165..">
+        </div>
+        <div class="row">
+            <label for="password">Password</label>
+            <input id="password" name="password" type="password" required
+                   autocomplete="false"
+                   pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+                   placeholder="Password..">
+        </div>
+        <div class="row">
+            <label for="country">Country</label>
+            <select id="country" name="country" required autocomplete="false">
+                <option disabled>Choose country</option>
+                <option selected>Angola</option>
+                <option>France</option>
+                <option>USA</option>
+                <option>Russia</option>
+            </select>
+        </div>
+        <div class="row">
+            <label for="city">City</label>
+            <input id="city" name="city" type="text" required autocomplete="false"
+                   placeholder="City..">
+        </div>
+        <div class="row">
+            <label for="company_name">Company name</label>
+            <input id="company_name" name="company" type="text" required
+                   autocomplete="false" placeholder="Company name..">
+        </div>
+        <div class="row">
+            <label for="position">Position</label>
+            <input id="position" name="position" type="text" required
+                   autocomplete="false"
+                   placeholder="Position..">
+        </div>
+        <div class="last__row row">
+            <button class="btn_reg" type="submit">Sign up</button>
+            <a class="btn_log" href="/login">Sign in</a>
+        </div>
+    </div>
+</form>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Title</title>
+    <link type="text/css" rel="stylesheet" href="../../resources/css/logreg.css"/>
+</head>
+<body>
+<form method="POST" action="/login">
+    <div class="form__block">
+        <div class="last__row row">
+            <p>Login</p>
+        </div>
+        <span th:text="${error}"></span>
+        <span th:text="${message}"></span>
+        <div class="row">
+            <label for="usermail">E-mail</label><input id="usermail" name="usermail" type="email" required
+                                                       autocomplete="false"
+                                                       pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
+                                                       placeholder="mail@mail.mail">
+        </div>
+        <div class="row">
+            <label for="password">Password</label><input id="password" name="password" type="password" required
+                                                         autocomplete="false"
+                                                         pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
+                                                         placeholder="Password..">
+        </div>
+        <div class="last__row row">
+            <button class="btn_log" type="submit">Sign in</button>
+            <a class="btn_reg" href="/register">Sign up</a>
+        </div>
+    </div>
+</form>
+</body>
+</html>
