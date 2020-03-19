@@ -1,5 +1,6 @@
 package vadim.volin.model;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
@@ -7,19 +8,18 @@ import java.io.Serializable;
 
 
 @Entity
-@Table(name = "user", catalog = "manluck")
+@Table(name = "user", schema = "manluck")
 @Component
 public class User implements Serializable {
 
     @Id
-    @Column(name="id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private Integer id;
     @Column(name = "usermail")
     private String usermail;
     @Column(name = "password")
     private String password;
-
     @Column(name = "username")
     private String username;
     @Column(name = "userphone")
@@ -127,11 +127,14 @@ public class User implements Serializable {
 
         User user = (User) o;
 
-        if (getUsermail() != null ? !getUsermail().equals(user.getUsermail()) : user.getUsermail() != null) return false;
+        if (getUsermail() != null ? !getUsermail().equals(user.getUsermail()) : user.getUsermail() != null)
+            return false;
         if (getPassword() != null ? !getPassword().equals(user.getPassword()) : user.getPassword() != null)
             return false;
-        if (getUsername() != null ? !getUsername().equals(user.getUsername()) : user.getUsername() != null) return false;
-        if (getUserphone() != null ? !getUserphone().equals(user.getUserphone()) : user.getUserphone() != null) return false;
+        if (getUsername() != null ? !getUsername().equals(user.getUsername()) : user.getUsername() != null)
+            return false;
+        if (getUserphone() != null ? !getUserphone().equals(user.getUserphone()) : user.getUserphone() != null)
+            return false;
         if (getCountry() != null ? !getCountry().equals(user.getCountry()) : user.getCountry() != null) return false;
         if (getCity() != null ? !getCity().equals(user.getCity()) : user.getCity() != null) return false;
         if (getCompany() != null ? !getCompany().equals(user.getCompany()) : user.getCompany() != null) return false;
