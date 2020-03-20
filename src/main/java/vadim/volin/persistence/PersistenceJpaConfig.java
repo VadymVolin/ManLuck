@@ -25,7 +25,9 @@ import java.util.Properties;
 @Configuration
 @EnableTransactionManagement
 @ComponentScan({"vadim.volin.model", "vadim.volin.services"})
-@EnableJpaRepositories(basePackages="vadim.volin.repository", entityManagerFactoryRef="entityManagerFactoryBean", transactionManagerRef = "platformTransactionManager")
+@EnableJpaRepositories(basePackages = "vadim.volin.repository",
+        entityManagerFactoryRef = "entityManagerFactoryBean",
+        transactionManagerRef = "platformTransactionManager")
 @PropertySource(value = "classpath:/application.properties")
 public class PersistenceJpaConfig {
 
@@ -58,11 +60,14 @@ public class PersistenceJpaConfig {
 
     private Properties getHibernateProperties() {
         Properties properties = new Properties();
-        properties.put("db.hibernate.hbm2ddl.auto", this.environment.getProperty("spring.jpa.hibernate.ddl-auto"));
-        properties.put("db.hibernate.dialect", this.environment.getProperty("spring.jpa.properties.hibernate.dialect"));
-        properties.put("db.hibernate.show_sql", this.environment.getProperty("spring.jpa.properties.hibernate.dialect"));
-        properties.put("", this.environment.getProperty("spring.jpa.properties.hibernate.dialect"));
-
+        properties.put("hibernate.hbm2ddl.auto", this.environment.getProperty("spring.jpa.hibernate.ddl-auto"));
+        properties.put("hibernate.dialect", this.environment.getProperty("spring.jpa.properties.hibernate.dialect"));
+        properties.put("hibernate.show_sql", this.environment.getProperty("spring.jpa.show-sql"));
+        properties.put("hibernate.current_session_context_class", this.environment.getProperty("spring.jpa.properties.hibernate.current_session_context_class"));
+        properties.put("hibernate.jdbc.lob.non_contextual_creation", this.environment.getProperty("spring.jpa.properties.hibernate.jdbc.lob.non_contextual_creation"));
+        properties.put("hibernate.format_sql", this.environment.getProperty("spring.jpa.properties.hibernate.format_sql"));
+        properties.put("hibernate.temp.use_jdbc_metadata_defaults", this.environment.getProperty("spring.jpa.properties.hibernate.temp.use_jdbc_metadata_defaults"));
+        properties.put("hibernate.batch_versioned_data", "true");
         return properties;
     }
 

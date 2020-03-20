@@ -16,7 +16,7 @@ import javax.persistence.EntityManagerFactory;
 
 @DirtiesContext
 @RunWith(SpringJUnit4ClassRunner.class)
-@EnableJpaRepositories(basePackages="vadim.volin.repository", entityManagerFactoryRef="entityManagerFactoryBean")
+@EnableJpaRepositories(basePackages = "vadim.volin.repository", entityManagerFactoryRef = "entityManagerFactoryBean")
 @ContextConfiguration(classes = PersistenceJpaConfig.class)
 @WebAppConfiguration
 public class TestServices {
@@ -35,12 +35,23 @@ public class TestServices {
 
     @Test
     public void testSaveBank() throws Exception {
-//        User user = new User();
-//        user.setUsername("dfsfs");
-//        user.setUsermail("dfsfs@sdfsdfsf");
-//        user.setPassword("sdfdsf23r3re");
-//        userService.addUser(user);
-        System.out.println(userService.getByUserName("jsdfsf"));
+        User user = new User();
+        user.setUsername("dfsfs");
+        user.setUsermail("dfsfs@sdfsdfsf");
+        user.setPassword("sdfdsf23r3re");
+        userService.addUser(user);
+        System.out.println(userService.getByUserName("dfsfs"));
+
+    }
+
+    @Test
+    public void testUpdateBank() throws Exception {
+        User user = userService.getByUserName("dfsfs");
+        user.setUsername("NENENENENE");
+        user.setUsermail("NEW@NEW");
+        user.setPassword("NEWPASS");
+        userService.editUser(user);
+        System.out.println(userService.getByUserName("NENENENENE"));
 
     }
 }

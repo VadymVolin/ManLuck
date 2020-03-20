@@ -1,12 +1,12 @@
 package vadim.volin.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import vadim.volin.model.User;
 import vadim.volin.repository.UserRepository;
 import vadim.volin.services.UserService;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -15,8 +15,12 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserRepository userRepository;
 
+//    @Autowired
+//    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Override
     public User addUser(User user) {
+//        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return userRepository.saveAndFlush(user);
     }
 

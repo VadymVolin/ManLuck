@@ -13,14 +13,14 @@ import java.io.Serializable;
 public class User implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id", updatable = false, unique = true, nullable = false)
     private Integer id;
-    @Column(name = "usermail")
+    @Column(name = "usermail", unique = true, nullable = false)
     private String usermail;
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
-    @Column(name = "username")
+    @Column(name = "username", nullable = false)
     private String username;
     @Column(name = "userphone")
     private String userphone;
@@ -46,6 +46,24 @@ public class User implements Serializable {
                 String userphone, String country, String city,
                 String company, String position) {
         this.id = id;
+        this.usermail = usermail;
+        this.password = password;
+        this.username = username;
+        this.userphone = userphone;
+        this.country = country;
+        this.city = city;
+        this.company = company;
+        this.position = position;
+    }
+
+    public User(String usermail, String password) {
+        this.usermail = usermail;
+        this.password = password;
+    }
+
+    public User(String usermail, String password, String username,
+                String userphone, String country, String city,
+                String company, String position) {
         this.usermail = usermail;
         this.password = password;
         this.username = username;
@@ -168,7 +186,7 @@ public class User implements Serializable {
                 '}';
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
