@@ -13,8 +13,7 @@ public class HomeController {
 
     @GetMapping("/home")
     public String sayHello(@ModelAttribute User user, Model model) {
-        model.addAttribute("usermail", user.getUsermail());
-        model.addAttribute("password", user.getPassword());
+        model.addAttribute("pageName", "Home");
         if (user.getUsername() == null) {
             user.setUsername("LOGIN_USER");
         }

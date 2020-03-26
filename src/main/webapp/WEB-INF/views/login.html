@@ -6,7 +6,7 @@
     <link type="text/css" rel="stylesheet" href="../../resources/css/logreg.css"/>
 </head>
 <body>
-<form method="POST" action="/login">
+<form method="POST" action="#" th:action="@{/login}" th:object="${human}">
     <div class="form__block">
         <div class="last__row row">
             <p>Login</p>
@@ -17,13 +17,13 @@
             <label for="usermail">E-mail</label><input id="usermail" name="usermail" type="email" required
                                                        autocomplete="false"
                                                        pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
-                                                       placeholder="mail@mail.mail">
+                                                       placeholder="mail@mail.mail" th:field="${user.usermail}">
         </div>
         <div class="row">
             <label for="password">Password</label><input id="password" name="password" type="password" required
                                                          autocomplete="false"
                                                          pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$"
-                                                         placeholder="Password..">
+                                                         placeholder="Password.." th:field="${user.password}">
         </div>
         <div class="last__row row">
             <button class="btn_log" type="submit">Sign in</button>

@@ -4,6 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 
@@ -17,8 +18,10 @@ public class User implements Serializable {
     @Column(name = "id", updatable = false, unique = true, nullable = false)
     private Integer id;
     @Column(name = "usermail", unique = true, nullable = false)
+    @NotNull
     private String usermail;
     @Column(name = "password", nullable = false)
+    @NotNull
     private String password;
     @Column(name = "username", nullable = false)
     private String username;

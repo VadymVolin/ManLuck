@@ -12,24 +12,23 @@ import vadim.volin.model.User;
 import vadim.volin.services.UserService;
 import vadim.volin.validate.UserValidator;
 
+import javax.validation.Valid;
+
 @Controller
 @SessionAttributes("user")
 public class RegisterController {
 
     @Autowired
     private UserService userService;
+
     @Autowired
     private UserValidator userValidator;
-
-//    @ModelAttribute("user")
-//    private User getMoney() {
-//        return new User(); //or however you create a default
-//    }
 
     @GetMapping("/register")
     public String initPage(Model model, String error) {
 
         if (error != null) {
+            System.out.println(error);
             model.addAttribute("error", "Your username or password is invalid");
         }
         model.addAttribute("user", new User());
@@ -37,24 +36,23 @@ public class RegisterController {
     }
 
 
-//    TODO: not working add to DB, fix
+    //    TODO: not working add to DB, fix
     @PostMapping("/register")
-    public String registerProcess(@ModelAttribute("user") User user, Model model/*, BindingResult bindingResult*/) {
+    public String registerProcess(@ModelAttribute("user") User user, Model model, BindingResult bindingResult) {
 
 //        userValidator.validate(user, bindingResult);
-//        if (bindingResult.hasErrors()) {
-//            return "register";
-//        }
-        System.out.println(userService.addUser(user));
+        if (bindingResult.hasErrors()) {
+            return "register";
+        }
+        if (!(user.getUsermail().matches("^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$")
+        & user.getPassword().matches("[A-Za-z\\d{8+}]")
+        )) {
+            model.addAttribute("error", "E-mail or password not valid");
+        }
+        user = userService.addUser(user);
+        System.out.println(user);
 //        securityService.autologin(user.getUsername(), user.getPassword());
-        model.addAttribute("usermail", user.getUsermail());
-        model.addAttribute("password", user.getPassword());
-        model.addAttribute("username", user.getUsername());
-        model.addAttribute("userphone", user.getUserphone());
-        model.addAttribute("country", user.getCountry());
-        model.addAttribute("company", user.getCompany());
-        model.addAttribute("city", user.getCity());
-        model.addAttribute("position", user.getPosition());
+
         return "redirect:/first";
     }
 

@@ -7,70 +7,15 @@
 </head>
 
 <body>
-<header>
-    <div class="notifications-panel">
-			<span class="notifications">
-				<a href="#" class="notification-link">
-					<i class="fa fa-bell" aria-hidden="true"></i>
-				</a>
-			</span>
-    </div>
-</header>
+<div th:replace="components/header :: header"></div>
 <main class="main">
-    <section id="sidebar" class="sidebar">
-        <div class="user-block">
-            <a href="/home">
-                <div class="user-img">
-                    <img src="../../resources/img/Icon awesome-user-circle.png" width="30px" alt="">
-                </div>
-                <div class="user-info">
-                    <p class="user-name" th:text="${username}"></p>
-                    <p class="user-email" th:text="${usermail}">/p>
-                </div>
-            </a>
-        </div>
-        <div class="nav-block">
-            <ul class="menu">
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
-                        <i class="fa fa-home" aria-hidden="true"></i>
-                        <span class="item-text">Home</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
-                        <i class="fa fa-briefcase" aria-hidden="true"></i>
-                        <span class="item-text">Projects</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="/dashboard" class="menu-link">
-                        <i class="fa fa-th"></i>
-                        <span class="item-text">Dashboard</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
-                        <i class="fa fa-file-text" aria-hidden="true"></i>
-                        <span class="item-text">Reports</span>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="#" class="menu-link">
-                        <i class="fa fa-bar-chart" aria-hidden="true"></i>
-                        <span class="item-text">Statistics</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </section>
+    <div th:replace="components/sidebar :: sidebar"></div>
     <section class="content">
         <div class="container">
             <div class="row">
                 <div class="adder">
                     <span data-action-addColumn class="action">+ Add column</span>
                 </div>
-
             </div>
             <div class="row">
                 <div class="columns"></div>
@@ -79,7 +24,6 @@
     </section>
 </main>
 
-<script src="../../resources/js/application.js"></script>
 <script src="../../resources/js/column.js"></script>
 <script src="../../resources/js/note.js"></script>
 <script src="../../resources/js/kanban-desk.js"></script>

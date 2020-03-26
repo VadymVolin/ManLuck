@@ -1,4 +1,4 @@
-create table if not exists manluck."user"
+create table if not exists manluck."human"
 (
     id        integer     not null,
     username  varchar(20) not null,
@@ -13,12 +13,12 @@ create table if not exists manluck."user"
         primary key (id)
 );
 
-alter table manluck."user"
+alter table manluck."human"
     owner to postgres;
 
 create unique index if not exists user_id_uindex
-    on manluck."user" (id);
+    on manluck."human" (id);
 
 create unique index if not exists user_usermail_uindex
-    on manluck."user" (usermail);
+    on manluck."human" (usermail);
 

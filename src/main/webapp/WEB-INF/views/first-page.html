@@ -10,77 +10,10 @@
 
 <body>
 <div id="first__page">
-    <header>
-        <div class="notifications-panel">
-                <span class="notifications">
-                    <a href="#" class="notification-link">
-                        <svg class="notification-link" viewBox="-43 0 512 512" xmlns="http://www.w3.org/2000/svg">
-                            <path
-                                    d="m413.417969 360.8125c-32.253907-27.265625-50.75-67.117188-50.75-109.335938v-59.476562c0-75.070312-55.765625-137.214844-128-147.625v-23.042969c0-11.796875-9.558594-21.332031-21.335938-21.332031-11.773437 0-21.332031 9.535156-21.332031 21.332031v23.042969c-72.257812 10.410156-128 72.554688-128 147.625v59.476562c0 42.21875-18.496094 82.070313-50.945312 109.503907-8.296876 7.105469-13.054688 17.429687-13.054688 28.351562 0 20.589844 16.746094 37.335938 37.332031 37.335938h352c20.589844 0 37.335938-16.746094 37.335938-37.335938 0-10.921875-4.757813-21.246093-13.25-28.519531zm0 0"/>
-                            <path
-                                    d="m213.332031 512c38.636719 0 70.957031-27.542969 78.378907-64h-156.757813c7.425781 36.457031 39.746094 64 78.378906 64zm0 0"/>
-                        </svg>
-                    </a>
-                </span>
-        </div>
-    </header>
+    <div th:replace="components/header :: header"></div>
     <main class="main">
-        <section class="sidebar" id="sidebar">
-            <div class="user-block">
-                <a href="/first">
-                    <div class="user-info">
-                        <div class="user-img">
-                            <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px"
-                                 width="30px" height="30px" viewBox="0 0 43.028 43.028"
-                                 style="enable-background:new 0 0 43.028 43.028;" xml:space="preserve">
-                                    <g>
-                                        <path
-                                                d="M39.561,33.971l-0.145,0.174c-4.774,5.728-11.133,8.884-17.902,8.884c-6.77,0-13.128-3.155-17.903-8.884l-0.144-0.174
-		l0.034-0.223c0.922-6.014,4.064-10.845,8.847-13.606l0.34-0.196l0.271,0.284c2.259,2.37,5.297,3.674,8.554,3.674
-		s6.295-1.305,8.554-3.674l0.271-0.284l0.34,0.196c4.783,2.761,7.925,7.592,8.848,13.606L39.561,33.971z M21.514,21.489
-		c5.924,0,10.744-4.82,10.744-10.744C32.258,4.821,27.438,0,21.514,0S10.77,4.821,10.77,10.744S15.59,21.489,21.514,21.489z"/>
-                                    </g>
-                                </svg>
-                        </div>
-                        <p class="user-name" th:text="${username}"></p>
-                    </div>
-                </a>
-            </div>
-            <div class="nav-block">
-                <ul class="menu">
-                    <li class="menu-item">
-                        <a class="menu-link" href="/home">
-                            <i aria-hidden="true" class="fa fa-home"></i>
-                            <span class="item-text">Home</span>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a class="menu-link" href="/projects">
-                            <i aria-hidden="true" class="fa fa-briefcase"></i>
-                            <span class="item-text">Projects</span>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a class="menu-link" href="/dashboard">
-                            <i class="fa fa-th"></i>
-                            <span class="item-text">Dashboard</span>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a class="menu-link" href="/reports">
-                            <i aria-hidden="true" class="fa fa-file-text"></i>
-                            <span class="item-text">Reports</span>
-                        </a>
-                    </li>
-                    <li class="menu-item">
-                        <a class="menu-link" href="/statistics">
-                            <i aria-hidden="true" class="fa fa-bar-chart"></i>
-                            <span class="item-text">Statistics</span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </section>
+        <section th:replace="components/sidebar :: sidebar"></section>
+
         <section class="content">
             <div class="weeks-chart-block">
                 <canvas height="400px" id="weeksChart" width="600px"></canvas>

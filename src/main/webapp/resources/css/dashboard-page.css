@@ -1,134 +1,142 @@
-.user-block {
-	padding: 15px 0;
-} 
+.human-name {
+    display: none;
+}
 
-.user-info {
-	display: none;
+.human-img {
+    margin: 0;
 }
 
 .item-text {
-	display: none;
+    display: none;
 }
 
 .sidebar {
-	width: auto;
+    width: auto;
 }
 
-.menu { 
-	margin:0;
-	text-align: center;
+.menu {
+    margin: 0;
+    text-align: center;
 }
 
 .menu-link {
-	padding: 15px 15px;
+    padding: 15px 15px;
 }
 
 .content {
-	margin: 90px 0 0 50px;  
+    margin: 90px 0 0 120px;
 }
 
 .container {
-	margin: 0 20px;
+    margin: 0 20px;
 }
 
 .adder {
-	position: fixed;
-	margin-bottom: 50px;
+    position: fixed;
+    margin-bottom: 50px;
 }
 
 .columns {
-	margin-top: 50px;
-	display: flex;
-	flex-flow: row;
-	justify-content: flex-start;
-	overflow-x: auto;
-	overflow-y: hidden;
+    margin-top: 50px;
+    display: flex;
+    flex-flow: row;
+    justify-content: flex-start;
+    overflow-x: auto;
+    overflow-y: hidden;
 
 }
+
 .column {
-	display: flex;
-	flex-flow: column;
-	align-items: center;
-	padding: 15px;
-	width: 220px;
-	margin: 0 40px 25px 0;
-	height: fit-content;
-	border-radius: 5px;
-	background-color: #cad8ec;
-	box-shadow: 9px 9px 15px -10px #000000;
+    display: flex; /* value bottom work for notes-column :(*/
+    /*display: table;*/
+    flex-flow: column;
+    align-items: center;
+    padding: 15px;
+    width: 220px;
+    margin: 0 40px 25px 0;
+    height: fit-content;
+    border-radius: 5px;
+    background-color: rgba(68, 68, 68, 0.81);
+    box-shadow: 9px 9px 15px -10px #000000;
 }
 
 .column-header,
 .column-body,
 .column-footer {
-	font-size: 14px;
-	font-weight: 100;
-	width: 100%;
-	margin-bottom: 15px;
-	letter-spacing: 1px;
+    font-size: 14px;
+    font-weight: 100;
+    width: 100%;
+    margin-bottom: 15px;
+    letter-spacing: 1px;
 }
 
 .column-header {
-	color: #535353;
-	font-weight: bold;
-	box-shadow: 0px 5px 5px -9px #535353;
+    color: #ffffff;
+    font-weight: bold;
+    box-shadow: 0px 5px 5px -9px #535353;
 }
 
 .column-header:focus {
-	border-bottom: 1px solid #535353;
+    border-bottom: 1px solid #535353;
 }
 
-
 .action {
-	cursor: pointer;
-	padding: 10px;
-	background-color: #6c6bbc;
-	color: #f5f5f5;
-	border-radius: 5px;
-	text-align: center;
-	font-size: 12px;
-	user-select: none;
+    cursor: pointer;
+    padding: 10px;
+    background-color: #444444;
+    color: #f5f5f5;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 12px;
+    user-select: none;
 }
 
 .action:hover {
-	background-color: #8742EF;
-
+    background-color: rgba(76, 175, 80, 0.8);
+    color: #f5f5f5;
 }
+
+.action:focus {
+	color: #f5f5f5;
+	background-color: #4caf50;
+}
+
 .action:active {
-	background-color: #6411D9;
+    color: #f5f5f5;
+    background-color: #4caf50;
 }
 
 .note {
-	border-radius: 5px;
-	padding: 15px;
-	margin-bottom: 10px;
-	font-size: 12px;
-	background-color: #E2E9F3;
-	color: #616161;
-	box-shadow: 0 2px 4px rgba(0, 0, 0, .25);
-	word-wrap:break-word;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 10px;
+    font-size: 12px;
+    background-color: #E2E9F3;
+    color: #404040;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .25);
+    word-wrap: break-word;
 }
 
 
 .note:focus {
-	border-radius: 5px;
-	border-top: 1px solid #8742EF;
-	border-bottom: 1px solid #8742EF;
+    border-radius: 5px;
+    border-top: 1px solid #444444;
+    border-bottom: 1px solid #444444;
 }
 
 
 .column.dragged {
-	opacity: 0.4;
+    opacity: 0.4;
 }
 
 .note.dragged {
-	opacity: 0.01;
+    opacity: 0.01;
 }
 
 .column.under {
-	margin-top: 20px;
+    margin-top: 20px;
 }
 
 .note.under {
-	opacity: 0.5;
+    opacity: 0.5;
 }
