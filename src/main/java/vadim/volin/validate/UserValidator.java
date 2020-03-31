@@ -26,25 +26,20 @@ public class UserValidator implements Validator {
     public void validate(Object o, Errors errors) {
         User user = (User) o;
         User fromDB = userService.getByUserName(user.getUsername());
-        System.out.println("USERVALIDATION");
         ValidationUtils.rejectIfEmpty(errors, "username", "NotEmpty");
 
         if (fromDB == null) {
             logger.warn("user not found in manluck.user");
-            errors.rejectValue("username", "user not found");
-            return;
+            System.out.println("user not found in manluck.user: " + user);
+            errors.rejectValue("username", "user_not_found");
         }
 
         ValidationUtils.rejectIfEmpty(errors, "password", "NotEmpty");
-        if (user.getPassword().matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,34}$")) {
-            logger.warn("password user invalid");
-            errors.rejectValue("password", "Incorrect password");
+        if (!user.getPassword().equals(fromDB.getPassword())) {
+            logger.warn("password user inconfirm");
+            System.out.println("password user invalid: " + fromDB.getPassword() + " : " + user.getPassword());
+            errors.rejectValue("password", "incorrect_password");
         }
-
-//        if (!user.getPassword().equals(fromDB.getPassword())) {
-//            logger.warn("password user inconfirm");
-//            errors.rejectValue("password", "Incorrect password");
-//        }
     }
 
 }

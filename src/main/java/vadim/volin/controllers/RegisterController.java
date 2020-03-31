@@ -36,36 +36,35 @@ public class RegisterController {
 
     @PostMapping("/register")
     public String registerProcess(@ModelAttribute("user") User user, Model model, BindingResult bindingResult) {
-//        userValidator.validate(user, bindingResult);
-
         User existing = userService.getByUserMail(user.getUsermail());
 
         if (existing != null) {
-//            bindingResult.rejectValue("usermail", null, "There is already an account registered with that email");
+            bindingResult.rejectValue("usermail", null, "There is already an account registered with that email");
             return "redirect:/register";
         }
 
         if (!(user.getUsermail().matches("^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$")
                 & user.getPassword().matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,34}$")
         )) {
-//            bindingResult.rejectValue("password", "E-mail or password not valid");
+            bindingResult.rejectValue("password", "E-mail or password not valid");
 
             return "redirect:/register";
         }
 
         if (!user.getPassword().matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,34}$")) {
-//            bindingResult.rejectValue("password", "E-mail or password not valid");
+            bindingResult.rejectValue("password", "E-mail or password not valid");
             return "redirect:/register";
         }
 
         if (!user.getPassword().equals(user.getConfirmPassword())) {
-//            bindingResult.rejectValue("password", "E-mail or password not valid");
+            bindingResult.rejectValue("password", "E-mail or password not valid");
             return "redirect:/register";
         }
 
         if (bindingResult.hasErrors()) {
             return "register";
         }
+        userService.addUser(user);
         return "redirect:/first";
     }
 

@@ -40,21 +40,23 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
        http.authorizeRequests()
-               .antMatchers("/first","/dashboard", "/reports", "/statistics", "/home").hasRole("USER")
-               .antMatchers("/login", "/register", "/")
-               .permitAll()
+               .antMatchers("/", "/login", "/register").permitAll()
+               .antMatchers("/first","/dashboard", "/reports", "/statistics", "/home")
+               .hasAnyAuthority("USER")
                .anyRequest().authenticated()
                .and()
-               .formLogin()
+               .csrf().disable().formLogin()
                .loginPage("/login")
-               .permitAll()
+               .failureUrl("/login?error")
+               .defaultSuccessUrl("/first")
                .and()
                .logout()
                .invalidateHttpSession(true)
                .clearAuthentication(true)
                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-               .logoutSuccessUrl("/")
-               .permitAll();
+               .logoutSuccessUrl("/").and()
+               .exceptionHandling()
+               .accessDeniedPage("/access-denied");
     }
 
     @Override

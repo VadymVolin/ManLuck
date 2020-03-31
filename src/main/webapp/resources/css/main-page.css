@@ -108,7 +108,29 @@ body {
 }
 
 .log-out {
+    cursor: pointer;
+    padding: 10px;
+    background-color: #444444;
+    color: #f5f5f5;
+    border-radius: 5px;
     text-align: center;
+    font-size: 12px;
+    user-select: none;
+}
+
+.log-out:hover {
+    background-color: rgba(76, 175, 80, 0.8);
+    color: #f5f5f5;
+}
+
+.log-out:focus {
+    color: #f5f5f5;
+    background-color: #4caf50;
+}
+
+.log-out:active {
+    color: #f5f5f5;
+    background-color: #4caf50;
 }
 
 .notifications-panel {

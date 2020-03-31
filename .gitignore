@@ -30,6 +30,8 @@ pmol_app.iml
 target
 src/main/webapp/resources/img
 src/main/resources/application.properties
+src/main/resources/log4j.properties
+src/main/resources/validation.properties
 # CMake
 cmake-build-*/
 

@@ -14,7 +14,10 @@
     <main class="main">
         <div th:replace="components/sidebar :: sidebar"></div>
         <section class="content">
-
+            <a href="/login?logout=true" class="log-out">
+                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                <span class="item-text">Go out</span>
+            </a>
         </section>
     </main>
 </div>

@@ -38,10 +38,10 @@ public class LoginController {
 
     @PostMapping("/login")
     public String loginProcess(@ModelAttribute User user, Model model, BindingResult bindingResult) {
-//        userValidator.validate(user, bindingResult);
-//        if (bindingResult.hasErrors()) {
-//            return "login";
-//        }
+        userValidator.validate(user, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "login";
+        }
         User validUser = userService.getByUserName(user.getUsername());
 
         if (validUser == null) {
@@ -51,7 +51,7 @@ public class LoginController {
         return "redirect:/first";
     }
 
-    @GetMapping("/logout")
+    @GetMapping({"/logout", "/login?logout"})
     public String logoutProcess() {
         return "redirect:/login?logout";
     }
