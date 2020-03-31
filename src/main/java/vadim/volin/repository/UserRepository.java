@@ -9,9 +9,9 @@ import vadim.volin.model.User;
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
 
-    @Query(value = "SELECT id, username, password, usermail, userphone, country, city, company, position FROM manluck.user AS u WHERE u.username = :username ", nativeQuery = true)
+    @Query(value = "SELECT id, username, password, usermail, userphone, country, city, company, position, role, active FROM manluck.user AS u WHERE u.username = :username ", nativeQuery = true)
     User findByName(@Param("username") String username);
 
-    @Query(value = "SELECT id, username, password, usermail, userphone, country, city, company, position FROM manluck.user AS u WHERE u.usermail = :usermail ", nativeQuery = true)
+    @Query(value = "SELECT id, username, password, usermail, userphone, country, city, company, position, role, active FROM manluck.user AS u WHERE u.usermail = :usermail ", nativeQuery = true)
     User finByMail(@Param("usermail") String usermail);
 }

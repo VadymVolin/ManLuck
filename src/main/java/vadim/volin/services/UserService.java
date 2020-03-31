@@ -10,7 +10,6 @@ public interface UserService {
 
     void delete(int id);
 
-
     User getByUserName(String username);
 
     User getByUserMail(String usermail);

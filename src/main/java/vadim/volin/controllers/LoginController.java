@@ -12,8 +12,6 @@ import vadim.volin.model.User;
 import vadim.volin.services.UserService;
 import vadim.volin.validate.UserValidator;
 
-import javax.validation.Valid;
-
 @Controller
 @SessionAttributes("user")
 public class LoginController {
@@ -28,7 +26,7 @@ public class LoginController {
     public String initPage(Model model, String error, String logout) {
 
         if (error != null) {
-            model.addAttribute("error", "Your username or password is invalid");
+            model.addAttribute("error", "Your username or password is invalid.");
         }
 
         if (logout != null) {
@@ -40,18 +38,22 @@ public class LoginController {
 
     @PostMapping("/login")
     public String loginProcess(@ModelAttribute User user, Model model, BindingResult bindingResult) {
-        userValidator.validate(user, bindingResult);
-        if (bindingResult.hasErrors()) {
-            return "login";
-        }
+//        userValidator.validate(user, bindingResult);
+//        if (bindingResult.hasErrors()) {
+//            return "login";
+//        }
+        User validUser = userService.getByUserName(user.getUsername());
 
-        User validUser = userService.getByUserMail(user.getUsermail());
         if (validUser == null) {
-            model.addAttribute("error", "User not found");
-            return "login";
+            return "redirect:/login?error";
         }
         model.addAttribute("user", validUser);
         return "redirect:/first";
+    }
+
+    @GetMapping("/logout")
+    public String logoutProcess() {
+        return "redirect:/login?logout";
     }
 
 }

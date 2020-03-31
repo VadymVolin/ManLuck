@@ -1,5 +1,6 @@
 package vadim.volin.validate;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
@@ -10,6 +11,8 @@ import vadim.volin.services.UserService;
 
 @Component
 public class UserValidator implements Validator {
+
+    private static final Logger logger = Logger.getLogger(UserValidator.class);
 
     @Autowired
     private UserService userService;
@@ -22,23 +25,26 @@ public class UserValidator implements Validator {
     @Override
     public void validate(Object o, Errors errors) {
         User user = (User) o;
-        User fromDB = userService.getByUserMail(user.getUsermail());
-
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "usermail", "NotEmpty");
+        User fromDB = userService.getByUserName(user.getUsername());
+        System.out.println("USERVALIDATION");
+        ValidationUtils.rejectIfEmpty(errors, "username", "NotEmpty");
 
         if (fromDB == null) {
-            errors.rejectValue("usermail", "user not found");
+            logger.warn("user not found in manluck.user");
+            errors.rejectValue("username", "user not found");
             return;
         }
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
-        if (user.getPassword().length() < 8 || user.getPassword().length() > 32) {
+        ValidationUtils.rejectIfEmpty(errors, "password", "NotEmpty");
+        if (user.getPassword().matches("^(?=.*[A-Za-z])(?=.*\\d)[A-Za-z\\d]{8,34}$")) {
+            logger.warn("password user invalid");
             errors.rejectValue("password", "Incorrect password");
         }
 
-        if (!user.getPassword().equals(fromDB.getPassword())) {
-            errors.rejectValue("password", "Incorrect password");
-        }
+//        if (!user.getPassword().equals(fromDB.getPassword())) {
+//            logger.warn("password user inconfirm");
+//            errors.rejectValue("password", "Incorrect password");
+//        }
     }
 
 }

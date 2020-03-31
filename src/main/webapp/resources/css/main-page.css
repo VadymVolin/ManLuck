@@ -107,6 +107,10 @@ body {
     background-color: #4caf50;
 }
 
+.log-out {
+    text-align: center;
+}
+
 .notifications-panel {
     z-index: 2;
     background-color: #eeeeee;
@@ -125,7 +129,7 @@ body {
 .page-name {
     font-size: 20px;
     padding: 10px;
-    margin-left: 130px;
+    margin-left: 330px;
     color: #444444;
 }
 

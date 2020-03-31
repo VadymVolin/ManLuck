@@ -1,15 +1,17 @@
 package vadim.volin.model;
 
-import org.hibernate.annotations.GenericGenerator;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-
+import java.util.Collection;
 
 @Entity
-@Table(name = "user", schema = "manluck")
+@Table(name = "user", schema = "manluck", uniqueConstraints = @UniqueConstraint(columnNames = "usermail"))
 @Component
 public class User implements Serializable {
 
@@ -17,13 +19,17 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", updatable = false, unique = true, nullable = false)
     private Integer id;
+    @Email
     @Column(name = "usermail", unique = true, nullable = false)
     @NotNull
     private String usermail;
-    @Column(name = "password", nullable = false)
+    @Column(name = "password", nullable = false, scale = 34)
     @NotNull
     private String password;
-    @Column(name = "username", nullable = false)
+    @Transient
+    private String confirmPassword;
+    @Column(name = "username", unique = true, nullable = false)
+    @NotNull
     private String username;
     @Column(name = "userphone")
     private String userphone;
@@ -35,19 +41,29 @@ public class User implements Serializable {
     private String company;
     @Column(name = "position")
     private String position;
+    @Column(name = "active")
+    private Boolean active;
+//    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//    @JoinTable(name = "user_role",
+//            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+//            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
+//    )
+//    private Collection<Role> roles;
+    @Column(name = "role")
+    private String roles;
 
     public User() {
     }
 
-    public User(int id, String usermail, String password) {
+    public User(@NotNull int id, @NotNull String usermail, @NotNull String password) {
         this.id = id;
         this.usermail = usermail;
         this.password = password;
     }
 
-    public User(int id, String usermail, String password, String username,
+    public User(@NotNull int id, @NotNull String usermail, @NotNull String password, @NotNull String username,
                 String userphone, String country, String city,
-                String company, String position) {
+                String company, String position, boolean active, String roles) {
         this.id = id;
         this.usermail = usermail;
         this.password = password;
@@ -59,14 +75,14 @@ public class User implements Serializable {
         this.position = position;
     }
 
-    public User(String usermail, String password) {
+    public User(@NotNull String usermail, @NotNull String password) {
         this.usermail = usermail;
         this.password = password;
     }
 
-    public User(String usermail, String password, String username,
+    public User(@NotNull String usermail, @NotNull String password, @NotNull String username,
                 String userphone, String country, String city,
-                String company, String position) {
+                String company, String position, boolean active, String roles) {
         this.usermail = usermail;
         this.password = password;
         this.username = username;
@@ -95,6 +111,30 @@ public class User implements Serializable {
 
     public String getUsername() {
         return username;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
     }
 
     public void setUsername(String username) {
@@ -141,6 +181,14 @@ public class User implements Serializable {
         this.position = position;
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -148,30 +196,33 @@ public class User implements Serializable {
 
         User user = (User) o;
 
-        if (getUsermail() != null ? !getUsermail().equals(user.getUsermail()) : user.getUsermail() != null)
+        if (id != null ? !id.equals(user.id) : user.id != null) return false;
+        if (usermail != null ? !usermail.equals(user.usermail) : user.usermail != null) return false;
+        if (password != null ? !password.equals(user.password) : user.password != null) return false;
+        if (confirmPassword != null ? !confirmPassword.equals(user.confirmPassword) : user.confirmPassword != null)
             return false;
-        if (getPassword() != null ? !getPassword().equals(user.getPassword()) : user.getPassword() != null)
-            return false;
-        if (getUsername() != null ? !getUsername().equals(user.getUsername()) : user.getUsername() != null)
-            return false;
-        if (getUserphone() != null ? !getUserphone().equals(user.getUserphone()) : user.getUserphone() != null)
-            return false;
-        if (getCountry() != null ? !getCountry().equals(user.getCountry()) : user.getCountry() != null) return false;
-        if (getCity() != null ? !getCity().equals(user.getCity()) : user.getCity() != null) return false;
-        if (getCompany() != null ? !getCompany().equals(user.getCompany()) : user.getCompany() != null) return false;
-        return getPosition() != null ? getPosition().equals(user.getPosition()) : user.getPosition() == null;
+        if (username != null ? !username.equals(user.username) : user.username != null) return false;
+        if (userphone != null ? !userphone.equals(user.userphone) : user.userphone != null) return false;
+        if (country != null ? !country.equals(user.country) : user.country != null) return false;
+        if (city != null ? !city.equals(user.city) : user.city != null) return false;
+        if (company != null ? !company.equals(user.company) : user.company != null) return false;
+        if (position != null ? !position.equals(user.position) : user.position != null) return false;
+        return roles != null ? roles.equals(user.roles) : user.roles == null;
     }
 
     @Override
     public int hashCode() {
-        int result = getUsermail() != null ? getUsermail().hashCode() : 0;
-        result = 31 * result + (getPassword() != null ? getPassword().hashCode() : 0);
-        result = 31 * result + (getUsername() != null ? getUsername().hashCode() : 0);
-        result = 31 * result + (getUserphone() != null ? getUserphone().hashCode() : 0);
-        result = 31 * result + (getCountry() != null ? getCountry().hashCode() : 0);
-        result = 31 * result + (getCity() != null ? getCity().hashCode() : 0);
-        result = 31 * result + (getCompany() != null ? getCompany().hashCode() : 0);
-        result = 31 * result + (getPosition() != null ? getPosition().hashCode() : 0);
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (usermail != null ? usermail.hashCode() : 0);
+        result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (confirmPassword != null ? confirmPassword.hashCode() : 0);
+        result = 31 * result + (username != null ? username.hashCode() : 0);
+        result = 31 * result + (userphone != null ? userphone.hashCode() : 0);
+        result = 31 * result + (country != null ? country.hashCode() : 0);
+        result = 31 * result + (city != null ? city.hashCode() : 0);
+        result = 31 * result + (company != null ? company.hashCode() : 0);
+        result = 31 * result + (position != null ? position.hashCode() : 0);
+        result = 31 * result + (roles != null ? roles.hashCode() : 0);
         return result;
     }
 
@@ -189,11 +240,4 @@ public class User implements Serializable {
                 '}';
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 }

@@ -34,24 +34,11 @@ public class TestServices {
     }
 
     @Test
-    public void testSaveBank() throws Exception {
-        User user = new User();
-        user.setUsername("dfsfs");
-        user.setUsermail("dfsfs@sdfsdfsf");
-        user.setPassword("sdfdsf23r3re");
-        userService.addUser(user);
-        System.out.println(userService.getByUserName("dfsfs"));
+    public void testGetByName() {
+        User user = userService.getByUserName("vadimvolin");
+        System.out.println(user);
 
-    }
-
-    @Test
-    public void testUpdateBank() throws Exception {
-        User user = userService.getByUserName("dfsfs");
-        user.setUsername("NENENENENE");
-        user.setUsermail("NEW@NEW");
-        user.setPassword("NEWPASS");
-        userService.editUser(user);
-        System.out.println(userService.getByUserName("NENENENENE"));
-
+        User user1 = userService.getByUserMail("v.volin@gmail.com");
+        System.out.println(user1);
     }
 }
