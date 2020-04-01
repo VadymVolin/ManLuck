@@ -8,11 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import vadim.volin.model.User;
 import vadim.volin.services.UserService;
 import vadim.volin.validate.UserValidator;
 
-import javax.validation.Valid;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @SessionAttributes("user")
@@ -24,8 +25,20 @@ public class RegisterController {
     @Autowired
     private UserValidator userValidator;
 
+    @ModelAttribute
+    public User createUser() {
+        return new User();
+    }
+
     @GetMapping("/register")
-    public String initPage(Model model, String error) {
+    public String initPage(Model model, String error, HttpSession httpSession, SessionStatus sessionStatus) {
+        if (httpSession.getAttribute("user") != null
+                && !sessionStatus.isComplete()
+                && !httpSession.isNew()) {
+            sessionStatus.setComplete();
+            httpSession.invalidate();
+            return "redirect:/register";
+        }
         if (error != null) {
             model.addAttribute("error", error);
         }

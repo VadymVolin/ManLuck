@@ -13,16 +13,11 @@ public class FirstPageController {
 
     @GetMapping("/first")
     public ModelAndView initPage(@ModelAttribute("user") User user) {
-        if (user.getUsername() == null) {
-            user.setUsername("NEW USER");
-        }
         ModelAndView modelAndView = new ModelAndView("first-page");
         modelAndView.addObject("username", user.getUsername());
         modelAndView.addObject("usermail", user.getUsermail());
         return modelAndView;
     }
-
-
 
 }
 

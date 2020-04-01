@@ -12,8 +12,8 @@ public class Role implements GrantedAuthority {
     @Id
     private Integer id;
     private String name;
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<User> users;
+//    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+//    private Set<User> users;
 
     public Role() {
     }
@@ -48,14 +48,6 @@ public class Role implements GrantedAuthority {
         this.name = name;
     }
 
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -65,14 +57,13 @@ public class Role implements GrantedAuthority {
 
         if (!id.equals(role.id)) return false;
         if (name != null ? !name.equals(role.name) : role.name != null) return false;
-        return users != null ? users.equals(role.users) : role.users == null;
+        return true;
     }
 
     @Override
     public int hashCode() {
         int result = id.hashCode();
         result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (users != null ? users.hashCode() : 0);
         return result;
     }
 }

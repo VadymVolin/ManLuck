@@ -13,10 +13,10 @@ public class HomeController {
 
     @GetMapping("/home")
     public String sayHello(@ModelAttribute User user, Model model) {
-        model.addAttribute("pageName", "Home");
-        if (user.getUsername() == null) {
-            user.setUsername("LOGIN_USER");
+        if (user.getRoles() == null || user == null || !user.getRoles().contains("ROLE_USER")) {
+            return "redirect:/login?error";
         }
+        model.addAttribute("pageName", "Home");
         model.addAttribute("username", user.getUsername());
         return "home";
     }

@@ -32,6 +32,7 @@ public class UserValidator implements Validator {
             logger.warn("user not found in manluck.user");
             System.out.println("user not found in manluck.user: " + user);
             errors.rejectValue("username", "user_not_found");
+            return;
         }
 
         ValidationUtils.rejectIfEmpty(errors, "password", "NotEmpty");
@@ -39,6 +40,7 @@ public class UserValidator implements Validator {
             logger.warn("password user inconfirm");
             System.out.println("password user invalid: " + fromDB.getPassword() + " : " + user.getPassword());
             errors.rejectValue("password", "incorrect_password");
+            return;
         }
     }
 

@@ -8,9 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import vadim.volin.model.User;
 import vadim.volin.services.UserService;
 import vadim.volin.validate.UserValidator;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 @SessionAttributes("user")
@@ -22,8 +25,18 @@ public class LoginController {
     @Autowired
     private UserValidator userValidator;
 
+    @ModelAttribute
+    public User createUser() {
+        return new User();
+    }
+
     @GetMapping("/login")
-    public String initPage(Model model, String error, String logout) {
+    public String initPage(Model model, String error, String logout, HttpSession httpSession, SessionStatus sessionStatus) {
+        if (httpSession.getAttribute("user") != null && !httpSession.isNew()) {
+            sessionStatus.setComplete();
+            httpSession.invalidate();
+            return "redirect:/login";
+        }
 
         if (error != null) {
             model.addAttribute("error", "Your username or password is invalid.");
@@ -51,7 +64,7 @@ public class LoginController {
         return "redirect:/first";
     }
 
-    @GetMapping({"/logout", "/login?logout"})
+    @GetMapping({"/logout"})
     public String logoutProcess() {
         return "redirect:/login?logout";
     }

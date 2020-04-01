@@ -11,8 +11,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import vadim.volin.services.UserService;
+import org.springframework.security.web.authentication.rememberme.InMemoryTokenRepositoryImpl;
+import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
 @Configuration
 @EnableWebSecurity
@@ -23,6 +23,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    CustomLoginSuccessHandler customLoginSuccessHandler;
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -39,28 +42,41 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-       http.authorizeRequests()
-               .antMatchers("/", "/login", "/register").permitAll()
-               .antMatchers("/first","/dashboard", "/reports", "/statistics", "/home")
-               .hasAnyAuthority("USER")
-               .anyRequest().authenticated()
-               .and()
-               .csrf().disable().formLogin()
-               .loginPage("/login")
-               .failureUrl("/login?error")
-               .defaultSuccessUrl("/first")
-               .and()
-               .logout()
-               .invalidateHttpSession(true)
-               .clearAuthentication(true)
-               .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-               .logoutSuccessUrl("/").and()
-               .exceptionHandling()
-               .accessDeniedPage("/access-denied");
+        http.csrf().disable();
+        http.authorizeRequests().antMatchers("/", "/login", "/logout", "/register").permitAll();
+
+        http.authorizeRequests()
+                .antMatchers("/first**", "/home**", "/dashboard**", "/reports**", "/statistics**", "/projects**")
+                .access("hasAnyRole('ROLE_USER')");
+
+        http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/403");
+
+        http.authorizeRequests().and().formLogin()//
+                .loginProcessingUrl("/j_spring_security_check") // Submit URL
+                .loginPage("/login")//
+                .defaultSuccessUrl("/first")
+                .failureUrl("/login?error")
+                .usernameParameter("username")
+                .passwordParameter("password")
+                .and().logout().logoutUrl("/logout")
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID")
+                .logoutSuccessUrl("/");
+
+        http.authorizeRequests().and() //
+                .rememberMe().tokenRepository(persistentTokenRepository())
+                .tokenValiditySeconds(1 * 24 * 60 * 60); // 24h
+
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/resources/**", "/css/**", "/js/**");
+    }
+
+    @Bean
+    public PersistentTokenRepository persistentTokenRepository() {
+        InMemoryTokenRepositoryImpl memory = new InMemoryTokenRepositoryImpl();
+        return memory;
     }
 }

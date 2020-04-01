@@ -1,6 +1,7 @@
 package vadim.volin.services.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import vadim.volin.model.Role;
 import vadim.volin.model.User;
@@ -16,19 +17,21 @@ import java.util.List;
 public class UserServiceImpl implements UserService {
 
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    RoleRepository roleRepository;
+    private RoleRepository roleRepository;
+
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public User addUser(User user) {
         if (userRepository.finByMail(user.getUsermail()) != null) {
             return null;
         }
-//        List<Role> roleSet = roleRepository.findAll();
-//        user.setRoles(roleSet);
-        user.setRoles("ROLE_USER");
+        user.setRoles(roleRepository.findById(1).get().getName());
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return userRepository.saveAndFlush(user);
     }
 
