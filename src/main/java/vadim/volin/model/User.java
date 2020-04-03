@@ -43,12 +43,6 @@ public class User implements Serializable {
     private String position;
     @Column(name = "active")
     private Boolean active;
-//    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-//    @JoinTable(name = "user_role",
-//            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-//            inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
-//    )
-//    private Collection<Role> roles;
     @Column(name = "role")
     private String roles;
 
@@ -93,6 +87,14 @@ public class User implements Serializable {
         this.position = position;
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public String getUsermail() {
         return usermail;
     }
@@ -109,18 +111,6 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public String getUsername() {
-        return username;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public String getConfirmPassword() {
         return confirmPassword;
     }
@@ -129,12 +119,8 @@ public class User implements Serializable {
         this.confirmPassword = confirmPassword;
     }
 
-    public String getRoles() {
-        return roles;
-    }
-
-    public void setRoles(String roles) {
-        this.roles = roles;
+    public String getUsername() {
+        return username;
     }
 
     public void setUsername(String username) {
@@ -181,12 +167,20 @@ public class User implements Serializable {
         this.position = position;
     }
 
-    public boolean isActive() {
+    public Boolean getActive() {
         return active;
     }
 
-    public void setActive(boolean active) {
+    public void setActive(Boolean active) {
         this.active = active;
+    }
+
+    public String getRoles() {
+        return roles;
+    }
+
+    public void setRoles(String roles) {
+        this.roles = roles;
     }
 
     @Override
@@ -207,6 +201,7 @@ public class User implements Serializable {
         if (city != null ? !city.equals(user.city) : user.city != null) return false;
         if (company != null ? !company.equals(user.company) : user.company != null) return false;
         if (position != null ? !position.equals(user.position) : user.position != null) return false;
+        if (active != null ? !active.equals(user.active) : user.active != null) return false;
         return roles != null ? roles.equals(user.roles) : user.roles == null;
     }
 
@@ -222,6 +217,7 @@ public class User implements Serializable {
         result = 31 * result + (city != null ? city.hashCode() : 0);
         result = 31 * result + (company != null ? company.hashCode() : 0);
         result = 31 * result + (position != null ? position.hashCode() : 0);
+        result = 31 * result + (active != null ? active.hashCode() : 0);
         result = 31 * result + (roles != null ? roles.hashCode() : 0);
         return result;
     }
@@ -229,15 +225,18 @@ public class User implements Serializable {
     @Override
     public String toString() {
         return "User{" +
-                "mail='" + usermail + '\'' +
+                "id=" + id +
+                ", usermail='" + usermail + '\'' +
                 ", password='" + password + '\'' +
-                ", name='" + username + '\'' +
-                ", phone='" + userphone + '\'' +
+                ", confirmPassword='" + confirmPassword + '\'' +
+                ", username='" + username + '\'' +
+                ", userphone='" + userphone + '\'' +
                 ", country='" + country + '\'' +
                 ", city='" + city + '\'' +
                 ", company='" + company + '\'' +
                 ", position='" + position + '\'' +
+                ", active=" + active +
+                ", roles='" + roles + '\'' +
                 '}';
     }
-
 }

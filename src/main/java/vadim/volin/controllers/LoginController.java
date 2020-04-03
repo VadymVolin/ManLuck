@@ -55,7 +55,7 @@ public class LoginController {
         if (bindingResult.hasErrors()) {
             return "login";
         }
-        User validUser = userService.getByUserName(user.getUsername());
+        User validUser = userService.getByUserMail(user.getUsermail());
 
         if (validUser == null) {
             return "redirect:/login?error";

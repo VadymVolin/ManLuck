@@ -25,13 +25,13 @@ public class UserValidator implements Validator {
     @Override
     public void validate(Object o, Errors errors) {
         User user = (User) o;
-        User fromDB = userService.getByUserName(user.getUsername());
-        ValidationUtils.rejectIfEmpty(errors, "username", "NotEmpty");
+        User fromDB = userService.getByUserMail(user.getUsermail());
+        ValidationUtils.rejectIfEmpty(errors, "usermail", "NotEmpty");
 
         if (fromDB == null) {
             logger.warn("user not found in manluck.user");
             System.out.println("user not found in manluck.user: " + user);
-            errors.rejectValue("username", "user_not_found");
+            errors.rejectValue("usermail", "user_not_found");
             return;
         }
 
