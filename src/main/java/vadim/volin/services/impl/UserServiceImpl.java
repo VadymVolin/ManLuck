@@ -22,12 +22,16 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private RoleRepository roleRepository;
 
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+
     @Override
     public User addUser(User user) {
         if (userRepository.finByMail(user.getUsermail()) != null) {
             return null;
         }
         user.setRoles(roleRepository.findById(1).get().getName());
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         return userRepository.saveAndFlush(user);
     }
 

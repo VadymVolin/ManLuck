@@ -28,11 +28,5 @@ public class FirstPageController {
         model.addAttribute("user", user);
         return "first-page";
     }
-
-    @GetMapping("/404")
-    public ModelAndView pageNotFound() {
-        return new ModelAndView("redirect:/error.html", "error", "Sorry, this page at work :)");
-    }
-
 }
 

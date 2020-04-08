@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import vadim.volin.model.User;
+import vadim.volin.services.SecurityService;
 import vadim.volin.services.UserService;
 import vadim.volin.validate.UserValidator;
 
@@ -23,7 +24,7 @@ public class RegisterController {
     private UserService userService;
 
     @Autowired
-    private UserValidator userValidator;
+    private SecurityService securityService;
 
     @ModelAttribute
     public User createUser() {
@@ -77,7 +78,10 @@ public class RegisterController {
         if (bindingResult.hasErrors()) {
             return "register";
         }
-        userService.addUser(user);
+        if (userService.addUser(user) == null) {
+            return "register";
+        }
+//        securityService.autologin(user.getUsermail(), user.getPassword());
         return "redirect:/first";
     }
 
