@@ -23,9 +23,6 @@ public class RegisterController {
     @Autowired
     private UserService userService;
 
-    @Autowired
-    private SecurityService securityService;
-
     @ModelAttribute
     public User createUser() {
         return new User();
@@ -81,7 +78,6 @@ public class RegisterController {
         if (userService.addUser(user) == null) {
             return "register";
         }
-//        securityService.autologin(user.getUsermail(), user.getPassword());
         return "redirect:/first";
     }
 

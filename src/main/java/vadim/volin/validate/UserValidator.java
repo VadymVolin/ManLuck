@@ -30,7 +30,6 @@ public class UserValidator implements Validator {
 
         if (fromDB == null) {
             logger.warn("user not found in manluck.user");
-            System.out.println("user not found in manluck.user: " + user);
             errors.rejectValue("usermail", "user_not_found");
             return;
         }
@@ -38,8 +37,13 @@ public class UserValidator implements Validator {
         ValidationUtils.rejectIfEmpty(errors, "password", "NotEmpty");
         if (!user.getPassword().equals(fromDB.getPassword())) {
             logger.warn("password user inconfirm");
-            System.out.println("password user invalid: " + fromDB.getPassword() + " : " + user.getPassword());
             errors.rejectValue("password", "incorrect_password");
+            return;
+        }
+
+        if (!fromDB.getRoles().contains("ROLE_USER")) {
+            logger.warn("password user inconfirm");
+            errors.rejectValue("usermail", "diactivate_account");
             return;
         }
     }

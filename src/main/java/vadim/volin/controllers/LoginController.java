@@ -1,8 +1,6 @@
 package vadim.volin.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -12,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import vadim.volin.model.User;
-import vadim.volin.services.SecurityService;
 import vadim.volin.services.UserService;
 import vadim.volin.validate.UserValidator;
 
@@ -27,9 +24,6 @@ public class LoginController {
 
     @Autowired
     private UserValidator userValidator;
-
-    @Autowired
-    private SecurityService securityService;
 
     @ModelAttribute
     public User createUser() {
@@ -62,18 +56,8 @@ public class LoginController {
             System.out.println("has error");
             return "login";
         }
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User validUser = userService.getByUserMail(user.getUsermail());
-        if (auth.isAuthenticated()) {
-            model.addAttribute("user", validUser);
-            return "redirect:/first";
-        }
-        System.out.println("login");
-        if (validUser == null) {
-            System.out.println("user not found");
-            return "redirect:/login?error";
-        }
-//        securityService.autologin(user.getUsermail(), user.getPassword());
+        model.addAttribute("user", validUser);
         return "redirect:/first";
     }
 
