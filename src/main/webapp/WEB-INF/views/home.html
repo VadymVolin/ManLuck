@@ -6,26 +6,45 @@
     <link href="../../resources/css/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="../../resources/css/main-page.css" rel="stylesheet" type="text/css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <script th:inline="javascript" type="text/javascript">
-            $(document).ready(function () {
-                /*  Submit form using Ajax */
-                $('form[name=update_info]').change(function(e) {
-                    //Prevent default submission of form
-                    e.preventDefault();
-                    //Remove all errors
-                    $.post({
-                        url: '/update/user',
-                        data: $('form[name=update_info]').serialize(),
-                        success: function (res) {
-                             console.log(data);
-                            if (res) {
-                                $('.message').text(res);
-                            }
+    <script th:inline="javascript" type="text/javascript">
+        $(document).ready(function () {
+            /*  Submit form using Ajax */
+            $('form[name=update_info]').change(function (e) {
+                //Prevent default submission of form
+                e.preventDefault();
+                //Remove all errors
+                $.ajax({
+                    type: "POST",
+                    global: false,
+                    url: '/update/user',
+                    data: $('form[name=update_info]').serializeArray(),
+                    success: function (res) {
+                        console.log(data);
+                        if (res) {
+                            $('.message').text(res);
                         }
-                    });
+                    }
                 });
             });
-        </script>
+            $('form[name=deactivated-form]').click(function (e) {
+                //Prevent default submission of form
+                e.preventDefault();
+                //Remove all errors
+                $.ajax({
+                    type: "POST",
+                    global: false,
+                    url: '/update/deactivate',
+                    data: JSON.stringify([[${user}]]),
+                    success: function (res) {
+                        if (res) {
+                            $('.message').text(res);
+                            location.href = "/login?logout=Account%deactivated!";
+                        }
+                    }
+                });
+            });
+        });
+    </script>
 
 
 </head>
@@ -64,7 +83,7 @@
                         </div>
                         <div class="user-card-info">
                             <label for="password_upload">Password</label>
-                            <input id="password_upload" type="password" autocomplete="on" name="password"
+                            <input id="password_upload" type="text" autocomplete="on" name="password"
                                    th:field="${user.password}">
                         </div>
                         <div class="user-card-info">
@@ -74,6 +93,7 @@
                         <div class="user-card-info">
                             <label for="county_upload">Country</label>
                             <select id="county_upload" name="country" autocomplete="on">
+                                <option selected th:text="${user.country}" th:value="${user.country}"></option>
                                 <option>Angola</option>
                                 <option>France</option>
                                 <option>USA</option>
@@ -93,7 +113,7 @@
                             <input id="company_upload" type="text" name="company" th:field="${user.company}">
                         </div>
                     </form>
-                    <form action="" name="deactivated-form">
+                    <form action="#" name="deactivated-form" method="post" th:object="${user}">
                         <div class="user-card-info">
                             <label for="deactivate">Deactivate account?</label>
                             <input id="deactivate" type="button" name="deactivate" class="deactivate" value="Deactivate"

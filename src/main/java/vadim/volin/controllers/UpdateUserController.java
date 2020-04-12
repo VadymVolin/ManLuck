@@ -35,11 +35,11 @@ public class UpdateUserController {
     @RequestMapping(value = "/update/deactivate")
     public String deactivateUser(@ModelAttribute User user) {
         if (user == null) {
-            return "redirect:/login?error=User%not%found!";
+            return "Error on deactivate";
         }
         user.setActive(false);
         userService.editUser(user);
-        return "redirect:/login?message=Account%has%been%deactivate";
+        return "Account deactivate";
     }
 
 }
