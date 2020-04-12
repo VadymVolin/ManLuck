@@ -43,7 +43,7 @@ public class User implements Serializable {
     private String position;
     @Column(name = "active")
     private Boolean active;
-    @Column(name = "role")
+    @Column(name = "roles")
     private String roles;
 
     public User() {

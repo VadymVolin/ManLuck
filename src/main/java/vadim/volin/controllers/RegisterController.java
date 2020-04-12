@@ -10,9 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import vadim.volin.model.User;
-import vadim.volin.services.SecurityService;
 import vadim.volin.services.UserService;
-import vadim.volin.validate.UserValidator;
 
 import javax.servlet.http.HttpSession;
 

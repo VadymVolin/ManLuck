@@ -61,7 +61,7 @@ alter table "role"
 --
 
 insert into "role"("id", "name")
-values (1, 'role_user');
+values (1, 'ROLE_USER');
 
 create table "user_role"
 (
@@ -85,7 +85,7 @@ alter table user_role
         references role (id);
 
 insert into "user"(id, username, password, usermail, userphone, country, city, company, position, roles, active)
-values (1, 'vadimvolin', 'vadim12345', 'v.volin@gmail.com', '+380999999', 'usa', 'san-francisco', 'amazon',
+values (1, 'vadimvolin', 'vadim12345', 'vadim@gmail.com', '+380999999', 'usa', 'san-francisco', 'amazon',
         'software developer', 'ROLE_USER', true);
 insert into user_role(id, user_id, role_id)
 values (1, 1, 1);

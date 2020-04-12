@@ -46,6 +46,11 @@ public class UserValidator implements Validator {
             errors.rejectValue("usermail", "diactivate_account");
             return;
         }
+        if (!fromDB.getActive()) {
+            logger.warn("password user inconfirm");
+            errors.rejectValue("usermail", "diactivate_account");
+            return;
+        }
     }
 
 }

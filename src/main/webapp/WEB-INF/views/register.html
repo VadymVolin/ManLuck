@@ -13,10 +13,6 @@
         </div>
         <span th:text="${error}"></span>
         <span th:text="${message}"></span>
-        <span th:if="${#session!= null and #session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION') != null}"
-              th:utext="${#session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION').message}">
-                Static summary
-         </span>
         <div class="row">
             <label for="username">Full name</label>
             <input id="username" name="username" type="text" required
@@ -31,7 +27,6 @@
                    pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
                    placeholder="mail@mail.mail"
                    th:field="${user.usermail}">
-            <!--            <span th:if="${#fields.hasErrors('usermail')}" th:errors="*{usermail}"></span>-->
         </div>
         <div class="row">
             <label for="userphone">Telephone</label>
@@ -48,7 +43,6 @@
                    pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,34}$"
                    placeholder="Password.."
                    th:field="${user.password}">
-            <!--            <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>-->
         </div>
         <div class="row">
             <label for="confirmPassword">Password</label>
@@ -57,7 +51,6 @@
                    pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,34}$"
                    placeholder="Confirm password.."
                    th:field="${user.confirmPassword}">
-            <!--            <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>-->
         </div>
         <div class="row">
             <label for="country">Country</label>

@@ -28,6 +28,7 @@ public class UserServiceImpl implements UserService {
             return null;
         }
         user.setRoles(roleRepository.findById(1).get().getName());
+        user.setActive(true);
         return userRepository.saveAndFlush(user);
     }
 

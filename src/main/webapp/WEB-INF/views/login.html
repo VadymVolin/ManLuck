@@ -25,14 +25,6 @@
                    placeholder="mail@mail.mail" th:field="${user.usermail}">
             <span th:if="${#fields.hasErrors('usermail')}" th:errors="${user.usermail}"></span>
         </div>
-        <!--        <div class="row">-->
-        <!--            <label for="username">User name</label>
-                            <input id="username" name="username" type="text" required-->
-        <!--                                                          autocomplete="false"-->
-        <!--                                                          pattern="^[a-zA-Z]+)*$"-->
-        <!--                                                          placeholder="Tom Hagen" th:field="${user.username}">-->
-        <!--            <span th:if="${#fields.hasErrors('username')}" th:errors="${user.username}"></span>-->
-        <!--        </div>-->
         <div class="row">
             <label for="password">Password</label>
             <input id="password" name="password" type="password" required
