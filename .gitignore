@@ -56,3 +56,4 @@ fabric.properties
 # Editor-based Rest Client
 .idea/httpRequests
 /src/main/resources/db_sql/
+/src/main/webapp/resources/manluck_data/

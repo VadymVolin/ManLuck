@@ -62,104 +62,74 @@
             </div>
             <div class="row">
                 <div class="user-card">
-                    <form action="#" enctype="multipart/form-data" id="update_info" method="POST"
-                          name="update_info" th:object="${user}">
-                        <div class="message" style="font-size: 20px;color: #1db31d;"></div>
-                        <div class="user-card-img">
-                            <img src="../../resources/img/user-img.png" alt="user_img">
-                            <div class="user-card-img-upload">
-                                <!--                                <label for="img_upload">Upload image</label>-->
-                                <!--                                <input id="img_upload" type="file" name="user_img" th:field="${user.image}"-->
-                                <!--                                       th:text="+">-->
+                    <div class="user-card-1">
+                        <form action="#" enctype="multipart/form-data" id="update_img" method="POST"
+                              name="update_info" th:object="${user}">
+                            <div class="message" style="font-size: 20px;color: #1db31d;"></div>
+                            <div class="user-card-img">
+                                <img th:src="(${user.user_img} eq null) ? @{resources/manluck_data/user_img/default.png} : ${user.user_img}">
+                                <div class="user-card-img-upload">
+                                    <label for="img_upload">Upload image</label>
+                                    <input id="img_upload" type="file" name="user_img" value="+">
+                                </div>
                             </div>
-                        </div>
-                        <div class="user-card-info">
-                            <label for="mail_upload">E-mail</label>
-                            <input id="mail_upload" type="email" name="usermail" th:field="${user.usermail}">
-                        </div>
-                        <div class="user-card-info">
-                            <label for="name_upload">Full name</label>
-                            <input id="name_upload" type="text" name="username" th:field="${user.username}">
-                        </div>
-                        <div class="user-card-info">
-                            <label for="password_upload">Password</label>
-                            <input id="password_upload" type="text" autocomplete="on" name="password"
-                                   th:field="${user.password}">
-                        </div>
-                        <div class="user-card-info">
-                            <label for="phone_upload">Phone</label>
-                            <input id="phone_upload" type="tel" name="userphone" th:field="${user.userphone}">
-                        </div>
-                        <div class="user-card-info">
-                            <label for="county_upload">Country</label>
-                            <select id="county_upload" name="country" autocomplete="on">
-                                <option selected th:text="${user.country}" th:value="${user.country}"></option>
-                                <option>Angola</option>
-                                <option>France</option>
-                                <option>USA</option>
-                                <option>Russia</option>
-                            </select>
-                        </div>
-                        <div class="user-card-info">
-                            <label for="city_upload">City</label>
-                            <input id="city_upload" type="text" name="city" th:field="${user.city}">
-                        </div>
-                        <div class="user-card-info">
-                            <label for="position_upload">Position</label>
-                            <input id="position_upload" type="text" name="position" th:field="${user.position}">
-                        </div>
-                        <div class="user-card-info">
-                            <label for="company_upload">Company name</label>
-                            <input id="company_upload" type="text" name="company" th:field="${user.company}">
-                        </div>
-                    </form>
-                    <form action="#" name="deactivated-form" method="post" th:object="${user}">
-                        <div class="user-card-info">
-                            <label for="deactivate">Deactivate account?</label>
-                            <input id="deactivate" type="button" name="deactivate" class="deactivate" value="Deactivate"
-                                   onchange="deactivate();">
-                        </div>
-                    </form>
+                        </form>
+                    </div>
+                    <div class="user-card-2">
+                        <form action="#" enctype="multipart/form-data" id="update_info" method="POST"
+                              name="update_info" th:object="${user}">
+                            <div class="user-card-info">
+                                <label for="mail_upload">E-mail</label>
+                                <input id="mail_upload" type="email" name="usermail" th:field="${user.usermail}">
+                            </div>
+                            <div class="user-card-info">
+                                <label for="name_upload">Full name</label>
+                                <input id="name_upload" type="text" name="username" th:field="${user.username}">
+                            </div>
+                            <div class="user-card-info">
+                                <label for="password_upload">Password</label>
+                                <input id="password_upload" type="text" autocomplete="on" name="password"
+                                       th:field="${user.password}">
+                            </div>
+                            <div class="user-card-info">
+                                <label for="phone_upload">Phone</label>
+                                <input id="phone_upload" type="tel" name="userphone" th:field="${user.userphone}">
+                            </div>
+                            <div class="user-card-info">
+                                <label for="county_upload">Country</label>
+                                <select id="county_upload" name="country" autocomplete="on">
+                                    <option selected th:text="${user.country}" th:value="${user.country}"></option>
+                                    <option>Angola</option>
+                                    <option>France</option>
+                                    <option>USA</option>
+                                    <option>Russia</option>
+                                </select>
+                            </div>
+                            <div class="user-card-info">
+                                <label for="city_upload">City</label>
+                                <input id="city_upload" type="text" name="city" th:field="${user.city}">
+                            </div>
+                            <div class="user-card-info">
+                                <label for="position_upload">Position</label>
+                                <input id="position_upload" type="text" name="position" th:field="${user.position}">
+                            </div>
+                            <div class="user-card-info">
+                                <label for="company_upload">Company name</label>
+                                <input id="company_upload" type="text" name="company" th:field="${user.company}">
+                            </div>
+                        </form>
+                        <form action="#" name="deactivated-form" method="post" th:object="${user}">
+                            <div class="user-card-info deactivate-info">
+                                <label>Deactivate account?</label>
+                                <input id="deactivate" type="button" name="deactivate" class="deactivate" value="Deactivate">
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </section>
     </main>
 </div>
-<script th:inline="javascript">
-    // function updateInfo() {
-    //     var formElement = document.getElementById('update_info').;
-    //     if (formElement != null) {
-    //         const request = new XMLHttpRequest();
-    //         let url = '/update/user';
-    //         request.open("POST", url);
-    //         var formData = new FormData(formElement);
-    //         request.addEventListener("readystatechange", (event) => {
-    //             event.stopPropagation(); // Stop stuff happening
-    //             event.preventDefault();
-    //             if (request.readyState === 4 && request.status === 200) {
-    //                 document.querySelector('.message').innerHTML = request.responseText;
-    //             }
-    //         });
-    //         request.send(formData);
-    //     }
-    // }
-
-    // function deactivate() {
-    //     const req = new XMLHttpRequest();
-    //     let url = '/update/deactivate';
-    //     request.open("POST", url);
-    //     request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    //     request.addEventListener("readystatechange", () => {
-    //         event.stopPropagation(); // Stop stuff happening
-    //         event.preventDefault();
-    //         if (request.readyState === 4 && request.status === 200) {
-    //             console.log(request.response);
-    //             document.querySelector('.message').innerHTML = request.responseText;
-    //         }
-    //     });
-    //     request.send([[${user}]]);
-    // }
-</script>
 <script crossorigin="anonymous" integrity="sha256-xKeoJ50pzbUGkpQxDYHD7o7hxe0LaOGeguUidbq6vis="
         src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
 <script src="../../resources/js/charts-script.js"></script>

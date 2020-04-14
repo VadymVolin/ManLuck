@@ -31,6 +31,8 @@ public class User implements Serializable {
     @Column(name = "username", unique = true, nullable = false)
     @NotNull
     private String username;
+    @Column(name = "user_img")
+    private String user_img;
     @Column(name = "userphone")
     private String userphone;
     @Column(name = "country")
@@ -109,6 +111,14 @@ public class User implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getUser_img() {
+        return user_img;
+    }
+
+    public void setUser_img(String user_img) {
+        this.user_img = user_img;
     }
 
     public String getConfirmPassword() {

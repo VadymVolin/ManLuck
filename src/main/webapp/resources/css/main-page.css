@@ -59,6 +59,11 @@ body {
     margin-right: 15px;
 }
 
+.user-img {
+    width: 30px;
+    height: 30px;
+}
+
 .human-name {
     color: #4caf50;
     font-size: 16px;
@@ -107,8 +112,7 @@ body {
     background-color: #4caf50;
 }
 
-.log-out,
-.deactivate{
+.log-out {
     cursor: pointer;
     padding: 10px;
     background-color: #444444;
@@ -119,20 +123,17 @@ body {
     user-select: none;
 }
 
-.log-out:hover,
-.deactivate:hover {
+.log-out:hover {
     background-color: rgba(76, 175, 80, 0.8);
     color: #f5f5f5;
 }
 
-.log-out:focus,
-.deactivate:focus {
+.log-out:focus {
     color: #f5f5f5;
     background-color: #4caf50;
 }
 
-.log-out:active,
-.deactivate:active {
+.log-out:active {
     color: #f5f5f5;
     background-color: #4caf50;
 }
@@ -175,11 +176,11 @@ body {
 }
 
 .content {
-    margin: 65px 0 0 280px;
+    margin: 65px 50px 0 300px;
     display: flex;
     flex-flow: column wrap;
     justify-content: space-around;
-    align-content: space-around;
+    width: 100%;
 }
 
 .weeks-chart-block {
@@ -209,9 +210,79 @@ body {
 .user-card {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     transition: 0.3s;
+    margin: 50px;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+
+.user-card-1 {
+    text-align: center;
+}
+
+.user-card-1,
+.user-card-2 {
+    width: 40%;
+    padding: 60px;
 }
 
 .user-card-info {
     padding: 10px;
     align-content: space-between;
+    display: flex;
+    flex-flow: column;
+}
+
+.user-card-info label {
+    margin-bottom: 20px;
+}
+
+.user-card-info input, select {
+    background-color: unset;
+    color: #444444;
+    border-bottom: 1px solid #444444;
+}
+
+.user-card-info input:hover {
+    border-bottom-color: #4caf50;
+}
+
+.user-card-info input:active,
+.user-card-info input:focus {
+    border-bottom-color: #1db31d;
+}
+
+.user-card-img img {
+    width: 60%;
+}
+
+.deactivate-info {
+    text-align: center;
+}
+
+#deactivate {
+    cursor: pointer;
+    padding: 10px;
+    background-color: #444444;
+    color: #f5f5f5;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 12px;
+    user-select: none;
+    width: 55%;
+}
+
+#deactivate:hover {
+    background-color: rgba(76, 175, 80, 0.8);
+    color: #f5f5f5;
+}
+
+#deactivate:focus {
+    color: #f5f5f5;
+    background-color: #4caf50;
+}
+
+#deactivate:active {
+    color: #f5f5f5;
+    background-color: #4caf50;
 }

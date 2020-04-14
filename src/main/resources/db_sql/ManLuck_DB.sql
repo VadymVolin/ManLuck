@@ -24,6 +24,7 @@ create table if not exists "user"
     "id"        serial      not null,
     "username"  varchar(20) not null,
     "password"  varchar     not null,
+    "user_img"  varchar,
     "usermail"  varchar(30) not null,
     "userphone" varchar(14),
     "country"   varchar(15),
@@ -84,11 +85,16 @@ alter table user_role
     add constraint user_role_fk2 foreign key (role_id)
         references role (id);
 
-insert into "user"(id, username, password, usermail, userphone, country, city, company, position, roles, active)
-values (1, 'vadimvolin', 'vadim12345', 'vadim@gmail.com', '+380999999', 'usa', 'san-francisco', 'amazon',
-        'software developer', 'ROLE_USER', true);
+INSERT INTO manluck."user" (id, username, password, user_img, usermail, userphone, country, city, company, position, roles, active) VALUES (2, 'Vadim Volin', 'vadim12345', 'resources/manluck_data/user_img/vadimvolin.png', 'vadimvolin@mail.com', '0999999999', 'USA', 'Palo-Alto', 'Amazon', 'Software Developer', 'ROLE_USER', true);
+INSERT INTO manluck."user" (id, username, password, user_img, usermail, userphone, country, city, company, position, roles, active) VALUES (1, 'Vadym Volin', 'vadim12345', 'resources/manluck_data/user_img/vadymvolin.png', 'vadim@gmail.com', '+38088888878', 'France', 'San-Francisco', 'Amazon', 'Software Developer', 'ROLE_USER', true);
+INSERT INTO manluck."user" (id, username, password, user_img, usermail, userphone, country, city, company, position, roles, active) VALUES (3, 'Oleh Horbenko', 'oleh12345', 'resources/manluck_data/user_img/olehhorbenko.png', 'oleh@mail.com', '0999999999', 'USA', 'Palo-Alto', 'Amazon', 'Software Developer', 'ROLE_USER', false);
+INSERT INTO manluck."user" (id, username, password, user_img, usermail, userphone, country, city, company, position, roles, active) VALUES (4, 'Alexander Lake', 'alexander12345', 'resources/manluck_data/user_img/alexanderlake.png', 'alexander@mail.com', '0999999999', 'USA', 'Palo-Alto', 'Google', 'Developer', 'ROLE_NOT', true);
+
 insert into user_role(id, user_id, role_id)
-values (1, 1, 1);
+values (1, 1, 1),
+       (2, 2, 1),
+       (3, 3, 1),
+       (4, 4, 1);
 
 select *
 from "user" u;
