@@ -9,6 +9,44 @@
     <script th:inline="javascript" type="text/javascript">
         $(document).ready(function () {
             /*  Submit form using Ajax */
+            // $('form[name=update_img]').on("change", function (e) {
+            //     e.preventDefault();
+            //     $.ajax({
+            //         type: "POST",
+            //         url: "/update/user/img",
+            //         data: $('form[name=update_img]').serialize(),
+            //         enctype: 'multipart/form-data',
+            //         success: function (res) {
+            //             console.log(res);
+            //         },
+            //         error: function (err) {
+            //             console.error(err);
+            //         }
+            //     });
+            // });
+            // let form = $('#update_img')[0];
+            // let data = new FormData();
+            // data.append("CustomField", "This is some extra data, testing");
+            // $('form[name=update_img]').on("change", function (e) {
+            //     $.ajax({
+            //         type: "POST",
+            //         enctype: 'multipart/form-data',
+            //         url: "/update/user/img",
+            //         data: data,
+            //         processData: false, //prevent jQuery from automatically transforming the data into a query string
+            //         contentType: false,
+            //         cache: false,
+            //         timeout: 600000,
+            //         success: function (data) {
+            //             $(".message").text(data);
+            //             console.log("SUCCESS : ", data);
+            //         },
+            //         error: function (e) {
+            //             $(".message").text(e.responseText);
+            //             console.log("ERROR : ", e);
+            //         }
+            //     });
+            // });
             $('form[name=update_info]').change(function (e) {
                 //Prevent default submission of form
                 e.preventDefault();
@@ -43,7 +81,8 @@
                     }
                 });
             });
-        });
+        })
+        ;
     </script>
 
 
@@ -63,14 +102,15 @@
             <div class="row">
                 <div class="user-card">
                     <div class="user-card-1">
-                        <form action="#" enctype="multipart/form-data" id="update_img" method="POST"
-                              name="update_info" th:object="${user}">
+                        <form action="#" enctype="multipart/form-data" id="update_img" method="POST" th:action="@{/update/user/img}"
+                              name="update_img" th:object="${user}">
                             <div class="message" style="font-size: 20px;color: #1db31d;"></div>
                             <div class="user-card-img">
                                 <img th:src="(${user.user_img} eq null) ? @{resources/manluck_data/user_img/default.png} : ${user.user_img}">
                                 <div class="user-card-img-upload">
                                     <label for="img_upload">Upload image</label>
-                                    <input id="img_upload" type="file" name="user_img" value="+">
+                                    <input id="img_upload" type="file" name="file">
+                                    <input class="active" type="submit" value="Update image">
                                 </div>
                             </div>
                         </form>
@@ -121,7 +161,8 @@
                         <form action="#" name="deactivated-form" method="post" th:object="${user}">
                             <div class="user-card-info deactivate-info">
                                 <label>Deactivate account?</label>
-                                <input id="deactivate" type="button" name="deactivate" class="deactivate" value="Deactivate">
+                                <input id="deactivate" type="button" name="deactivate" class="deactivate"
+                                       value="Deactivate">
                             </div>
                         </form>
                     </div>
