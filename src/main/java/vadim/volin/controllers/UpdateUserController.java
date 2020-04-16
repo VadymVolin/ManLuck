@@ -31,12 +31,11 @@ public class UpdateUserController {
     private UserService userService;
 
     @PostMapping("/update/user/img")
-//    @ResponseBody
-    public /*ResponseEntity<String>*/ String handleUploadImage(@RequestBody MultipartFile file, @ModelAttribute User user, Model model) {
+    @ResponseBody
+    public ResponseEntity<String> handleUploadImage(@RequestBody MultipartFile file, @ModelAttribute User user, Model model) {
         if (file.isEmpty()) {
-//            return new ResponseEntity("Please, select image for uploading!", HttpStatus.OK);
             model.addAttribute("message", "Please, choose file!");
-            return "redirect:/home";
+            return new ResponseEntity("Please, select image for uploading!", HttpStatus.OK);
         }
         try {
             System.out.println("START");
@@ -52,12 +51,10 @@ public class UpdateUserController {
             model.addAttribute("user", user);
             outputStream.close();
         } catch (IOException e) {
-//            return new ResponseEntity("Error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
             model.addAttribute("message", "Server error, please, try again!");
-            return "redirect:/home";
+            return new ResponseEntity("Error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
         }
-        return "redirect:/home";
-//        return new ResponseEntity("Successfully upload!", HttpStatus.OK);
+        return new ResponseEntity("Successfully upload!", HttpStatus.OK);
     }
 
     @PostMapping(value = "/update/user", produces = {MediaType.APPLICATION_JSON_VALUE})
