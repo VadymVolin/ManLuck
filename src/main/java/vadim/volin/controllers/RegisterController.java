@@ -21,11 +21,6 @@ public class RegisterController {
     @Autowired
     private UserService userService;
 
-    @ModelAttribute
-    public User createUser() {
-        return new User();
-    }
-
     @GetMapping("/register")
     public String initPage(Model model, String error, HttpSession httpSession, SessionStatus sessionStatus) {
         if (httpSession.getAttribute("user") != null

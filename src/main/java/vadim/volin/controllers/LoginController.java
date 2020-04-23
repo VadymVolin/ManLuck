@@ -25,11 +25,6 @@ public class LoginController {
     @Autowired
     private UserValidator userValidator;
 
-    @ModelAttribute
-    public User createUser() {
-        return new User();
-    }
-
     @GetMapping("/login")
     public String initPage(Model model, String error, String logout, HttpSession httpSession, SessionStatus sessionStatus) {
         if (httpSession.getAttribute("user") != null && !httpSession.isNew()) {
@@ -37,11 +32,9 @@ public class LoginController {
             httpSession.invalidate();
             return "redirect:/login";
         }
-
         if (error != null) {
             model.addAttribute("error", "Your username or password is invalid.");
         }
-
         if (logout != null) {
             model.addAttribute("message", "You have been logged out successfully.");
         }
@@ -53,11 +46,10 @@ public class LoginController {
     public String loginProcess(@ModelAttribute User user, Model model, BindingResult bindingResult) {
         userValidator.validate(user, bindingResult);
         if (bindingResult.hasErrors()) {
-            System.out.println("has error");
             return "login";
         }
-        User validUser = userService.getByUserMail(user.getUsermail());
-        model.addAttribute("user", validUser);
+        user = userService.getByUserMail(user.getUsermail());
+        model.addAttribute("user", user);
         return "redirect:/first";
     }
 

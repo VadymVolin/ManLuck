@@ -38,12 +38,9 @@ public class UpdateUserController {
             return new ResponseEntity("Please, select image for uploading!", HttpStatus.OK);
         }
         try {
-            System.out.println("START");
             byte[] bytes = file.getBytes();
-            System.out.println(Arrays.toString(bytes));
             File newFile = new File("/home/vadim/Документы/Spring/springMVC-courses/src/main/webapp/resources/manluck_data/user_img/"
                     + user.getUsername().toLowerCase().replaceAll("\\s+", "") + ".png");
-            System.out.println(newFile.getAbsolutePath());
             BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(newFile));
             outputStream.write(bytes);
             user.setUser_img(newFile.getAbsolutePath());

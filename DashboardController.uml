@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>vadim.volin.controllers.DashboardController</OriginalElement>
+  <nodes>
+    <node x="346.0" y="1357.0">vadim.volin.persistence.PersistenceJpaConfig</node>
+    <node x="5.5" y="1357.0">org.springframework.web.bind.annotation.ControllerAdvice</node>
+    <node x="1186.0" y="1357.0">vadim.volin.controllers.ProjectsController</node>
+    <node x="382.0" y="1203.5">vadim.volin.controllers.DashboardController</node>
+    <node x="1825.2940030364375" y="863.5">vadim.volin.validate.UserValidator</node>
+    <node x="2303.481503036437" y="143.0">vadim.volin.model.Role</node>
+    <node x="953.0" y="1357.0">vadim.volin.controllers.StatisticsController</node>
+    <node x="609.125" y="897.0">org.springframework.stereotype.Controller</node>
+    <node x="0.0" y="1170.0">vadim.volin.controllers.RegisterController</node>
+    <node x="1405.0" y="1357.0">vadim.volin.controllers.ReportsController</node>
+    <node x="1661.1411521592443" y="1148.0">vadim.volin.controllers.LoginController</node>
+    <node x="605.0" y="1203.5">vadim.volin.controllers.HomeController</node>
+    <node x="0.0" y="1548.0">vadim.volin.controllers.GlobalControllerExceptionHandler</node>
+    <node x="2069.0601551956815" y="819.0">vadim.volin.services.impl.UserServiceImpl</node>
+    <node x="914.8332236842106" y="875.0">org.springframework.web.bind.annotation.SessionAttributes</node>
+    <node x="860.1411521592443" y="1203.5">vadim.volin.controllers.FirstPageController</node>
+    <node x="2318.481503036437" y="651.5">vadim.volin.repository.RoleRepository</node>
+    <node x="2112.4815030364375" y="639.5">vadim.volin.repository.UserRepository</node>
+    <node x="1135.5184885290153" y="885.5">vadim.volin.services.impl.UserDetailsServiceImpl</node>
+    <node x="1278.460669703104" y="0.0">vadim.volin.model.User</node>
+    <node x="1573.807818825911" y="595.0">vadim.volin.services.UserService</node>
+    <node x="1199.1411521592443" y="1170.0">vadim.volin.controllers.UpdateUserController</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="vadim.volin.controllers.RegisterController" target="vadim.volin.model.User">
+      <point x="-72.40000000000009" y="-60.0" />
+      <point x="108.59999999999991" y="1128.0" />
+      <point x="159.0" y="1128.0" />
+      <point x="159.0" y="525.0" />
+      <point x="1336.2683620107964" y="525.0" />
+      <point x="-192.69230769230768" y="247.5" />
+    </edge>
+    <edge source="vadim.volin.controllers.UpdateUserController" target="vadim.volin.model.User">
+      <point x="55.25" y="-60.0" />
+      <point x="1475.3911521592443" y="575.0" />
+      <point x="1528.960669703104" y="575.0" />
+      <point x="0.0" y="247.5" />
+    </edge>
+    <edge source="vadim.volin.validate.UserValidator" target="vadim.volin.model.User">
+      <point x="50.75" y="-60.0" />
+      <point x="1977.5440030364375" y="565.0" />
+      <point x="1606.0375927800274" y="565.0" />
+      <point x="77.0769230769231" y="247.5" />
+    </edge>
+    <edge source="vadim.volin.controllers.LoginController" target="vadim.volin.validate.UserValidator">
+      <point x="33.41666666666674" y="-82.0" />
+      <point x="1895.057818825911" y="1128.0" />
+      <point x="1926.7940030364375" y="1128.0" />
+      <point x="0.0" y="60.0" />
+    </edge>
+    <edge source="vadim.volin.controllers.DashboardController" target="org.springframework.web.bind.annotation.SessionAttributes">
+      <point x="67.66666666666652" y="-26.5" />
+      <point x="551.1666666666665" y="1118.0" />
+      <point x="956.5832236842106" y="1118.0" />
+      <point x="-41.75" y="48.5" />
+    </edge>
+    <edge source="vadim.volin.controllers.HomeController" target="org.springframework.stereotype.Controller">
+      <point x="0.0" y="-26.5" />
+      <point x="706.5" y="1098.0" />
+      <point x="659.9583333333333" y="1098.0" />
+      <point x="-10.166666666666742" y="26.5" />
+    </edge>
+    <edge source="vadim.volin.controllers.RegisterController" target="vadim.volin.services.UserService">
+      <point x="0.0" y="-60.0" />
+      <point x="181.0" y="1128.0" />
+      <point x="214.6852648448048" y="1128.0" />
+      <point x="214.6852648448048" y="779.0" />
+      <point x="1591.1411521592445" y="779.0" />
+      <point x="-86.66666666666652" y="82.0" />
+    </edge>
+    <edge source="vadim.volin.controllers.UpdateUserController" target="vadim.volin.services.UserService">
+      <point x="165.75" y="-60.0" />
+      <point x="1585.8911521592443" y="1128.0" />
+      <point x="1621.3935981781378" y="1128.0" />
+      <point x="1621.3935981781378" y="799.0" />
+      <point x="1660.4744854925775" y="799.0" />
+      <point x="-17.333333333333485" y="82.0" />
+    </edge>
+    <edge source="vadim.volin.services.UserService" target="vadim.volin.model.User">
+      <point x="0.0" y="-82.0" />
+      <point x="1677.807818825911" y="575.0" />
+      <point x="1567.4991312415657" y="575.0" />
+      <point x="38.53846153846155" y="247.5" />
+    </edge>
+    <edge source="vadim.volin.controllers.LoginController" target="org.springframework.web.bind.annotation.SessionAttributes">
+      <point x="-100.25" y="-82.0" />
+      <point x="1761.3911521592443" y="1048.0" />
+      <point x="1067.9165570175442" y="1048.0" />
+      <point x="69.58333333333348" y="48.5" />
+    </edge>
+    <edge source="vadim.volin.repository.RoleRepository" target="vadim.volin.model.Role">
+      <point x="0.0" y="-25.5" />
+      <point x="0.0" y="104.5" />
+    </edge>
+    <edge source="vadim.volin.controllers.LoginController" target="org.springframework.stereotype.Controller">
+      <point x="-167.08333333333326" y="-82.0" />
+      <point x="1694.557818825911" y="1058.0" />
+      <point x="720.9583333333333" y="1058.0" />
+      <point x="50.83333333333326" y="26.5" />
+    </edge>
+    <edge source="vadim.volin.services.impl.UserDetailsServiceImpl" target="vadim.volin.model.User">
+      <point x="-68.25" y="-38.0" />
+      <point x="1203.7684885290153" y="555.0" />
+      <point x="1451.8837466261812" y="555.0" />
+      <point x="-77.0769230769231" y="247.5" />
+    </edge>
+    <edge source="vadim.volin.controllers.RegisterController" target="org.springframework.web.bind.annotation.SessionAttributes">
+      <point x="144.80000000000018" y="-60.0" />
+      <point x="325.8000000000002" y="1108.0" />
+      <point x="928.7498903508771" y="1108.0" />
+      <point x="-69.58333333333348" y="48.5" />
+    </edge>
+    <edge source="vadim.volin.validate.UserValidator" target="vadim.volin.services.UserService">
+      <point x="-50.75" y="-60.0" />
+      <point x="1876.0440030364375" y="789.0" />
+      <point x="1729.807818825911" y="789.0" />
+      <point x="52.0" y="82.0" />
+    </edge>
+    <edge source="vadim.volin.controllers.RegisterController" target="org.springframework.stereotype.Controller">
+      <point x="72.40000000000009" y="-60.0" />
+      <point x="253.4000000000001" y="1088.0" />
+      <point x="619.2916666666667" y="1088.0" />
+      <point x="-50.83333333333326" y="26.5" />
+    </edge>
+    <edge source="vadim.volin.services.impl.UserServiceImpl" target="vadim.volin.services.UserService">
+      <point x="-82.875" y="-104.5" />
+      <point x="2096.6851551956815" y="779.0" />
+      <point x="1764.4744854925775" y="779.0" />
+      <point x="86.66666666666652" y="82.0" />
+    </edge>
+    <edge source="vadim.volin.services.impl.UserServiceImpl" target="vadim.volin.repository.UserRepository">
+      <point x="27.625" y="-104.5" />
+      <point x="2207.1851551956815" y="799.0" />
+      <point x="2205.4815030364375" y="799.0" />
+      <point x="0.0" y="37.5" />
+    </edge>
+    <edge source="vadim.volin.controllers.HomeController" target="org.springframework.web.bind.annotation.SessionAttributes">
+      <point x="67.66666666666674" y="-26.5" />
+      <point x="774.1666666666667" y="1128.0" />
+      <point x="984.416557017544" y="1128.0" />
+      <point x="-13.916666666666515" y="48.5" />
+    </edge>
+    <edge source="vadim.volin.controllers.DashboardController" target="vadim.volin.model.User">
+      <point x="-67.66666666666652" y="-26.5" />
+      <point x="415.8333333333335" y="1078.0" />
+      <point x="203.6852648448048" y="1078.0" />
+      <point x="203.6852648448048" y="535.0" />
+      <point x="1374.806823549258" y="535.0" />
+      <point x="-154.15384615384613" y="247.5" />
+    </edge>
+    <edge source="vadim.volin.controllers.DashboardController" target="org.springframework.stereotype.Controller">
+      <point x="0.0" y="-26.5" />
+      <point x="483.5" y="1098.0" />
+      <point x="639.625" y="1098.0" />
+      <point x="-30.5" y="26.5" />
+    </edge>
+    <edge source="vadim.volin.controllers.LoginController" target="vadim.volin.services.UserService">
+      <point x="-33.41666666666674" y="-82.0" />
+      <point x="1828.2244854925775" y="1128.0" />
+      <point x="1814.7940030364375" y="1128.0" />
+      <point x="1814.7940030364375" y="799.0" />
+      <point x="1695.1411521592445" y="799.0" />
+      <point x="17.333333333333485" y="82.0" />
+    </edge>
+    <edge source="vadim.volin.repository.UserRepository" target="vadim.volin.model.User">
+      <point x="0.0" y="-37.5" />
+      <point x="2205.4815030364375" y="525.0" />
+      <point x="1760.1914389338735" y="525.0" />
+      <point x="231.23076923076928" y="247.5" />
+    </edge>
+    <edge source="vadim.volin.controllers.FirstPageController" target="vadim.volin.model.User">
+      <point x="106.33333333333326" y="-26.5" />
+      <point x="1125.9744854925775" y="1128.0" />
+      <point x="1419.0184885290153" y="1128.0" />
+      <point x="1419.0184885290153" y="565.0" />
+      <point x="1490.4222081646426" y="565.0" />
+      <point x="-38.53846153846155" y="247.5" />
+    </edge>
+    <edge source="vadim.volin.controllers.FirstPageController" target="org.springframework.stereotype.Controller">
+      <point x="-106.33333333333326" y="-26.5" />
+      <point x="913.307818825911" y="1088.0" />
+      <point x="680.2916666666667" y="1088.0" />
+      <point x="10.166666666666742" y="26.5" />
+    </edge>
+    <edge source="vadim.volin.controllers.LoginController" target="vadim.volin.model.User">
+      <point x="100.25" y="-82.0" />
+      <point x="1961.8911521592443" y="1118.0" />
+      <point x="2038.7940030364375" y="1118.0" />
+      <point x="2038.7940030364375" y="555.0" />
+      <point x="1644.5760543184888" y="555.0" />
+      <point x="115.61538461538464" y="247.5" />
+    </edge>
+    <edge source="vadim.volin.controllers.FirstPageController" target="org.springframework.web.bind.annotation.SessionAttributes">
+      <point x="0.0" y="-26.5" />
+      <point x="1019.6411521592443" y="1128.0" />
+      <point x="1012.2498903508771" y="1128.0" />
+      <point x="13.916666666666515" y="48.5" />
+    </edge>
+    <edge source="vadim.volin.services.impl.UserServiceImpl" target="vadim.volin.model.User">
+      <point x="-27.625" y="-104.5" />
+      <point x="2151.9351551956815" y="799.0" />
+      <point x="2101.9815030364375" y="799.0" />
+      <point x="2101.9815030364375" y="535.0" />
+      <point x="1721.6529773954119" y="535.0" />
+      <point x="192.69230769230774" y="247.5" />
+    </edge>
+    <edge source="vadim.volin.controllers.UpdateUserController" target="org.springframework.stereotype.Controller">
+      <point x="-165.75" y="-60.0" />
+      <point x="1254.3911521592443" y="1078.0" />
+      <point x="700.625" y="1078.0" />
+      <point x="30.5" y="26.5" />
+    </edge>
+    <edge source="vadim.volin.services.impl.UserServiceImpl" target="vadim.volin.repository.RoleRepository">
+      <point x="82.875" y="-104.5" />
+      <point x="2262.4351551956815" y="799.0" />
+      <point x="2391.481503036437" y="799.0" />
+      <point x="0.0" y="25.5" />
+    </edge>
+    <edge source="vadim.volin.controllers.GlobalControllerExceptionHandler" target="org.springframework.web.bind.annotation.ControllerAdvice">
+      <point x="0.0" y="-59.5" />
+      <point x="0.0" y="70.5" />
+    </edge>
+    <edge source="vadim.volin.services.impl.UserDetailsServiceImpl" target="vadim.volin.services.UserService">
+      <point x="68.25" y="-38.0" />
+      <point x="1340.2684885290153" y="789.0" />
+      <point x="1625.807818825911" y="789.0" />
+      <point x="-52.0" y="82.0" />
+    </edge>
+    <edge source="vadim.volin.controllers.UpdateUserController" target="org.springframework.web.bind.annotation.SessionAttributes">
+      <point x="-55.25" y="-60.0" />
+      <point x="1364.8911521592443" y="1068.0" />
+      <point x="1040.0832236842107" y="1068.0" />
+      <point x="41.75" y="48.5" />
+    </edge>
+    <edge source="vadim.volin.controllers.HomeController" target="vadim.volin.model.User">
+      <point x="-67.66666666666674" y="-26.5" />
+      <point x="638.8333333333333" y="1078.0" />
+      <point x="590.7940030364374" y="1078.0" />
+      <point x="590.7940030364374" y="545.0" />
+      <point x="1413.3452850877195" y="545.0" />
+      <point x="-115.61538461538464" y="247.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.5197407189157337" x="1321.9387755102039" y="896.5379818594104" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Inner Classes</Category>
+    <Category>Properties</Category>
+    <Category>Methods</Category>
+    <Category>Constructors</Category>
+    <Category>Fields</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

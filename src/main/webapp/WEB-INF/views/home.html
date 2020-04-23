@@ -71,26 +71,33 @@
         <div th:replace="components/sidebar :: sidebar"></div>
         <section class="content">
             <div class="row">
-                <a href="/login?logout=true" class="log-out">
-                    <i class="fa fa-sign-out" aria-hidden="true"></i>
-                    <span class="item-text">Go out</span>
-                </a>
-            </div>
-            <div class="row">
                 <div class="user-card">
                     <div class="user-card-1">
-                        <form action="#" enctype="multipart/form-data" id="update_img" method="POST"
-                              th:action="@{/update/user/img}"
-                              name="update_img" th:object="${user}">
-                            <div class="message" style="font-size: 20px;color: #1db31d;"></div>
-                            <div class="user-card-img">
-                                <img th:src="(${user.user_img} eq null) ? @{resources/manluck_data/user_img/default.png} : ${user.user_img}">
-                                <div class="user-card-img-upload">
-                                    <label for="img_upload">Upload image</label>
-                                    <input id="img_upload" type="file" name="file">
-                                </div>
+                        <div class="user-card-1-sub">
+                            <div class="    deactivate-info">
+                                <span>Deactivate account?</span>
+                                <form action="#" id="deactivate_form" name="deactivated-form" method="post" th:object="${user}">
+                                    <input id="deactivate" type="button" name="deactivate" class="deactivate"
+                                           value="Deactivate">
+                                </form>
                             </div>
-                        </form>
+                        </div>
+                        <div class="user-card-1-sub">
+                            <form action="#" enctype="multipart/form-data" id="update_img" method="POST"
+                                  th:action="@{/update/user/img}"
+                                  name="update_img" th:object="${user}">
+                                <div class="message" style="font-size: 20px;color: #1db31d;"></div>
+                                <div class="user-card-img">
+                                    <img th:src="(${user.user_img} eq null) ? @{resources/manluck_data/user_img/default.png} : ${user.user_img}">
+                                    <div class="user-card-img-upload">
+                                        <label id="action" for="img_upload">
+                                            <i class="fa fa-file-image-o" aria-hidden="true"></i>Upload image
+                                        </label>
+                                        <input id="img_upload" type="file" name="file">
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                     <div class="user-card-2">
                         <form action="#" enctype="multipart/form-data" id="update_info" method="POST"
@@ -133,13 +140,6 @@
                             <div class="user-card-info">
                                 <label for="company_upload">Company name</label>
                                 <input id="company_upload" type="text" name="company" th:field="${user.company}">
-                            </div>
-                        </form>
-                        <form action="#" name="deactivated-form" method="post" th:object="${user}">
-                            <div class="user-card-info deactivate-info">
-                                <label>Deactivate account?</label>
-                                <input id="deactivate" type="button" name="deactivate" class="deactivate"
-                                       value="Deactivate">
                             </div>
                         </form>
                     </div>

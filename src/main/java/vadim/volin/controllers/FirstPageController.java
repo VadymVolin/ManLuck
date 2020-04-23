@@ -20,8 +20,8 @@ public class FirstPageController {
 
     @GetMapping("/first")
     public String initPage(@ModelAttribute("user") User user, Model model, HttpServletRequest request) {
-        if (request.getRequestURI()
-                .endsWith("clear")) {
+        if (request.getRequestURI().endsWith("clear")
+                | user.equals(new User())) {
             request.getSession().invalidate();
             return "login";
         }

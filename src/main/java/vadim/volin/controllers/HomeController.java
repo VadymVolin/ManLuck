@@ -17,7 +17,6 @@ public class HomeController {
             return "redirect:/login?error";
         }
         model.addAttribute("pageName", "Home");
-        model.addAttribute("username", user.getUsername());
         return "home";
     }
 
