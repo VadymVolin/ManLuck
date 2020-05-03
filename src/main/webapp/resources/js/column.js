@@ -11,11 +11,11 @@ class Column {
             `
         <p class="column-header">
         </p>
-        <div data-notes class="column-body">
-        </div>
-        <p class="column-footer">
+        <p class="column-header1">
         <span data-action-addNote class="action">+ Add cart</span>
         </p>
+        <div data-notes class="column-body">
+        </div>
         `;
         let header = element.querySelector('.column-header')
         this.editProcess(header);
@@ -47,7 +47,6 @@ class Column {
     }
 
 
-
     add(...notes) {
         for (const note of notes) {
             if (!this.notes.includes(note)) {
@@ -72,6 +71,7 @@ class Column {
             App.save();
         });
     }
+
     dragstart(event) {
         Column.dragged = this.element;
         Column.dragged.classList.add('dragged');
@@ -80,6 +80,7 @@ class Column {
         document.querySelectorAll('.note')
             .forEach(noteElement => noteElement.removeAttribute('draggable'));
     }
+
     dragend(event) {
         Column.dragged.classList.remove('dragged');
         Column.dragged = null;
@@ -90,6 +91,7 @@ class Column {
             .forEach(columnElement => columnElement.classList.remove('under'));
         App.save();
     }
+
     dragover(event) {
         event.preventDefault();
         if (Column.dragged) {
