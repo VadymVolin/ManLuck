@@ -26,9 +26,8 @@ public class RegisterController {
         if (httpSession.getAttribute("user") != null
                 && !sessionStatus.isComplete()
                 && !httpSession.isNew()) {
-            sessionStatus.setComplete();
-            httpSession.invalidate();
-            return "redirect:/register";
+            httpSession.setMaxInactiveInterval(24 * 60 * 60 * 30);
+            return "redirect:/first";
         }
         if (error != null) {
             model.addAttribute("error", error);

@@ -27,10 +27,9 @@ public class LoginController {
 
     @GetMapping("/login")
     public String initPage(Model model, String error, String logout, HttpSession httpSession, SessionStatus sessionStatus) {
-        if (httpSession.getAttribute("user") != null && !httpSession.isNew()) {
-            sessionStatus.setComplete();
-            httpSession.invalidate();
-            return "redirect:/login";
+        if (httpSession.getAttribute("user") != null && !httpSession.isNew() && !sessionStatus.isComplete()) {
+            httpSession.setMaxInactiveInterval(24 * 60 * 60 * 30);
+            return "redirect:/first";
         }
         if (error != null) {
             model.addAttribute("error", "Your username or password is invalid.");
