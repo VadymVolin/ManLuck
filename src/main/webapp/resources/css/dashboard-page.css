@@ -86,9 +86,11 @@
     cursor: pointer;
     padding: 10px 0;
     display: block;
-    width: 100%;
-    background-color: #444444;
-    color: #f5f5f5;
+    /*width: 100%;*/
+    margin: 0 auto;
+    font-weight: bold;
+    border: 2px solid #444444;
+    color: #444444;
     border-radius: 5px;
     text-align: center;
     font-size: 12px;
@@ -100,18 +102,19 @@
 }
 
 .action:hover {
-    background-color: rgba(76, 175, 80, 0.8);
-    color: #f5f5f5;
+    border-color: #4caf50;
+    color: #4caf50;
 }
 
 .action:focus {
-    color: #f5f5f5;
-    background-color: #4caf50;
+    color: #1db31d;
+    border-color: #1db31d;
 }
 
 .action:active {
-    color: #f5f5f5;
-    background-color: #4caf50;
+    border-color: #1db31d;
+    color: #1db31d;
+    /*background-color: #1db31d;*/
 }
 
 .note {
@@ -129,22 +132,32 @@
 
 .note:focus {
     border-radius: 5px;
-    border-top: 1px solid #444444;
-    border-bottom: 1px solid #444444;
+    border-top: 1px solid #1db31d;
+    border-bottom: 1px solid #1db31d;
 }
 
 
 .column.dragged {
     opacity: 0.4;
+    -moz-transform: rotate(15deg); /* Для Firefox */
+    -ms-transform: rotate(15deg); /* Для IE */
+    -webkit-transform: rotate(15deg); /* Для Safari, Chrome, iOS */
+    -o-transform: rotate(15deg); /* Для Opera */
+    transform: rotate(15deg);
 }
 
 .note.dragged {
-    opacity: 0.01;
+    -moz-transform: rotate(15deg); /* Для Firefox */
+    -ms-transform: rotate(15deg); /* Для IE */
+    -webkit-transform: rotate(15deg); /* Для Safari, Chrome, iOS */
+    -o-transform: rotate(15deg); /* Для Opera */
+    transform: rotate(15deg);
+    opacity: 0.4;
 }
-
 .column.under {
     margin-top: 20px;
 }
+
 
 .note.under {
     opacity: 0.5;

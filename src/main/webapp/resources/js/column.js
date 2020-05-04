@@ -12,7 +12,7 @@ class Column {
         <p class="column-header">
         </p>
         <p class="column-header1">
-        <span data-action-addNote class="action">+ Add cart</span>
+        <span data-action-addNote class="action">+ cart</span>
         </p>
         <div data-notes class="column-body">
         </div>
