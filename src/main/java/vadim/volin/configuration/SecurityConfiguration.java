@@ -89,13 +89,13 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and().logout().logoutUrl("/logout")
                 .invalidateHttpSession(true)
                 .deleteCookies("JSESSIONID")
-                .logoutSuccessUrl("/");
+                .logoutSuccessUrl("/login?logout=success");
 
         http.headers().frameOptions().disable();
 
         http.authorizeRequests().and() //
                 .rememberMe().tokenRepository(persistentTokenRepository())
-                .tokenValiditySeconds(24 * 60 * 60); // 24h
+                .tokenValiditySeconds(24 * 60 * 60 * 60);
 
     }
 

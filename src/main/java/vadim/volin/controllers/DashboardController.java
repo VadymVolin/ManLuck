@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import vadim.volin.model.User;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 @SessionAttributes("user")
 public class DashboardController {
@@ -14,10 +16,13 @@ public class DashboardController {
     @GetMapping("/dashboard")
     public String initPage(@ModelAttribute User user, Model model) {
         if (user.getRoles() == null || user == null || !user.getRoles().contains("ROLE_USER")) {
-            return "redirect:/login?error";
+//            model.addAttribute("error", "Please, log in system!");
+            return "redirect:/login";
         }
-        model.addAttribute("pageName", "Task board");
+        model.addAttribute("pageName", "Create your plan");
         return "dashboard";
     }
+
+
 
 }

@@ -23,11 +23,9 @@ public class RegisterController {
 
     @GetMapping("/register")
     public String initPage(Model model, String error, HttpSession httpSession, SessionStatus sessionStatus) {
-        if (httpSession.getAttribute("user") != null
-                && !sessionStatus.isComplete()
-                && !httpSession.isNew()) {
-            httpSession.setMaxInactiveInterval(24 * 60 * 60 * 30);
-            return "redirect:/first";
+        if (httpSession.getAttribute("user") != null && !httpSession.isNew()) {
+            sessionStatus.setComplete();
+            httpSession.invalidate();
         }
         if (error != null) {
             model.addAttribute("error", error);

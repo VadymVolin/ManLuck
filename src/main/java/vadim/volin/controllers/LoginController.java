@@ -4,15 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
+
 import vadim.volin.model.User;
 import vadim.volin.services.UserService;
 import vadim.volin.validate.UserValidator;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -26,13 +25,12 @@ public class LoginController {
     private UserValidator userValidator;
 
     @GetMapping("/login")
-    public String initPage(Model model, String error, String logout, HttpSession httpSession, SessionStatus sessionStatus) {
-        if (httpSession.getAttribute("user") != null && !httpSession.isNew() && !sessionStatus.isComplete()) {
-            httpSession.setMaxInactiveInterval(24 * 60 * 60 * 30);
-            return "redirect:/first";
+    public String initPage(Model model, String error, String logout, HttpSession httpSession, SessionStatus sessionStatus, HttpServletRequest request) {
+        if (httpSession.getAttribute("user") != null || !httpSession.isNew()) {
+            httpSession.invalidate();
         }
         if (error != null) {
-            model.addAttribute("error", "Your username or password is invalid.");
+            model.addAttribute("error", "Please, log in system!");
         }
         if (logout != null) {
             model.addAttribute("message", "You have been logged out successfully.");
@@ -41,20 +39,23 @@ public class LoginController {
         return "login";
     }
 
-    @PostMapping("/login")
-    public String loginProcess(@ModelAttribute User user, Model model, BindingResult bindingResult) {
+    @PostMapping("/login*")
+    public String loginProcess(@ModelAttribute User user, Model model, BindingResult bindingResult, HttpSession httpSession) {
         userValidator.validate(user, bindingResult);
         if (bindingResult.hasErrors()) {
             return "login";
         }
         user = userService.getByUserMail(user.getUsermail());
         model.addAttribute("user", user);
+        httpSession.setMaxInactiveInterval(24 * 60 * 60 * 30);
         return "redirect:/first";
     }
 
     @GetMapping({"/logout"})
-    public String logoutProcess() {
-        return "redirect:/login?logout";
+    public String logoutProcess(HttpSession httpSession, SessionStatus sessionStatus) {
+        sessionStatus.setComplete();
+        httpSession.invalidate();
+        return "redirect:/login?logout=ok";
     }
 
 }

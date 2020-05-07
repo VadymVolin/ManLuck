@@ -37,18 +37,19 @@ drop table if exists "country" cascade;
 
 create table if not exists "user"
 (
-    "id"        serial      not null,
-    "username"  varchar(20) not null,
-    "password"  varchar     not null,
-    "user_img"  varchar,
-    "usermail"  varchar(30) not null,
-    "userphone" varchar(14),
-    "country"   varchar(15),
-    "city"      varchar(20),
-    "company"   varchar(20),
-    "position"  varchar(30),
-    "roles"     varchar,
-    "active"    bool,
+    "id"              serial      not null,
+    "username"        varchar(20) not null,
+    "password"        varchar     not null,
+    "user_img"        varchar,
+    "usermail"        varchar(30) not null,
+    "userphone"       varchar(14),
+    "country"         varchar(15),
+    "city"            varchar(20),
+    "company"         varchar(20),
+    "position"        varchar(30),
+    "roles"           varchar,
+    "active"          bool,
+    "user_tasks_json" varchar,
     constraint user_pk
         primary key ("id")
 );
@@ -144,6 +145,7 @@ alter table "project_files"
     add constraint "one_project_can_has_many_files" foreign key ("project_id") references "project" ("project_id") on update restrict on delete restrict;
 
 alter table "team_user"
+
     add constraint "project_has_structured_team" foreign key ("project_id") references "project" ("project_id") on update restrict on delete restrict;
 
 alter table "team_user"
@@ -154,22 +156,22 @@ alter table "team_user"
 insert into "role"("id", "name")
 values (1, 'ROLE_USER');
 
-INSERT INTO manluck."user" (id, username, password, user_img, usermail, userphone, country, city, company, position,
-                            roles, active)
+INSERT INTO "user" (id, username, password, user_img, usermail, userphone, country, city, company, position,
+                    roles, active, user_tasks_json)
 VALUES (2, 'Vadim Volin', 'vadim12345', 'resources/manluck_data/user_img/vadimvolin.png', 'vadimvolin@mail.com',
-        '0999999999', 'USA', 'Palo-Alto', 'Amazon', 'Software Developer', 'ROLE_USER', true);
-INSERT INTO manluck."user" (id, username, password, user_img, usermail, userphone, country, city, company, position,
-                            roles, active)
+        '0999999999', 'USA', 'Palo-Alto', 'Amazon', 'Software Developer', 'ROLE_USER', true, '');
+INSERT INTO "user" (id, username, password, user_img, usermail, userphone, country, city, company, position,
+                    roles, active, user_tasks_json)
 VALUES (1, 'Vadym Volin', 'vadim12345', 'resources/manluck_data/user_img/vadymvolin.png', 'vadim@gmail.com',
-        '+38088888878', 'France', 'San-Francisco', 'Amazon', 'Software Developer', 'ROLE_USER', true);
-INSERT INTO manluck."user" (id, username, password, user_img, usermail, userphone, country, city, company, position,
-                            roles, active)
+        '+38088888878', 'France', 'San-Francisco', 'Amazon', 'Software Developer', 'ROLE_USER', true, '');
+INSERT INTO "user" (id, username, password, user_img, usermail, userphone, country, city, company, position,
+                    roles, active, user_tasks_json)
 VALUES (3, 'Oleh Horbenko', 'oleh12345', 'resources/manluck_data/user_img/olehhorbenko.png', 'oleh@mail.com',
-        '0999999999', 'USA', 'Palo-Alto', 'Amazon', 'Software Developer', 'ROLE_USER', false);
-INSERT INTO manluck."user" (id, username, password, user_img, usermail, userphone, country, city, company, position,
-                            roles, active)
+        '0999999999', 'USA', 'Palo-Alto', 'Amazon', 'Software Developer', 'ROLE_USER', false, '');
+INSERT INTO "user" (id, username, password, user_img, usermail, userphone, country, city, company, position,
+                    roles, active, user_tasks_json)
 VALUES (4, 'Alexander Lake', 'alexander12345', 'resources/manluck_data/user_img/alexanderlake.png',
-        'alexander@mail.com', '0999999999', 'USA', 'Palo-Alto', 'Google', 'Developer', 'ROLE_NOT', true);
+        'alexander@mail.com', '0999999999', 'USA', 'Palo-Alto', 'Google', 'Developer', 'ROLE_NOT', true, '');
 
 
 select *

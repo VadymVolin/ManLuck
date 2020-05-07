@@ -47,6 +47,9 @@ public class User implements Serializable {
     private Boolean active;
     @Column(name = "roles")
     private String roles;
+    @Column(name = "user_tasks_json")
+    private String userTasksJson;
+
 
     public User() {
     }
@@ -59,7 +62,7 @@ public class User implements Serializable {
 
     public User(@NotNull int id, @NotNull String usermail, @NotNull String password, @NotNull String username,
                 String userphone, String country, String city,
-                String company, String position, boolean active, String roles) {
+                String company, String position, boolean active, String roles, String userTasksJson) {
         this.id = id;
         this.usermail = usermail;
         this.password = password;
@@ -69,6 +72,9 @@ public class User implements Serializable {
         this.city = city;
         this.company = company;
         this.position = position;
+        this.roles = roles;
+        this.active = active;
+        this.userTasksJson = userTasksJson;
     }
 
     public User(@NotNull String usermail, @NotNull String password) {
@@ -78,7 +84,7 @@ public class User implements Serializable {
 
     public User(@NotNull String usermail, @NotNull String password, @NotNull String username,
                 String userphone, String country, String city,
-                String company, String position, boolean active, String roles) {
+                String company, String position, boolean active, String roles, String userTasksJson) {
         this.usermail = usermail;
         this.password = password;
         this.username = username;
@@ -87,6 +93,9 @@ public class User implements Serializable {
         this.city = city;
         this.company = company;
         this.position = position;
+        this.active = active;
+        this.roles = roles;
+        this.userTasksJson = userTasksJson;
     }
 
     public Integer getId() {
@@ -193,6 +202,14 @@ public class User implements Serializable {
         this.roles = roles;
     }
 
+    public String getUserTasksJson() {
+        return userTasksJson;
+    }
+
+    public void setUserTasksJson(String userTasksJson) {
+        this.userTasksJson = userTasksJson;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -212,6 +229,7 @@ public class User implements Serializable {
         if (company != null ? !company.equals(user.company) : user.company != null) return false;
         if (position != null ? !position.equals(user.position) : user.position != null) return false;
         if (active != null ? !active.equals(user.active) : user.active != null) return false;
+        if (userTasksJson != null ? !userTasksJson.equals(user.userTasksJson) : user.userTasksJson != null) return false;
         return roles != null ? roles.equals(user.roles) : user.roles == null;
     }
 
@@ -229,6 +247,7 @@ public class User implements Serializable {
         result = 31 * result + (position != null ? position.hashCode() : 0);
         result = 31 * result + (active != null ? active.hashCode() : 0);
         result = 31 * result + (roles != null ? roles.hashCode() : 0);
+        result = 31 * result + (userTasksJson != null ? userTasksJson.hashCode() : 0);
         return result;
     }
 
@@ -247,6 +266,7 @@ public class User implements Serializable {
                 ", position='" + position + '\'' +
                 ", active=" + active +
                 ", roles='" + roles + '\'' +
+                ", userTasksJson='" + userTasksJson + '\'' +
                 '}';
     }
 }

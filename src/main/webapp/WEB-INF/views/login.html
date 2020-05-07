@@ -12,7 +12,7 @@
             <p>Login</p>
         </div>
         <span class="err" th:text="${error}"></span>
-        <span class="msg" th:text="${logout}"></span>
+        <span class="msg" th:text="${message}"></span>
         <span th:if="${#session!= null and #session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION') != null}"
               th:utext="${#session.getAttribute('SPRING_SECURITY_LAST_EXCEPTION').message}">
                 Static summary

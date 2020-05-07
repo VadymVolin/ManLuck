@@ -6,22 +6,15 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.HttpRequestHandler;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import vadim.volin.model.User;
 import vadim.volin.services.UserService;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.sql.Array;
-import java.util.Arrays;
 
 @Controller
 @SessionAttributes("user")
@@ -39,7 +32,7 @@ public class UpdateUserController {
         }
         try {
             byte[] bytes = file.getBytes();
-            File newFile = new File("/home/vadim/Документы/Spring/springMVC-courses/src/main/webapp/resources/manluck_data/user_img/"
+            File newFile = new File("/home/vadim/manluck_data/user_img/"
                     + user.getUsername().toLowerCase().replaceAll("\\s+", "") + ".png");
             BufferedOutputStream outputStream = new BufferedOutputStream(new FileOutputStream(newFile));
             outputStream.write(bytes);

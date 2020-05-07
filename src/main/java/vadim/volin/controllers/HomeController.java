@@ -14,7 +14,8 @@ public class HomeController {
     @GetMapping("/home")
     public String sayHello(@ModelAttribute User user, Model model) {
         if (user.getRoles() == null || user == null || !user.getRoles().contains("ROLE_USER")) {
-            return "redirect:/login?error";
+//            model.addAttribute("error", "Please, log in system!");
+            return "redirect:/login";
         }
         model.addAttribute("pageName", "Home");
         return "home";
