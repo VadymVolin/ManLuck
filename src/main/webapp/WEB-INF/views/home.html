@@ -89,7 +89,7 @@
                                   name="update_img" th:object="${user}">
                                 <div class="message" style="font-size: 20px;color: #1db31d;"></div>
                                 <div class="user-card-img">
-                                    <img th:src="(${user.user_img} eq null) ? @{resources/manluck_data/user_img/default.png} : ${user.user_img}">
+                                    <img src="#" th:src="(${user.user_img} eq null) ? @{resources/manluck_data/user_img/default.png} : ${user.user_img}">
                                     <div class="user-card-img-upload">
                                         <label id="action" for="img_upload">
                                             <i class="fa fa-file-image-o" aria-hidden="true"></i>Upload image

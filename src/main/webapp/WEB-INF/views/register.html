@@ -6,7 +6,8 @@
     <link type="text/css" rel="stylesheet" href="../../resources/css/logreg.css"/>
 </head>
 <body>
-<form method="POST" action="#" th:action="@{/register}" th:object="${user}">
+<!--*action="#"-->
+<form method="POST" th:action="@{/register}" th:object="${user}">
     <div class="form__block">
         <div class="last__row row">
             <p>Registration</p>
@@ -30,7 +31,7 @@
         </div>
         <div class="row">
             <label for="userphone">Telephone</label>
-            <input id="userphone" name="userphone" type="tel" required
+            <input id="userphone" name="userphone" type="tel"
                    autocomplete="false"
                    pattern="^((8|\+7)[\- ]?)?(\(?\d{3,4}\)?[\- ]?)?[\d\- ]{5,10}$"
                    placeholder="+165.."
@@ -54,7 +55,7 @@
         </div>
         <div class="row">
             <label for="country">Country</label>
-            <select id="country" name="country" required autocomplete="false">
+            <select id="country" name="country" autocomplete="false">
                 <option selected disabled>Choose country</option>
                 <option>Angola</option>
                 <option>France</option>
@@ -64,19 +65,19 @@
         </div>
         <div class="row">
             <label for="city">City</label>
-            <input id="city" name="city" type="text" required autocomplete="false"
+            <input id="city" name="city" type="text" autocomplete="false"
                    placeholder="City.."
                    th:field="${user.city}">
         </div>
         <div class="row">
             <label for="company_name">Company name</label>
-            <input id="company_name" name="company" type="text" required
+            <input id="company_name" name="company" type="text"
                    autocomplete="false" placeholder="Company name.."
                    th:field="${user.company}">
         </div>
         <div class="row">
             <label for="position">Position</label>
-            <input id="position" name="position" type="text" required
+            <input id="position" name="position" type="text"
                    autocomplete="false"
                    placeholder="Position.."
                    th:field="${user.position}">

@@ -8,7 +8,8 @@
 
     <mvc:default-servlet-handler/> <!-- for html page using -->
     <context:component-scan base-package="vadim.volin"/>
-    <mvc:resources mapping="/resources/**" location="resources/"/>
+    <mvc:resources mapping="/resources/**" location="/resources/"/>
+    <mvc:resources mapping="/resources/manluck_data**" location="resources/manluck_data/, resources/manluck_data/user_img/"/>
     <mvc:annotation-driven/>
 
     <bean id="messageSource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource">

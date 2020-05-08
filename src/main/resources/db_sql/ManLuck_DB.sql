@@ -158,7 +158,7 @@ values (1, 'ROLE_USER');
 
 INSERT INTO "user" (id, username, password, user_img, usermail, userphone, country, city, company, position,
                     roles, active, user_tasks_json)
-VALUES (2, 'Vadim Volin', 'vadim12345', 'resources/manluck_data/user_img/vadimvolin.png', 'vadimvolin@mail.com',
+VALUES (2, 'Vadim Volin', 'vadim12345', 'resources/manluck_data/user_img/ehorvitovt.png', 'vadimvolin@mail.com',
         '0999999999', 'USA', 'Palo-Alto', 'Amazon', 'Software Developer', 'ROLE_USER', true, '');
 INSERT INTO "user" (id, username, password, user_img, usermail, userphone, country, city, company, position,
                     roles, active, user_tasks_json)

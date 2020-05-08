@@ -2,6 +2,7 @@ package vadim.volin.controllers;
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.acls.model.NotFoundException;
 import org.springframework.ui.Model;
 import org.springframework.web.HttpSessionRequiredException;
@@ -40,5 +41,4 @@ public class GlobalControllerExceptionHandler {
         return "error";
 
     }
-
 }
