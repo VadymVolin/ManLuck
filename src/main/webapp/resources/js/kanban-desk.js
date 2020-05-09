@@ -53,6 +53,7 @@ const App = {
 		}
 
 		const object = JSON.parse(localStorage.getItem('kanban-desk'));
+		console.log(object);
 		const getNoteById = id => object.notes.items.find(note => note.id === id);
 		let columns = document.querySelector('.columns');
 		columns.innerHTML = '';

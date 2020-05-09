@@ -26,7 +26,101 @@
 
 <script src="../../resources/js/column.js"></script>
 <script src="../../resources/js/note.js"></script>
-<script src="../../resources/js/kanban-desk.js"></script>
+<!--<script src="../../resources/js/kanban-desk.js"></script>-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script th:inline="javascript">
+
+    document.querySelector('[data-action-addColumn]')
+        .addEventListener('click', function (event) {
+            const columnElement = new Column();
+            App.save();
+        });
+
+    const App = {
+        save() {
+            const object = {
+                columns: {
+                    idCounter: Column.idCount,
+                    title: '',
+                    items: []
+                },
+                notes: {
+                    idCounter: Note.idCount,
+                    items: []
+                }
+            };
+
+            document.querySelectorAll('.column')
+                .forEach(columnElement => {
+                    const column = {
+                        id: parseInt(columnElement.getAttribute('data-column-id')),
+                        title: columnElement.querySelector('.column-header').textContent,
+                        notesId: []
+                    };
+
+                    columnElement.querySelectorAll('.note').forEach(noteElement => {
+                        column.notesId.push(parseInt(noteElement.getAttribute('data-note-id')));
+                    });
+
+                    object.columns.items.push(column);
+                });
+
+            document.querySelectorAll('.note')
+                .forEach(noteElement => {
+                    const note = {
+                        id: parseInt(noteElement.getAttribute('data-note-id')),
+                        content: noteElement.textContent
+                    };
+                    object.notes.items.push(note);
+                });
+
+            // send ajax request to server
+            const json = JSON.stringify(object);
+            $.ajax({
+                type: 'POST', // тип запроса
+                url: '/dashboard/user/tasks', // куда будем отправлять, можно явно указать
+                dataType : "json",
+                data: json, // данные, которые передаем
+                cache: false, // кэш и прочие настройки писать именно так (для файлов)
+                contentType: "application/json; charset=utf-8",
+                // processData: false, // для передачи картинки(файла) нужно false
+                success: function (data) { // в случае успешного завершения
+                    console.log("SUCCESS : ", data);
+                },
+                error: function (data) { // в случае провала
+                    console.log("ERROR : ", data);
+                }
+            });
+        },
+
+        load() {
+            if (![[${user.userTasksJson}]]) {
+                return;
+            }
+
+            const object = JSON.parse([[${user.userTasksJson}]]);
+            const getNoteById = id => object.notes.items.find(note => note.id === id);
+            let columns = document.querySelector('.columns');
+            columns.innerHTML = '';
+
+            for (const {id, title, notesId} of object.columns.items) {
+                const columnElement = new Column(id, title);
+                Note.idCount = Math.max.apply(null, notesId);
+                for (const noteId of notesId) {
+                    const {id, content} = getNoteById(noteId);
+                    const note = new Note(id, content);
+                    columnElement.add(note);
+                }
+
+                columns.append(columnElement.element);
+            }
+
+        }
+    };
+
+    App.load();
+
+</script>
 </body>
 
 </html>
