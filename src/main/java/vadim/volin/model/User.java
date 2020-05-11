@@ -1,18 +1,13 @@
 package vadim.volin.model;
 
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
-
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
-import java.util.Collection;
 
 @Entity
 @Table(name = "user", schema = "manluck", uniqueConstraints = @UniqueConstraint(columnNames = "usermail"))
-@Component
+//@Component
 public class User implements Serializable {
 
     @Id
