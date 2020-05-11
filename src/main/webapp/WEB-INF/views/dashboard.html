@@ -14,7 +14,7 @@
         <div class="container">
             <div class="row">
                 <div class="adder">
-                    <span data-action-addColumn class="action add-column">+ column</span>
+                    <span data-action-addColumn class="action add-column">&#10010; column</span>
                 </div>
             </div>
             <div class="row">
@@ -76,19 +76,21 @@
 
             // send ajax request to server
             const json = JSON.stringify(object);
+
             $.ajax({
-                type: 'POST', // тип запроса
+                type: "POST",
+                contentType: "application/json",
                 url: '/dashboard/user/tasks', // куда будем отправлять, можно явно указать
-                dataType : "json",
                 data: json, // данные, которые передаем
-                cache: false, // кэш и прочие настройки писать именно так (для файлов)
-                contentType: "application/json; charset=utf-8",
+                dataType: 'text',
+                timeout: 600000,
+                // contentType: "application/json; charset=utf-8",
                 // processData: false, // для передачи картинки(файла) нужно false
-                success: function (data) { // в случае успешного завершения
-                    console.log("SUCCESS : ", data);
+                success: function (data, status) { // в случае успешного завершения
+                    // console.log(status, "SUCCESS : ", data);
                 },
-                error: function (data) { // в случае провала
-                    console.log("ERROR : ", data);
+                error: function (data, status) { // в случае провала
+                    // console.log(status, "ERROR : ", data);
                 }
             });
         },
@@ -105,7 +107,7 @@
 
             for (const {id, title, notesId} of object.columns.items) {
                 const columnElement = new Column(id, title);
-                Note.idCount = Math.max.apply(null, notesId);
+                // Note.idCount = Math.max.apply(null, notesId);
                 for (const noteId of notesId) {
                     const {id, content} = getNoteById(noteId);
                     const note = new Note(id, content);

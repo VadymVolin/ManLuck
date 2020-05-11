@@ -22,21 +22,20 @@ public class DashboardController {
     @GetMapping("/dashboard")
     public String initPage(@ModelAttribute User user, Model model) {
         if (user.getRoles() == null || user == null || !user.getRoles().contains("ROLE_USER")) {
-//            model.addAttribute("error", "Please, log in system!");
+            model.addAttribute("error", "Please, log in system!");
             return "redirect:/login";
         }
 
         model.addAttribute("pageName", "Create your plan");
-
-        String json = user.getUserTasksJson();
-        if (json != null && json.equals("") && json.equals("[]")) {
-            model.addAttribute("jsonTasks", json);
-        }
+//
+//        String json = user.getUserTasksJson();
+//        if (json != null && !json.equals("") && !json.equals("[]")) {
+//            model.addAttribute("jsonTasks", json);
+//        }
 
         return "dashboard";
     }
 
-    // TODO: end to send ajax
     @PostMapping(value = "/dashboard/user/tasks")
     @ResponseBody
     public ResponseEntity<String> updateDashboardData(@RequestBody String jsonTasks, Model model) {
@@ -44,6 +43,7 @@ public class DashboardController {
         if (user != null && jsonTasks != null) {
             if (!jsonTasks.equals(user.getUserTasksJson())) {
                 user.setUserTasksJson(jsonTasks);
+                userService.editUser(user);
                 return new ResponseEntity<String>("Success", HttpStatus.OK);
             }
         }

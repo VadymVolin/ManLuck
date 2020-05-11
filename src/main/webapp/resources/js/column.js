@@ -9,23 +9,39 @@ class Column {
         element.setAttribute('draggable', 'true');
         element.innerHTML =
             `
+        <div class="c-header">
         <p class="column-header">
         </p>
+        <span class="column-remove">&#10006;</span>
+        </div>
         <p class="column-header1">
-        <span data-action-addNote class="action">+ cart</span>
+        <span data-action-addNote class="action">&#10010; cart</span>
         </p>
         <div data-notes class="column-body">
         </div>
         `;
-        let header = element.querySelector('.column-header')
+        let header = element.querySelector('.column-header');
         this.editProcess(header);
 
+        let removeSpan = element.querySelector('.column-remove');
+        this.remove(removeSpan, element);
+
+        console.log("C.old:", Column.idCount);
         if (id) {
             element.setAttribute('data-column-id', id);
             document.querySelector('.columns').append(element);
             header.textContent = title;
+            if (id > Column.idCount) {
+                Column.idCount = id;
+            } else {
+
+            }
+            console.log("C.new:", Column.idCount);
+            console.log('column:', id, 'title:', title);
         } else {
-            Column.idCount++;
+            Column.idCount += 1;
+            console.log("C.new:", Column.idCount);
+            console.log('column:', Column.idCount, 'title:', title);
             element.setAttribute('data-column-id', Column.idCount);
             title = 'Your plan'
             document.querySelector('.columns').append(element);
@@ -68,6 +84,13 @@ class Column {
             } else {
                 titleElement.textContent = 'Title';
             }
+            App.save();
+        });
+    }
+
+    remove(removeElement = null, element = null) {
+        removeElement.addEventListener('click', function (event) {
+            element.remove();
             App.save();
         });
     }
@@ -128,6 +151,7 @@ class Column {
         }
         document.querySelectorAll('.column').forEach(element => element.classList.remove('under'));
     }
+
 
 }
 

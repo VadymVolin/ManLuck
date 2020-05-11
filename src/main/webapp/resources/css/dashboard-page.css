@@ -53,6 +53,7 @@
 .column {
     display: flex; /* value bottom work for notes-column :(*/
     /*display: table;*/
+    cursor: grab;
     flex-flow: column;
     align-items: center;
     padding: 5px;
@@ -62,7 +63,13 @@
     border-radius: 5px;
 }
 
-.column-header,
+.c-header {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+
+.c-header,
 .column-body,
 .column-header1 {
     font-size: 14px;
@@ -73,9 +80,26 @@
 }
 
 .column-header {
+    width: 95%;
     color: #444444;
     font-weight: bold;
     box-shadow: 0px 5px 5px -9px #535353;
+}
+
+.column-remove {
+    font-size: 16px;
+    width: 5%;
+    color: #444444;
+    text-align: center;
+}
+
+.column-remove:hover {
+    cursor: pointer;
+    color: #4caf50;
+}
+.column-remove:focus {
+    cursor: grabbing;
+    color: #1db31d;
 }
 
 .column-header:focus {
@@ -127,6 +151,7 @@
     color: #404040;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     word-wrap: break-word;
+    cursor: grab;
 }
 
 
@@ -144,6 +169,7 @@
     -webkit-transform: rotate(15deg); /* Для Safari, Chrome, iOS */
     -o-transform: rotate(15deg); /* Для Opera */
     transform: rotate(15deg);
+    cursor: grabbing;
 }
 
 .note.dragged {
@@ -153,6 +179,7 @@
     -o-transform: rotate(15deg); /* Для Opera */
     transform: rotate(15deg);
     opacity: 0.4;
+    cursor: grabbing;
 }
 .column.under {
     margin-top: 20px;
