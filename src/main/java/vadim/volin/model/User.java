@@ -4,10 +4,11 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "user", schema = "manluck", uniqueConstraints = @UniqueConstraint(columnNames = "usermail"))
-//@Component
 public class User implements Serializable {
 
     @Id
@@ -224,7 +225,8 @@ public class User implements Serializable {
         if (company != null ? !company.equals(user.company) : user.company != null) return false;
         if (position != null ? !position.equals(user.position) : user.position != null) return false;
         if (active != null ? !active.equals(user.active) : user.active != null) return false;
-        if (userTasksJson != null ? !userTasksJson.equals(user.userTasksJson) : user.userTasksJson != null) return false;
+        if (userTasksJson != null ? !userTasksJson.equals(user.userTasksJson) : user.userTasksJson != null)
+            return false;
         return roles != null ? roles.equals(user.roles) : user.roles == null;
     }
 

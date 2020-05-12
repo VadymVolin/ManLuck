@@ -3,11 +3,13 @@ package vadim.volin.model;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "project", schema = "manluck")
-//@Component
-public class Project {
+public class Project implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -17,11 +19,17 @@ public class Project {
     @Column(name = "project_name")
     private String project_name;
 
+    
+
     public Project() {
     }
 
     public Project(Integer project_id, String project_name) {
         this.project_id = project_id;
+        this.project_name = project_name;
+    }
+
+    public Project(String project_name) {
         this.project_name = project_name;
     }
 
@@ -40,4 +48,5 @@ public class Project {
     public void setProject_name(String project_name) {
         this.project_name = project_name;
     }
+
 }

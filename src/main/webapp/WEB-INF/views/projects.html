@@ -12,32 +12,8 @@
     <div th:replace="components/sidebar :: sidebar"></div>
     <section class="content">
         <div class="projects">
-            <div class="project">
-                <div class="project-title">Project Title</div>
-                <div class="project-img">
-                    <i class="fa fa-briefcase" aria-hidden="true"></i>
-                </div>
-            </div>
-            <div class="project">
-                <div class="project-title">Project Title</div>
-                <div class="project-img">
-                    <i class="fa fa-briefcase" aria-hidden="true"></i>
-                </div>
-            </div>
-            <div class="project">
-                <div class="project-title">Project Title</div>
-                <div class="project-img">
-                    <i class="fa fa-briefcase" aria-hidden="true"></i>
-                </div>
-            </div>
-            <div class="project">
-                <div class="project-title">Project Title</div>
-                <div class="project-img">
-                    <i class="fa fa-briefcase" aria-hidden="true"></i>
-                </div>
-            </div>
-            <div class="project">
-                <div class="project-title">Project Title</div>
+            <div th:each="project : ${projects}" class="project">
+                <div class="project-title" th:text="${project.project_name}">Project Title</div>
                 <div class="project-img">
                     <i class="fa fa-briefcase" aria-hidden="true"></i>
                 </div>

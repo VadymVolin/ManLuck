@@ -58,3 +58,4 @@ fabric.properties
 /src/main/resources/db_sql/
 /src/main/webapp/resources/manluck_data/
 /src/main/resources/dashboard-example.json
+/src/main/test/
