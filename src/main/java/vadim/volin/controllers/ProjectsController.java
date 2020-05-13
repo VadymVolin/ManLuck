@@ -1,11 +1,12 @@
 package vadim.volin.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.SessionAttribute;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 import vadim.volin.model.Project;
@@ -24,33 +25,28 @@ public class ProjectsController {
     private UserService userService;
 
     @GetMapping("/projects")
-    public ModelAndView initPage(@ModelAttribute User user) {
-        ModelAndView modelAndView = new ModelAndView();
+    public String initPage(@ModelAttribute User user, Model model) {
         if (user.getRoles() == null || user == null || !user.getRoles().contains("ROLE_USER")) {
-            modelAndView.setViewName("redirect:/login");
-            return modelAndView;
+            return "redirect:/login";
         }
 
-        Project project1 = new Project("ManLuck-Project");
-        Project project2 = new Project("ManLuck-Project");
-        Project project3 = new Project("ManLuck-Project");
-
-        List<Project> projects = new ArrayList<>();
-        projects.add(project1);
-        projects.add(project2);
-        projects.add(project3);
-
-        System.out.println(userService);
-        List<ProjectRole> p = new ArrayList<>();
-        p.add(new ProjectRole("MANAGER"));
-        System.out.println(user);
-        userService.editUser(user);
-        System.out.println(user);
-
-        modelAndView.addObject("pageName", "Projects");
-        modelAndView.addObject("user", user);
-        modelAndView.addObject("projects", projects);
-        return modelAndView;
+        model.addAttribute("pageName", "Projects");
+        model.addAttribute("user", user);
+//        model.addAttribute("projects", user.getProjects());
+        return "projects";
     }
+
+//    TODO: Create update project
+    @PostMapping(name = "/project/add/new", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public ResponseEntity<?> addProject(@ModelAttribute Project project, @ModelAttribute User user, Model model) {
+        if (user == null) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+        User update = userService.editUser(user);
+        model.addAttribute("user", update);
+        return new ResponseEntity("Successfully upload!", HttpStatus.OK);
+    }
+
 
 }

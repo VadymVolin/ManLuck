@@ -5,6 +5,7 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @Entity
@@ -46,6 +47,21 @@ public class User implements Serializable {
     @Column(name = "user_tasks_json")
     private String userTasksJson;
 
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "team_user",
+            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "project_id", referencedColumnName = "project_id")}
+    )
+    private List<Project> projects;
+
+//    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+//    @JoinTable(
+//            name = "team_user",
+//            joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
+//            inverseJoinColumns = {@JoinColumn(name = "team_role_id", referencedColumnName = "team_role_id")}
+//    )
+//    private List<ProjectRole> projectRoles;
 
     public User() {
     }
@@ -92,6 +108,26 @@ public class User implements Serializable {
         this.active = active;
         this.roles = roles;
         this.userTasksJson = userTasksJson;
+    }
+
+
+    public User(@NotNull int id, @NotNull String usermail, @NotNull String password, @NotNull String username,
+                String userphone, String country, String city,
+                String company, String position, boolean active, String roles, String userTasksJson, List<Project> projects/*, List<ProjectRole> projectRoles*/) {
+        this.id = id;
+        this.usermail = usermail;
+        this.password = password;
+        this.username = username;
+        this.userphone = userphone;
+        this.country = country;
+        this.city = city;
+        this.company = company;
+        this.position = position;
+        this.roles = roles;
+        this.active = active;
+        this.userTasksJson = userTasksJson;
+        this.projects = projects;
+//        this.projectRoles = projectRoles;
     }
 
     public Integer getId() {
@@ -206,6 +242,22 @@ public class User implements Serializable {
         this.userTasksJson = userTasksJson;
     }
 
+    public List<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
+    }
+
+//    public List<ProjectRole> getProjectRoles() {
+//        return projectRoles;
+//    }
+//
+//    public void setProjectRoles(List<ProjectRole> projectRoles) {
+//        this.projectRoles = projectRoles;
+//    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -264,6 +316,7 @@ public class User implements Serializable {
                 ", active=" + active +
                 ", roles='" + roles + '\'' +
                 ", userTasksJson='" + userTasksJson + '\'' +
+                ", projects='" + projects + '\'' +
                 '}';
     }
 }

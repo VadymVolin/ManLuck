@@ -115,9 +115,9 @@ create table "project_files"
 create table "team_user"
 (
     "team_user_id" serial  not null unique,
-    "user_id"      integer not null,
-    "team_role_id" integer not null,
-    "project_id"   integer not null,
+    "user_id"      integer,
+    "team_role_id" integer,
+    "project_id"   integer,
     primary key ("team_user_id", "user_id", "team_role_id", "project_id")
 ) without oids;
 

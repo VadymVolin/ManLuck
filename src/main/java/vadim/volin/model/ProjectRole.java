@@ -2,8 +2,6 @@ package vadim.volin.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "team_roles", schema = "manluck")

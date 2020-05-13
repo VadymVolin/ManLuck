@@ -11,19 +11,46 @@
 <main class="main">
     <div th:replace="components/sidebar :: sidebar"></div>
     <section class="content">
-        <div class="projects">
-            <div th:each="project : ${projects}" class="project">
-                <div class="project-title" th:text="${project.project_name}">Project Title</div>
-                <div class="project-img">
-                    <i class="fa fa-briefcase" aria-hidden="true"></i>
-                </div>
+        <div class="row">
+            <span id="action">&#10010; project</span>
+            <div class="project-add">
+                <form action="#" th:action="@{/project/add/new}" id="project-form" enctype="multipart/form-data" method="POST"
+                          name="update_project" th:object="${project}">
+                        <div class="user-card-info">
+                            <label for="mail_upload">E-mail</label>
+                            <input id="mail_upload" type="email" name="usermail" th:field="${user.usermail}">
+                        </div>
+                        <div class="user-card-info">
+                            <label for="name_upload">Full name</label>
+                            <input id="name_upload" type="text" name="username" th:field="${user.username}">
+                        </div>
+                        <div class="user-card-info">
+                            <label for="password_upload">Password</label>
+                            <input id="password_upload" type="text" autocomplete="on" name="password"
+                                   th:field="${user.password}">
+                        </div>
+                    </form>
+            </div>
+        </div>
+        <div class="projects" th:if="${user.projects} != null">
+            <div th:each="project : ${user.projects}" class="project">
+                <a th:href="@{'/projects/' + ${user.username} + '/' + ${project.project_name}}">
+                    <div class="project-title" th:text="${project.project_name}">Project Title</div>
+                    <div class="project-img">
+                        <i class="fa fa-briefcase" aria-hidden="true"></i>
+                    </div>
+                </a>
             </div>
         </div>
     </section>
 </main>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+    document.querySelector('span#action').addEventListener('click', function () {
 
+    });
+</script>
 </body>
 
 </html>

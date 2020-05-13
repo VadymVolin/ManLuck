@@ -1,11 +1,7 @@
 package vadim.volin.model;
 
-import org.springframework.stereotype.Component;
-
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Table(name = "project", schema = "manluck")
@@ -18,8 +14,6 @@ public class Project implements Serializable {
 
     @Column(name = "project_name")
     private String project_name;
-
-    
 
     public Project() {
     }
