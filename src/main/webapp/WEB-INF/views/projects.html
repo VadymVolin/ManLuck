@@ -1,6 +1,6 @@
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <title>PmOL-dashboard</title>
+    <title>ManLuck-projects</title>
     <link rel="stylesheet" type="text/css" href="../../resources/css/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="../../resources/css/main-page.css">
     <link rel="stylesheet" type="text/css" href="../../resources/css/projects.css">
@@ -13,23 +13,18 @@
     <section class="content">
         <div class="row">
             <span id="action">&#10010; project</span>
-            <div class="project-add">
-                <form action="#" th:action="@{/project/add/new}" id="project-form" enctype="multipart/form-data" method="POST"
-                          name="update_project" th:object="${project}">
-                        <div class="user-card-info">
-                            <label for="mail_upload">E-mail</label>
-                            <input id="mail_upload" type="email" name="usermail" th:field="${user.usermail}">
-                        </div>
-                        <div class="user-card-info">
-                            <label for="name_upload">Full name</label>
-                            <input id="name_upload" type="text" name="username" th:field="${user.username}">
-                        </div>
-                        <div class="user-card-info">
-                            <label for="password_upload">Password</label>
-                            <input id="password_upload" type="text" autocomplete="on" name="password"
-                                   th:field="${user.password}">
-                        </div>
-                    </form>
+            <div id="project-add" hidden>
+                <form action="#" th:action="@{/project/add/new}" id="project-form" enctype="multipart/form-data"
+                      method="POST" name="create_project">
+                    <div class="project-row">
+                        <label for="project_name">Project name</label>
+                        <input id="project_name" type="text" name="project_name">
+                    </div>
+                    <div class="project-row">
+                        <input id="close" type="button" value="Close">
+                        <input id="send_new" type="submit" value="Create">
+                    </div>
+                </form>
             </div>
         </div>
         <div class="projects" th:if="${user.projects} != null">
@@ -45,12 +40,54 @@
     </section>
 </main>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
-    document.querySelector('span#action').addEventListener('click', function () {
+    document.getElementById('action').addEventListener('click', function () {
+        document.getElementById('project-add').hidden = false;
+    });
+    document.getElementById('project-form').addEventListener('submit', function (e) {
+        e.preventDefault();
+        const proj_name = document.getElementById('project_name').value;
 
+        $.ajax({
+            type: "POST",
+            global: false,
+            // contentType: "application/json",
+            url: '/projects/add',
+            data: $('form[name=create_project]').serializeArray(),
+            dataType: 'text',
+            timeout: 600000,
+            // contentType: "application/json; charset=utf-8",
+            // processData: false, // для передачи картинки(файла) нужно false
+            success: function (data, status) { // в случае успешного завершения
+                console.log(status, "SUCCESS : ", data);
+                // $(".projects").load(location.href + " .projects");
+                const projectElement = document.createElement('div');
+                projectElement.classList.add('project');
+                const project_link = document.createElement('a');
+                const project_title = document.createElement('div');
+                project_title.classList.add('project-title');
+                project_title.innerText = proj_name;
+                const project_img = document.createElement('div');
+                project_img.classList.add('project-img');
+                project_img.innerHTML = '<i class="fa fa-briefcase" aria-hidden="true"></i>';
+
+                project_link.append(project_title, project_img);
+                projectElement.append(project_link);
+                document.querySelector('.projects').append(projectElement);
+            },
+            error: function (data, status) { // в случае провала
+                console.log(status, "ERROR : ", data);
+            }
+        });
+        document.getElementById('project-add').hidden = true;
+    });
+
+
+    document.getElementById('close').addEventListener('click', function () {
+        document.getElementById('project-add').hidden = true;
     });
 </script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </body>
 
 </html>

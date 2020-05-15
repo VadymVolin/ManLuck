@@ -5,19 +5,14 @@ class Note {
         element.classList.add('note');
         element.setAttribute('draggable', 'true');
         element.textContent = content;
-        console.log("N.old:",Note.idCount);
         if (id) {
             if (id > Note.idCount) {
                 Note.idCount = id;
             }
-            console.log("N.new:",Note.idCount);
             element.setAttribute('data-note-id', id);
-            console.log('note:', id, 'title:', content);
         } else {
             Note.idCount += 1;
-            console.log("N.new:",Note.idCount);
             element.setAttribute('data-note-id', Note.idCount);
-            console.log('note:', id, 'title:', content);
         }
 
         element.addEventListener('dblclick', function (event) {

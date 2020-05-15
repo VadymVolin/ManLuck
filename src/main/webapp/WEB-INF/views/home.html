@@ -20,11 +20,12 @@
                     processData: false, // для передачи картинки(файла) нужно false
                     success: function (data) { // в случае успешного завершения
                         $(".message").text(data);
-                        console.log("SUCCESS : ", data);
+                        $(".user-card-img").load(location.href + " .user-card-img");
+                        // console.log("SUCCESS : ", data);
                     },
                     error: function (data) { // в случае провала
                         $(".message").text(e.responseText);
-                        console.log("ERROR : ", e);
+                        // console.log("ERROR : ", e);
                     }
                 });
             });
@@ -36,8 +37,9 @@
                     url: '/update/user',
                     data: $('form[name=update_info]').serializeArray(),
                     success: function (res) {
-                        console.log(data);
+                        // console.log(data);
                         if (res) {
+                            $(".user-card-2").load(location.href + " .user-card-2");
                             $('.message').text(res);
                         }
                     }

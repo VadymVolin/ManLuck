@@ -7,15 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributesModelMap;
 import vadim.volin.model.Project;
-import vadim.volin.model.ProjectRole;
 import vadim.volin.model.User;
 import vadim.volin.services.UserService;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Controller
 @SessionAttributes({"user"})
@@ -37,16 +31,23 @@ public class ProjectsController {
     }
 
 //    TODO: Create update project
-    @PostMapping(name = "/project/add/new", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @PostMapping(value = "/projects/add", produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public ResponseEntity<?> addProject(@ModelAttribute Project project, @ModelAttribute User user, Model model) {
-        if (user == null) {
+    public ResponseEntity<?> addProject(@RequestParam(name = "project_name", defaultValue = "") String project_name, @ModelAttribute User user, Model model) {
+        System.out.println("this");
+        if (user == null || project_name == null || project_name.equals("")) {
+            System.out.println(user);
+            System.out.println(project_name);
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
+        System.out.println(project_name);
+        System.out.println(user);
+        user.getProjects().add(new Project(project_name));
         User update = userService.editUser(user);
         model.addAttribute("user", update);
-        return new ResponseEntity("Successfully upload!", HttpStatus.OK);
+        return new ResponseEntity("Project created", HttpStatus.OK);
     }
+
 
 
 }

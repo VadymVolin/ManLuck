@@ -8,6 +8,75 @@
     margin: 10px 10px 20px 10px;
 }
 
+#project-add {
+    position: absolute;
+    margin: 15px 0 0 95px;
+    background-color: #f5f5f5;
+    width: 220px;
+    padding: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.project-row {
+    display: flex;
+    flex-flow: column;
+    padding: 5px;
+}
+
+.project-row:last-child {
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+
+.project-row label {
+    margin-bottom: 10px;
+    color: #1db31d;
+}
+
+#project_name {
+    background-color: unset;
+    color: #444444;
+    border-bottom: 2px solid #444444;
+    font-size: 16px;
+}
+
+#project_name:hover {
+    border-bottom-color: #4caf50;
+}
+
+#project_name:active,
+#project_name:focus {
+    border-bottom-color: #1db31d;
+}
+
+#send_new, #close {
+    cursor: pointer;
+    padding: 10px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    user-select: none;
+    border: 2px solid #444444;
+    color: #444444;
+    border-radius: 5px;
+    width: 40%;
+}
+
+#send_new:hover, #close:hover {
+    border: 2px solid #4caf50;
+    color: #4caf50;
+}
+
+#send_new:focus, #close:focus {
+    border: 2px solid #1db31d;
+    color: #1db31d;
+}
+
+#send_new:active, #close:active {
+    border: 2px solid #1db31d;
+    color: #1db31d;
+}
+
 .projects {
     display: -webkit-flex;
     display: -moz-flex;
