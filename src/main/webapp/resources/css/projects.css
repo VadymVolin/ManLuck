@@ -121,10 +121,47 @@
     text-align: center;
     vertical-align: middle;
     font-size: 80px;
-    /*background-color: rgba(68, 68, 68, 0.6);*/
     background-color: #f5f5f5;
     color: #4caf50;
     padding: 40px 0;
     width: 100%;
     bottom: 0;
+}
+
+.project-tools {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.project-action {
+    background-color: #f5f5f5;
+    color: #444444;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    margin-right: 15px;
+    padding: 50px;
+}
+
+.team{
+    display: flex;
+    flex-flow: column;
+    background-color: #f5f5f5;
+    color: #444444;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.user-data-set {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    padding: 10px 0;
+}
+
+.user-data-elem {
+    width: 24%;
+    text-align: center;
+    border-right: 2px dotted #444444;
+}
+
+.user-data-elem:last-child {
+    border: none;
 }

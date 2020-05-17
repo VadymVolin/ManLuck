@@ -12,9 +12,6 @@ import vadim.volin.model.User;
 import vadim.volin.services.UserService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -61,15 +58,15 @@ public class UpdateUserController {
         return new ResponseEntity("Successfully upload!", HttpStatus.OK);
     }
 
-    @ResponseBody
-    @RequestMapping(value = "/update/deactivate")
+//    @ResponseBody
+    @RequestMapping(value = "/update/deactivate", method = RequestMethod.POST)
     public String deactivateUser(@ModelAttribute User user) {
         if (user == null) {
             return "Error on deactivate";
         }
         user.setActive(false);
         userService.editUser(user);
-        return "Account deactivate";
+        return "redirect:/login";
     }
 
 }

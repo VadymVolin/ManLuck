@@ -26,7 +26,6 @@ class Column {
         let removeSpan = element.querySelector('.column-remove');
         this.remove(removeSpan, element);
 
-        console.log("C.old:", Column.idCount);
         if (id) {
             element.setAttribute('data-column-id', id);
             document.querySelector('.columns').append(element);
@@ -36,12 +35,8 @@ class Column {
             } else {
 
             }
-            console.log("C.new:", Column.idCount);
-            console.log('column:', id, 'title:', title);
         } else {
             Column.idCount += 1;
-            console.log("C.new:", Column.idCount);
-            console.log('column:', Column.idCount, 'title:', title);
             element.setAttribute('data-column-id', Column.idCount);
             title = 'Your plan'
             document.querySelector('.columns').append(element);

@@ -277,8 +277,8 @@ public class User implements Serializable {
         if (company != null ? !company.equals(user.company) : user.company != null) return false;
         if (position != null ? !position.equals(user.position) : user.position != null) return false;
         if (active != null ? !active.equals(user.active) : user.active != null) return false;
-        if (userTasksJson != null ? !userTasksJson.equals(user.userTasksJson) : user.userTasksJson != null)
-            return false;
+//        if (userTasksJson != null ? !userTasksJson.equals(user.userTasksJson) : user.userTasksJson != null)
+//            return false;
         return roles != null ? roles.equals(user.roles) : user.roles == null;
     }
 
@@ -296,7 +296,7 @@ public class User implements Serializable {
         result = 31 * result + (position != null ? position.hashCode() : 0);
         result = 31 * result + (active != null ? active.hashCode() : 0);
         result = 31 * result + (roles != null ? roles.hashCode() : 0);
-        result = 31 * result + (userTasksJson != null ? userTasksJson.hashCode() : 0);
+//        result = 31 * result + (userTasksJson != null ? userTasksJson.hashCode() : 0);
         return result;
     }
 

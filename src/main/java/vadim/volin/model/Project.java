@@ -2,6 +2,7 @@ package vadim.volin.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @Entity
 @Table(name = "project", schema = "manluck")
@@ -14,6 +15,9 @@ public class Project implements Serializable {
 
     @Column(name = "project_name")
     private String project_name;
+
+    @ManyToMany(mappedBy = "projects")
+    List<User> team;
 
     public Project() {
     }
@@ -43,4 +47,20 @@ public class Project implements Serializable {
         this.project_name = project_name;
     }
 
+    public List<User> getTeam() {
+        return team;
+    }
+
+    public void setTeam(List<User> team) {
+        this.team = team;
+    }
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "project_id=" + project_id +
+                ", project_name='" + project_name + '\'' +
+//                ", team=" + team +
+                '}';
+    }
 }
