@@ -70,6 +70,15 @@ body {
     font-size: 16px;
 }
 
+.human-name:hover {
+    color: #c0c0c0;
+    transition: .6s;
+}
+
+.human-name:not(hover) {
+    transition: .6s;
+}
+
 .nav-block {
     display: flex;
     flex-flow: column;
@@ -109,13 +118,23 @@ body {
 }
 
 .menu-link:hover {
+    transition: 1s;
     background-color: #ffffff34;
     color: #f5f5f5;
 }
 
+.menu-link:not(hover) {
+    transition: 1s;
+}
+
 .menu-link:focus {
+    transition: .6s;
     color: #f5f5f5;
     background-color: #4caf50;
+}
+
+.menu-link:not(focus) {
+    transition: .6s;
 }
 
 .notifications-panel {
@@ -141,18 +160,24 @@ body {
 }
 
 .notification-link {
+    transition: 1s;
     display: block;
     padding: 10px;
-    color: #90a4ae;
+    color: #444444;
     height: 12pt;
 }
 
 .notification-link:hover {
-    fill: #6c6bbc;
+    transition: 1s;
+    fill: #4caf50;
+}
+.notification-link:not(hover) {
+    transition: 1s;
 }
 
 .notification-link:focus:active {
-    fill: #6411d9;
+    transition: 1s;
+    fill: #1db31d;
 }
 
 .content {
@@ -208,7 +233,8 @@ body {
     display: flex;
     flex-flow: column;
     width: 30%;
-    margin-bottom: 40px;
+    /*margin-bottom: 40px;*/
+    justify-content: space-between;
 }
 
 .user-card-2 {
@@ -248,11 +274,13 @@ body {
 }
 
 .user-card-info input:hover {
+    transition: .6s;
     border-bottom-color: #4caf50;
 }
 
 .user-card-info input:active,
 .user-card-info input:focus {
+    transition: .6s;
     border-bottom-color: #1db31d;
 }
 
@@ -298,8 +326,13 @@ body {
 }
 
 #action:hover {
+    transition: .6s;
     border: 2px solid #4caf50;
     color: #4caf50;
+}
+
+#action:not(hover) {
+    transition: .6s;
 }
 
 #action:focus {
@@ -334,8 +367,13 @@ body {
 }
 
 #deactivate:hover {
+    transition: .6s;
     border: 2px solid #4caf50;
     color: #4caf50;
+}
+
+#deactivate:not(hover) {
+    transition: .6s;
 }
 
 #deactivate:focus {

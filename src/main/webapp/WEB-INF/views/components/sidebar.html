@@ -4,7 +4,7 @@
             <div class="human-info">
                 <div class="human-img">
                     <img class="user-img"
-                         th:src="(${user.user_img} eq null) ? @{resources/manluck_data/user_img/default.png} : ${user.user_img}">
+                         th:src="(${user.user_img} eq null) ? @{/resources/manluck_data/user_img/default.png} : ${user.user_img}">
                 </div>
                 <p class="human-name" th:text="${user.username}"></p>
             </div>

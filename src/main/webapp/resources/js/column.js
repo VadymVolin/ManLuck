@@ -12,10 +12,10 @@ class Column {
         <div class="c-header">
         <p class="column-header">
         </p>
-        <span class="column-remove">&#10006;</span>
+        <span class="column-remove"><i class="fa fa-window-close" aria-hidden="true"></i></span>
         </div>
         <p class="column-header1">
-        <span data-action-addNote class="action">&#10010; cart</span>
+        <span data-action-addNote class="action"><i class="fa fa-plus-square" aria-hidden="true"></i> cart</span>
         </p>
         <div data-notes class="column-body">
         </div>

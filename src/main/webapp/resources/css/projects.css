@@ -4,8 +4,8 @@
     margin: 90px 50px 0 340px;
 }
 
-.row {
-    margin: 10px 10px 20px 10px;
+.central {
+    margin: 90px 300px 0 120px;
 }
 
 #project-add {
@@ -90,13 +90,21 @@
 
 .project {
     width: calc(25% - 20px);
-    /*height: 180px;*/
     display: flex;
     flex-flow: column;
     margin: 10px;
     border-radius: 5px;
     border: 0px solid #000;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    opacity: .7;
+}
+
+.project:hover {
+    -webkit-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    transform: scale(1.05);
+    transition: .7s;
+    opacity: 1;
 }
 
 .project-title {
@@ -105,16 +113,36 @@
     text-align: center;
     vertical-align: middle;
     font-size: 16px;
-    background-color: rgba(68, 68, 68, 0.6);
+    background-color: #444444;
     color: #f5f5f5;
 }
 
-/**/
+.project:hover
+.project-img {
+    color: #1db31d;
+    transition: color 1.2s;
 
-/*.project:hover,*/
-.project-title:hover {
-    background-color: rgba(76, 175, 80, 0.7);
-    color: #444444;
+}
+
+.project:hover
+.project-title {
+    background-color: #444444;
+    transition: background-color 1.2s;
+    color: #f5f5f5;
+}
+
+.project:not(hover) {
+    transition: .7s;
+}
+
+.project:not(hover)
+.project-img {
+    transition: color 1.2s;
+}
+
+.project:not(hover)
+.project-title {
+    transition: background-color 1.2s;
 }
 
 .project-img {
@@ -138,10 +166,31 @@
     color: #444444;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     margin-right: 15px;
-    padding: 50px;
+    font-size: 35px;
+    padding: 20px;
+    align-content: center;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    align-self: center;
 }
 
-.team{
+.project-action:hover {
+    transition: 1s;
+    color: #1db31d;
+    transform: scale(1.05);
+}
+
+.project-action:not(hover) {
+    transition: 1s;
+}
+
+.action {
+    padding: 10px;
+    margin: 0 10px 0 0;
+}
+
+.team {
     display: flex;
     flex-flow: column;
     background-color: #f5f5f5;
@@ -149,19 +198,70 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
+.team-title {
+    padding: 30px;
+    font-size: 24px;
+}
+
 .user-data-set {
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-around;
     padding: 10px 0;
+    align-content: center;
+    align-items: center;
 }
 
 .user-data-elem {
+    height: 100%;
     width: 24%;
     text-align: center;
-    border-right: 2px dotted #444444;
+}
+
+.user-data-elem:first-child {
+    width: 100px;
 }
 
 .user-data-elem:last-child {
-    border: none;
+    /*border: none;*/
+}
+
+.user-data-elem img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+#filebar {
+    height: 100%; /* Full-height: remove this if you want "auto" height */
+    position: fixed; /*Fixed Sidebar (stay in place on scroll) */
+    z-index: 3; /* Stay on top */
+    top: 0; /* Stay at the top */
+    right: 0;
+    overflow-x: hidden; /* Disable horizontal scroll */
+    background-color: #444444;
+    color: #c0c0c0;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    flex-flow: column;
+    width: 280px;
+}
+
+.project-file {
+    color: #4caf50;
+    font-size: 60px;
+    margin: 5px;
+    width: calc(25% - 10px);
+    text-align: center;
+}
+
+.project-file:hover,
+.project-file:active {
+    color: #1db31d;
+    -webkit-transform: scale(.2);
+    -ms-transform: scale(.2);
+    transform: scale(.2);
+
 }

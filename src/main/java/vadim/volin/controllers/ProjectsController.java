@@ -43,19 +43,20 @@ public class ProjectsController {
         return new ResponseEntity("Project created", HttpStatus.OK);
     }
 
-    @GetMapping(value = "/projects/{userName}/{projectName}")
-    public String loadProjectData(@PathVariable String userName, @PathVariable String projectName, @ModelAttribute User user, Model model) {
-        if (user.getRoles() == null || user == null || !user.getRoles().contains("ROLE_USER")
-        || userName == null || projectName == null) {
+    @GetMapping(value = "/projects/{user_id}/{project_id}")
+    public String loadProjectData(@PathVariable Integer user_id, @PathVariable Integer project_id, @ModelAttribute User user, Model model) {
+        if (user == null || user.getRoles() == null || !user.getRoles().contains("ROLE_USER")
+        || user_id == null || project_id == null) {
             return "redirect:/login";
         }
         boolean hasProject = false;
         Project project = null;
         List<Project> projectList = user.getProjects();
         for (int i = 0; i < projectList.size(); i++) {
-            if (projectList.get(i).getProject_name().equals(projectName)) {
+            if (projectList.get(i).getProject_id().equals(project_id)) {
                 hasProject = true;
                 project = projectList.get(i);
+                model.addAttribute("pageName", project.getProject_name());
                 model.addAttribute("project", project);
                 break;
             }

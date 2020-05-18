@@ -37,7 +37,7 @@ public class UpdateUserController {
             Path path = Paths.get("/home/vadim/Documents/Spring/springMVC-courses/target/springMVC-courses/manluck_data/user_img/"
                     + filename);
             Files.write(path, bytes);
-            user.setUser_img("manluck_data/user_img/" + filename);
+            user.setUser_img("/manluck_data/user_img/" + filename);
             userService.editUser(user);
             model.addAttribute("user", user);
         } catch (IOException e) {

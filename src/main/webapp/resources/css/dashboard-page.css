@@ -95,6 +95,7 @@
 
 .column-remove:hover {
     cursor: pointer;
+    transform: sc;
     color: #4caf50;
 }
 .column-remove:focus {
@@ -126,8 +127,13 @@
 }
 
 .action:hover {
+    transition: .6s;
     border-color: #4caf50;
     color: #4caf50;
+}
+
+.action:not(hover) {
+    transition: .6s;
 }
 
 .action:focus {
@@ -154,6 +160,16 @@
     cursor: grab;
 }
 
+.note:hover {
+    transition: .6s;
+    -webkit-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    transform: scale(1.05);
+}
+
+.note:not(hover) {
+    transition: .6s;
+}
 
 .note:focus {
     border-radius: 5px;

@@ -12,7 +12,7 @@
     <div th:replace="components/sidebar :: sidebar"></div>
     <section class="content">
         <div class="row">
-            <span id="action">&#10010; project</span>
+            <span id="action"><i class="fa fa-plus-square" aria-hidden="true"></i> project</span>
             <div id="project-add" hidden>
                 <form action="#" th:action="@{/project/add/new}" id="project-form" enctype="multipart/form-data"
                       method="POST" name="create_project">
@@ -29,7 +29,7 @@
         </div>
         <div class="projects" th:if="${user.projects} != null">
             <div th:each="project : ${user.projects}" class="project">
-                <a th:href="@{'/projects/' + ${user.username} + '/' + ${project.project_name}}">
+                <a th:href="@{'/projects/' + ${user.id} + '/' + ${project.project_id}}">
                     <div class="project-title" th:text="${project.project_name}">Project Title</div>
                     <div class="project-img">
                         <i class="fa fa-briefcase" aria-hidden="true"></i>
