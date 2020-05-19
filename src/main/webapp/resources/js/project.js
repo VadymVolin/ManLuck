@@ -1,6 +1,6 @@
 class Project {
 
-    constructor(id = null, projectName = null) {
+    constructor(id = null, projectName = null, userID = null) {
 
         const instance = this;
 
@@ -14,7 +14,6 @@ class Project {
         project_title.innerText = projectName;
         const project_remove = document.createElement('span');
         project_remove.id = 'project-remove';
-        project_remove.setAttribute('data-id', id);
         project_remove.innerHTML = '<i class="fa fa-window-close" aria-hidden="true"></i>';
         const project_img = document.createElement('div');
         project_img.classList.add('project-img');
@@ -22,6 +21,7 @@ class Project {
 
         title.append(project_title, project_remove);
         project_link.append(title, project_img);
+        project_link.href = '/projects/' + userID + '/' + id;
         projectElement.append(project_link);
         document.querySelector('.projects').append(projectElement);
 
@@ -52,4 +52,8 @@ class Project {
         });
     }
 
+}
+
+function loadProjects(id, name, ID) {
+    const project = new Project(id, name, ID);
 }

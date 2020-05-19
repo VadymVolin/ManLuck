@@ -73,7 +73,9 @@ public class ProjectsController {
 
     @PostMapping(value = "/projects/remove", produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
-    public ResponseEntity<?> removeProject(@RequestParam(name = "projectId", defaultValue = "") String projectId, @ModelAttribute User user, Model model) {
+    public ResponseEntity<?> removeProject(
+            @RequestParam(name = "projectId", defaultValue = "") String projectId, @ModelAttribute User user, Model model
+    ) {
         if (user == null || projectId == null || projectId.equals("")) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }

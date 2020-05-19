@@ -4,6 +4,8 @@
     <link rel="stylesheet" type="text/css" href="../../resources/css/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="../../resources/css/main-page.css">
     <link rel="stylesheet" type="text/css" href="../../resources/css/projects.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src=".../../resources/js/project.js"></script>
 </head>
 
 <body>
@@ -28,33 +30,36 @@
             </div>
         </div>
         <div class="projects" th:if="${user.projects} != null">
-            <div th:each="project : ${user.projects}" class="project">
-                <a th:href="@{'/projects/' + ${user.id} + '/' + ${project.project_id}}">
-                    <div class="title">
-                        <div class="project-title" th:text="${project.project_name}">Project Title</div>
-                        <span id="project-remove" th:data-id="${project.project_id}"><i class="fa fa-window-close"
-                                                                                        aria-hidden="true"></i></span>
-                    </div>
-                    <div class="project-img">
-                        <i class="fa fa-briefcase" aria-hidden="true"></i>
-                    </div>
-                </a>
+            <div class="load" th:each="project : ${user.projects}" hidden>
+                <script th:inline="javascript">
+                    loadProjects([[${project.project_id}]], [[${project.project_name}]], [[${user.id}]]);
+                </script>
             </div>
+            <!--            <div class="project">-->
+            <!--                <a th:href="@{'/projects/' + ${user.id} + '/' + ${project.project_id}}">-->
+            <!--                    <div class="title">-->
+            <!--                        <div class="project-title" th:text="${project.project_name}">Project Title</div>-->
+            <!--                        <span id="project-remove">-->
+            <!--                            <i class="fa fa-window-close" aria-hidden="true"></i>-->
+            <!--                        </span>-->
+            <!--                    </div>-->
+            <!--                    <div class="project-img">-->
+            <!--                        <i class="fa fa-briefcase" aria-hidden="true"></i>-->
+            <!--                    </div>-->
+            <!--                </a>-->
+            <!--            </div>-->
         </div>
     </section>
 </main>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-<script src=".../../resources/js/project.js"></script>
 <script th:inline="javascript" type="text/javascript">
-
-    // function loadProjects() {
-    // }
-
-    // loadProjects();
 
     document.getElementById('action').addEventListener('click', function () {
         document.getElementById('project-add').hidden = false;
+        document.getElementById('project_name').focus();
+    });
+    document.getElementById('close').addEventListener('click', function () {
+        document.getElementById('project-add').hidden = true;
     });
     document.getElementById('project-form').addEventListener('submit', function (e) {
         e.preventDefault();
@@ -73,17 +78,12 @@
             success: function (data, status) { // в случае успешного завершения
 // console.log(status, "SUCCESS : ", data);
                 let proj = data;
-                let projectElement = new Project(proj, proj_name);
+                let projectElement = new Project(proj, proj_name, [[${user.id}]]);
             },
             error: function (data, status) { // в случае провала
                 console.log(status, "ERROR : ", data);
             }
         });
-        document.getElementById('project-add').hidden = true;
-    });
-
-
-    document.getElementById('close').addEventListener('click', function () {
         document.getElementById('project-add').hidden = true;
     });
 </script>
