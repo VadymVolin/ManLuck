@@ -12,6 +12,7 @@ import vadim.volin.model.User;
 import vadim.volin.services.UserService;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 @SessionAttributes({"user"})
@@ -37,16 +38,18 @@ public class ProjectsController {
         if (user == null || project_name == null || project_name.equals("")) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
-        user.getProjects().add(new Project(project_name));
+        Project project = new Project(project_name);
+        user.getProjects().add(project);
         User update = userService.editUser(user);
+        project = update.getProjects().stream().filter(project1 -> project1.getProject_name().equals(project_name)).findFirst().get();
         model.addAttribute("user", update);
-        return new ResponseEntity("Project created", HttpStatus.OK);
+        return new ResponseEntity(String.valueOf(project.getProject_id()), HttpStatus.OK);
     }
 
     @GetMapping(value = "/projects/{user_id}/{project_id}")
     public String loadProjectData(@PathVariable Integer user_id, @PathVariable Integer project_id, @ModelAttribute User user, Model model) {
         if (user == null || user.getRoles() == null || !user.getRoles().contains("ROLE_USER")
-        || user_id == null || project_id == null) {
+                || user_id == null || project_id == null) {
             return "redirect:/login";
         }
         boolean hasProject = false;
@@ -66,6 +69,24 @@ public class ProjectsController {
         } else {
             return "redirect:/projects";
         }
+    }
+
+    @PostMapping(value = "/projects/remove", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public ResponseEntity<?> removeProject(@RequestParam(name = "projectId", defaultValue = "") String projectId, @ModelAttribute User user, Model model) {
+        if (user == null || projectId == null || projectId.equals("")) {
+            return new ResponseEntity(HttpStatus.BAD_REQUEST);
+        }
+        Project project = user.getProjects().stream()
+                .filter(project1 -> (
+                        project1.getProject_id().equals(Integer.valueOf(projectId))
+                ))
+                .findFirst()
+                .get();
+        user.getProjects().remove(project);
+        User update = userService.editUser(user);
+        model.addAttribute("user", update);
+        return new ResponseEntity("Deleted!", HttpStatus.OK);
     }
 
 }

@@ -30,7 +30,11 @@
         <div class="projects" th:if="${user.projects} != null">
             <div th:each="project : ${user.projects}" class="project">
                 <a th:href="@{'/projects/' + ${user.id} + '/' + ${project.project_id}}">
-                    <div class="project-title" th:text="${project.project_name}">Project Title</div>
+                    <div class="title">
+                        <div class="project-title" th:text="${project.project_name}">Project Title</div>
+                        <span id="project-remove" th:data-id="${project.project_id}"><i class="fa fa-window-close"
+                                                                                        aria-hidden="true"></i></span>
+                    </div>
                     <div class="project-img">
                         <i class="fa fa-briefcase" aria-hidden="true"></i>
                     </div>
@@ -40,7 +44,15 @@
     </section>
 </main>
 
-<script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src=".../../resources/js/project.js"></script>
+<script th:inline="javascript" type="text/javascript">
+
+    // function loadProjects() {
+    // }
+
+    // loadProjects();
+
     document.getElementById('action').addEventListener('click', function () {
         document.getElementById('project-add').hidden = false;
     });
@@ -51,29 +63,17 @@
         $.ajax({
             type: "POST",
             global: false,
-            // contentType: "application/json",
+// contentType: "application/json",
             url: '/projects/add',
             data: $('form[name=create_project]').serializeArray(),
             dataType: 'text',
             timeout: 600000,
-            // contentType: "application/json; charset=utf-8",
-            // processData: false, // для передачи картинки(файла) нужно false
+// contentType: "application/json; charset=utf-8",
+// processData: false, // для передачи картинки(файла) нужно false
             success: function (data, status) { // в случае успешного завершения
-                console.log(status, "SUCCESS : ", data);
-                // $(".projects").load(location.href + " .projects");
-                const projectElement = document.createElement('div');
-                projectElement.classList.add('project');
-                const project_link = document.createElement('a');
-                const project_title = document.createElement('div');
-                project_title.classList.add('project-title');
-                project_title.innerText = proj_name;
-                const project_img = document.createElement('div');
-                project_img.classList.add('project-img');
-                project_img.innerHTML = '<i class="fa fa-briefcase" aria-hidden="true"></i>';
-
-                project_link.append(project_title, project_img);
-                projectElement.append(project_link);
-                document.querySelector('.projects').append(projectElement);
+// console.log(status, "SUCCESS : ", data);
+                let proj = data;
+                let projectElement = new Project(proj, proj_name);
             },
             error: function (data, status) { // в случае провала
                 console.log(status, "ERROR : ", data);
@@ -87,7 +87,6 @@
         document.getElementById('project-add').hidden = true;
     });
 </script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 </body>
 
 </html>

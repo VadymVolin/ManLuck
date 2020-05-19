@@ -23,12 +23,22 @@
         </div>
         <div class="row">
             <div class="project-tools">
-                <span class="action"><i class="fa fa-plus-square" aria-hidden="true"></i> user</span>
-                <span class="action"><i class="fa fa-plus-square" aria-hidden="true"></i> file</span>
+                <span id="add-user" class="action"><i class="fa fa-plus-square" aria-hidden="true"></i> user</span>
+                <span id="add-file" class="action"><i class="fa fa-plus-square" aria-hidden="true"></i> file</span>
             </div>
         </div>
         <div class="row team">
             <div class="row team-title">Team</div>
+            <div class="user-row">
+                <div class="user-data-set">
+                    <div class="user-data-elem">Image</div>
+                    <div class="user-data-elem">Name</div>
+                    <div class="user-data-elem">E-mail</div>
+                    <div class="user-data-elem">Phone</div>
+                    <div class="user-data-elem">Country</div>
+                    <div class="user-data-elem">City</div>
+                </div>
+            </div>
             <div class="user-row" th:each="user : ${project.team}">
                 <div class="user-data-set">
                     <div class="user-data-elem">
@@ -38,6 +48,8 @@
                     <div class="user-data-elem" th:text="${user.username}"></div>
                     <div class="user-data-elem" th:text="${user.usermail}"></div>
                     <div class="user-data-elem" th:text="${user.userphone}"></div>
+                    <div class="user-data-elem" th:text="${user.country}"></div>
+                    <div class="user-data-elem" th:text="${user.city}"></div>
                 </div>
             </div>
         </div>
