@@ -39,8 +39,6 @@ class Project {
                 data: {projectId: id},
                 dataType: 'text',
                 timeout: 600000,
-                // contentType: "application/json; charset=utf-8",
-                // processData: false, // для передачи картинки(файла) нужно false
                 success: function (data, status) { // в случае успешного завершения
                     console.log(status, "SUCCESS : ", data);
                     element.remove();

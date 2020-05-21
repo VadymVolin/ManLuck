@@ -243,7 +243,7 @@ public class User implements Serializable {
     }
 
     public List<Project> getProjects() {
-        return projects;
+        return projects == null ? new ArrayList<>() : projects;
     }
 
     public void setProjects(List<Project> projects) {

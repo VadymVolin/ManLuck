@@ -8,7 +8,7 @@
     margin: 90px 300px 0 120px;
 }
 
-#project-add {
+#project-add, #user-add {
     position: absolute;
     margin: 15px 0 0 95px;
     background-color: #f5f5f5;
@@ -18,17 +18,20 @@
     z-index: 10;
 }
 
+.user-add-row,
 .project-row {
     display: flex;
     flex-flow: column;
     padding: 5px;
 }
 
+.user-add:last-child ,
 .project-row:last-child {
     flex-flow: row wrap;
     justify-content: space-around;
 }
 
+.user-add-row label,
 .project-row label {
     margin-bottom: 10px;
     color: #1db31d;
@@ -192,13 +195,12 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     margin-right: 15px;
     font-size: 35px;
-    padding: 20px 10px;
+    padding: 20px 20px;
     align-content: center;
     align-items: center;
     display: flex;
     justify-content: center;
     align-self: center;
-    width: 5%;
 }
 
 .project-action:hover {
@@ -216,9 +218,8 @@
 }
 
 .action {
-    padding: 10px;
+    padding: 10px 20px;
     margin: 0 10px 0 0;
-    width: 5%;
 }
 
 .team {
@@ -241,12 +242,16 @@
     align-content: center;
     align-items: center;
     justify-content: space-around;
+
 }
 
 .user-data-elem {
     height: 100%;
     text-align: center;
     width: 14%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .user-data-elem img {
@@ -288,4 +293,13 @@
     -ms-transform: scale(.2);
     transform: scale(.2);
 
+}
+
+#add-prj-file {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
 }

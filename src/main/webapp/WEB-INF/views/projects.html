@@ -20,7 +20,7 @@
                       method="POST" name="create_project">
                     <div class="project-row">
                         <label for="project_name">Project name</label>
-                        <input id="project_name" type="text" name="project_name">
+                        <input id="project_name" type="text" name="project_name" pattern="(\D{2,})">
                     </div>
                     <div class="project-row">
                         <input id="close" type="button" value="Close">
@@ -35,56 +35,42 @@
                     loadProjects([[${project.project_id}]], [[${project.project_name}]], [[${user.id}]]);
                 </script>
             </div>
-            <!--            <div class="project">-->
-            <!--                <a th:href="@{'/projects/' + ${user.id} + '/' + ${project.project_id}}">-->
-            <!--                    <div class="title">-->
-            <!--                        <div class="project-title" th:text="${project.project_name}">Project Title</div>-->
-            <!--                        <span id="project-remove">-->
-            <!--                            <i class="fa fa-window-close" aria-hidden="true"></i>-->
-            <!--                        </span>-->
-            <!--                    </div>-->
-            <!--                    <div class="project-img">-->
-            <!--                        <i class="fa fa-briefcase" aria-hidden="true"></i>-->
-            <!--                    </div>-->
-            <!--                </a>-->
-            <!--            </div>-->
         </div>
     </section>
 </main>
 
 <script th:inline="javascript" type="text/javascript">
-
-    document.getElementById('action').addEventListener('click', function () {
-        document.getElementById('project-add').hidden = false;
-        document.getElementById('project_name').focus();
-    });
-    document.getElementById('close').addEventListener('click', function () {
-        document.getElementById('project-add').hidden = true;
-    });
-    document.getElementById('project-form').addEventListener('submit', function (e) {
-        e.preventDefault();
-        const proj_name = document.getElementById('project_name').value;
-
-        $.ajax({
-            type: "POST",
-            global: false,
-// contentType: "application/json",
-            url: '/projects/add',
-            data: $('form[name=create_project]').serializeArray(),
-            dataType: 'text',
-            timeout: 600000,
-// contentType: "application/json; charset=utf-8",
-// processData: false, // для передачи картинки(файла) нужно false
-            success: function (data, status) { // в случае успешного завершения
-// console.log(status, "SUCCESS : ", data);
-                let proj = data;
-                let projectElement = new Project(proj, proj_name, [[${user.id}]]);
-            },
-            error: function (data, status) { // в случае провала
-                console.log(status, "ERROR : ", data);
-            }
+    $(document).ready(function (e) {
+        document.getElementById('action').addEventListener('click', function () {
+            document.getElementById('project-add').hidden = false;
+            document.getElementById('project_name').focus();
+            document.getElementById('project_name').setAttribute('required', 'true');
         });
-        document.getElementById('project-add').hidden = true;
+        document.getElementById('close').addEventListener('click', function () {
+            document.getElementById('project-add').hidden = true;
+            document.getElementById('project_name').removeAttribute('required');
+        });
+        $('form[name=create_project]').submit(function (e) {
+            const proj_name = document.getElementById('project_name').value;
+            $.ajax({
+                type: "POST",
+                global: false,
+                url: '/projects/add',
+                data: $('form[name=create_project]').serializeArray(),
+                dataType: 'text',
+                timeout: 600000,
+                success: function (data, status) { // в случае успешного завершения
+                    let proj = data;
+                    let projectElement = new Project(proj, proj_name, [[${user.id}]]);
+                    alert('Project ' + proj_name + ' added!');
+                },
+                error: function (data, status) { // в случае провала
+                    alert('Try later!');
+                }
+            });
+            document.getElementById('project-add').hidden = true;
+            e.preventDefault();
+        });
     });
 </script>
 </body>

@@ -26,10 +26,13 @@ public class UpdateUserController {
 
     @PostMapping("/update/user/img")
     @ResponseBody
-    public ResponseEntity<String> handleUploadImage(@RequestBody MultipartFile file, @ModelAttribute User user, Model model, HttpServletRequest request) {
+    public ResponseEntity<String> handleUploadImage(@RequestBody MultipartFile file, @ModelAttribute User user, Model model) {
+        if (user.getRoles() == null || user == null || !user.getRoles().contains("ROLE_USER")) {
+            return new ResponseEntity("Error!", HttpStatus.BAD_REQUEST);
+        }
         if (file.isEmpty()) {
             model.addAttribute("message", "Please, choose file!");
-            return new ResponseEntity("Please, select image for uploading!", HttpStatus.OK);
+            return new ResponseEntity("Please, select image for uploading!", HttpStatus.BAD_REQUEST);
         }
         try {
             byte[] bytes = file.getBytes();
@@ -58,7 +61,6 @@ public class UpdateUserController {
         return new ResponseEntity("Successfully upload!", HttpStatus.OK);
     }
 
-//    @ResponseBody
     @RequestMapping(value = "/update/deactivate", method = RequestMethod.POST)
     public String deactivateUser(@ModelAttribute User user) {
         if (user == null) {
@@ -66,7 +68,7 @@ public class UpdateUserController {
         }
         user.setActive(false);
         userService.editUser(user);
-        return "redirect:/login";
+        return "redirect:/login?logout=ok";
     }
 
 }

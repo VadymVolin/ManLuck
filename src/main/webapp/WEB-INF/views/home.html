@@ -18,6 +18,7 @@
                     cache: false, // кэш и прочие настройки писать именно так (для файлов)
                     contentType: false, // нужно указать тип контента false для картинки(файла)
                     processData: false, // для передачи картинки(файла) нужно false
+                    timeout: 600000,
                     success: function (data) { // в случае успешного завершения
                         $(".message").text(data);
                         $(".user-card-img").load(location.href + " .user-card-img");
@@ -36,6 +37,7 @@
                     global: false,
                     url: '/update/user',
                     data: $('form[name=update_info]').serializeArray(),
+                    timeout: 600000,
                     success: function (res) {
                         // console.log(data);
                         if (res) {

@@ -7,6 +7,7 @@
     <link rel="stylesheet" type="text/css" href="../../resources/css/main-page.css">
     <link rel="stylesheet" type="text/css" href="../../resources/css/dashboard-page.css">
     <link rel="stylesheet" type="text/css" href="../../resources/css/projects.css">
+
 </head>
 
 <body>
@@ -24,7 +25,31 @@
         <div class="row">
             <div class="project-tools">
                 <span id="add-user" class="action"><i class="fa fa-plus-square" aria-hidden="true"></i> user</span>
-                <span id="add-file" class="action"><i class="fa fa-plus-square" aria-hidden="true"></i> file</span>
+                <form id="file_upload" name="file_upload" enctype="multipart/form-data"
+                      th:action="@{'/projects/' + ${project.project_id} + '/upload/file'}" method="post">
+                    <label for="add-prj-file" id="add-file">
+                        <span class="action">
+                            <input id="add-prj-file" type="file" name="file">
+                            <i class="fa fa-plus-square" aria-hidden="true"></i> file
+                        </span>
+                    </label>
+                </form>
+                <div id="user-add" hidden>
+                    <form action="#" th:action="@{'/projects/' + ${project.project_id} + '/add/user'}" id="user-form"
+                          enctype="multipart/form-data"
+                          method="POST" name="add-user">
+                        <div class="user-add-row">
+                            <label for="usermail">E-mail</label>
+                            <input id="usermail" type="email" name="usermail"
+                                   pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
+                            >
+                        </div>
+                        <div class="user-add-row">
+                            <input id="close" type="button" value="Close">
+                            <input id="send_new" type="submit" value="Add">
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
         <div class="row team">
@@ -66,5 +91,61 @@
         <!--        </div>-->
     </section>
 </main>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script th:inline="javascript" type="text/javascript">
+    $(document).ready(function (e) {
+        document.getElementById('add-user').addEventListener('click', function () {
+            document.getElementById('user-add').hidden = false;
+            document.getElementById('usermail').focus();
+            document.getElementById('usermail').setAttribute('required', 'true');
+        });
+        document.getElementById('close').addEventListener('click', function () {
+            document.getElementById('user-add').hidden = true;
+            document.getElementById('usermail').removeAttribute('required');
+        });
+
+        $('form[name=file_upload]').change(function (e) {
+            var formData = new FormData($('#file_upload')[0]);
+            console.log(formData.keys())
+            $.ajax({
+                type: 'POST', // тип запроса
+                url: $(this).attr('action'), // куда будем отправлять, можно явно указать
+                data: formData, // данные, которые передаем
+                cache: false, // кэш и прочие настройки писать именно так (для файлов)
+                contentType: false, // нужно указать тип контента false для картинки(файла)
+                processData: false, // для передачи картинки(файла) нужно false
+                timeout: 600000,
+                success: function (data) { // в случае успешного завершения
+                    console.log("SUCCESS : ", data);
+                },
+                error: function (data) { // в случае провала
+                    console.log("ERROR : ", e);
+                }
+            });
+            e.preventDefault(); // делаем отмену действия браузера и формируем ajax
+        });
+        $('form[name=add-user]').submit(function (e) {
+            $.ajax({
+                type: "POST",
+                global: false,
+                url: $(this).attr('action'),
+                data: $('form[name=add-user]').serializeArray(),
+                dataType: 'text',
+                timeout: 600000,
+                success: function (data, status) { // в случае успешного завершения
+                    let message = data;
+                    $(".central").load(location.href + " .team");
+                    alert(message);
+                },
+                error: function (data, status) { // в случае провала
+                    let message = data;
+                    alert(message);
+                }
+            });
+            document.getElementById('user-add').hidden = true;
+            e.preventDefault();
+        });
+    });
+</script>
 </body>
 </html>

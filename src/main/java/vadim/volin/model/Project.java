@@ -2,6 +2,7 @@ package vadim.volin.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -48,7 +49,7 @@ public class Project implements Serializable {
     }
 
     public List<User> getTeam() {
-        return team;
+        return team == null ? new ArrayList<>() : team;
     }
 
     public void setTeam(List<User> team) {
