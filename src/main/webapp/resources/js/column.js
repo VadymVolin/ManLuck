@@ -146,8 +146,6 @@ class Column {
         }
         document.querySelectorAll('.column').forEach(element => element.classList.remove('under'));
     }
-
-
 }
 
 

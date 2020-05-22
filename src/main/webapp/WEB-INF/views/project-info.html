@@ -17,9 +17,15 @@
     <section class="content central">
         <div class="row">
             <div class="project-tools">
-                <div class="project-action"><i class="fa fa-th-large" aria-hidden="true"></i></div>
-                <div class="project-action"><i class="fa fa-files-o" aria-hidden="true"></i></div>
-                <div class="project-action"><i class="fa fa-area-chart" aria-hidden="true"></i></div>
+                <a th:href="@{'/tasks/' + ${project.project_id}}">
+                    <div class="project-action"><i class="fa fa-th-large" aria-hidden="true"></i></div>
+                </a>
+                <a th:href="@{'/reports/' + ${project.project_id}}" target="_blank" download="true">
+                    <div class="project-action"><i class="fa fa-files-o" aria-hidden="true"></i></div>
+                </a>
+                <a th:href="@{'/statistics/' + ${project.project_id}}">
+                    <div class="project-action"><i class="fa fa-area-chart" aria-hidden="true"></i></div>
+                </a>
             </div>
         </div>
         <div class="row">

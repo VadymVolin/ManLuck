@@ -1,0 +1,126 @@
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <title th:text="'' + ${project.project_name} + '-tasks'"></title>
+    <link rel="stylesheet" type="text/css" href="../../resources/css/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/css/main-page.css">
+    <link rel="stylesheet" type="text/css" href="../../resources/css/dashboard-page.css">
+</head>
+
+<body>
+<div th:replace="components/header :: header"></div>
+<main class="main">
+    <div th:replace="components/sidebar :: sidebar"></div>
+    <section class="content">
+        <div class="container">
+            <div class="row">
+                <div class="adder">
+                    <span data-action-addColumn class="action add-column"><i class="fa fa-plus-square" aria-hidden="true"></i> column</span>
+                </div>
+            </div>
+            <div class="row">
+                <div class="columns"></div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script src="../../resources/js/column.js"></script>
+<script src="../../resources/js/note.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script th:inline="javascript">
+
+    document.querySelector('[data-action-addColumn]')
+        .addEventListener('click', function (event) {
+            const columnElement = new Column();
+            App.save();
+        });
+
+    const App = {
+        save() {
+            const object = {
+                columns: {
+                    idCounter: Column.idCount,
+                    title: '',
+                    items: []
+                },
+                notes: {
+                    idCounter: Note.idCount,
+                    items: []
+                }
+            };
+
+            document.querySelectorAll('.column')
+                .forEach(columnElement => {
+                    const column = {
+                        id: parseInt(columnElement.getAttribute('data-column-id')),
+                        title: columnElement.querySelector('.column-header').textContent,
+                        notesId: []
+                    };
+
+                    columnElement.querySelectorAll('.note').forEach(noteElement => {
+                        column.notesId.push(parseInt(noteElement.getAttribute('data-note-id')));
+                    });
+
+                    object.columns.items.push(column);
+                });
+
+            document.querySelectorAll('.note')
+                .forEach(noteElement => {
+                    const note = {
+                        id: parseInt(noteElement.getAttribute('data-note-id')),
+                        content: noteElement.textContent
+                    };
+                    object.notes.items.push(note);
+                });
+
+            // send ajax request to server
+            const json = JSON.stringify(object);
+
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: '/projects/' + [[${project.project_id}]] + '/save/tasks', // куда будем отправлять, можно явно указать
+                data: json, // данные, которые передаем
+                dataType: 'text',
+                timeout: 600000,
+                // contentType: "application/json; charset=utf-8",
+                // processData: false, // для передачи картинки(файла) нужно false
+                success: function (data, status) { // в случае успешного завершения
+                    // console.log(status, "SUCCESS : ", data);
+                },
+                error: function (data, status) { // в случае провала
+                    // console.log(status, "ERROR : ", data);
+                }
+            });
+        },
+
+        load() {
+            if (![[${project.project_tasks}]]) {
+                return;
+            }
+
+            const object = JSON.parse([[${project.project_tasks}]]);
+            const getNoteById = id => object.notes.items.find(note => note.id === id);
+            let columns = document.querySelector('.columns');
+            columns.innerHTML = '';
+
+            for (const {id, title, notesId} of object.columns.items) {
+                const columnElement = new Column(id, title);
+                for (const noteId of notesId) {
+                    const {id, content} = getNoteById(noteId);
+                    const note = new Note(id, content);
+                    columnElement.add(note);
+                }
+
+                columns.append(columnElement.element);
+            }
+
+        }
+    };
+
+    App.load();
+
+</script>
+</body>
+
+</html>

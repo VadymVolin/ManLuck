@@ -18,6 +18,9 @@ public class Project implements Serializable {
     @Column(name = "project_name")
     private String project_name;
 
+    @Column(name = "project_tasks")
+    private String project_tasks;
+
     @ManyToMany(mappedBy = "projects")
     List<User> team = new ArrayList<>();
 
@@ -32,19 +35,25 @@ public class Project implements Serializable {
     public Project() {
     }
 
+    public Project(String project_name) {
+        this.project_name = project_name;
+    }
+
     public Project(Integer project_id, String project_name) {
         this.project_id = project_id;
         this.project_name = project_name;
+    }
+
+    public Project(Integer project_id, String project_name, String project_tasks) {
+        this.project_id = project_id;
+        this.project_name = project_name;
+        this.project_tasks = project_tasks;
     }
 
     public Project(Integer project_id, String project_name, List<ProjectFile> projectFiles) {
         this.project_id = project_id;
         this.project_name = project_name;
         this.projectFiles = projectFiles;
-    }
-
-    public Project(String project_name) {
-        this.project_name = project_name;
     }
 
     public Integer getProject_id() {
@@ -61,6 +70,14 @@ public class Project implements Serializable {
 
     public void setProject_name(String project_name) {
         this.project_name = project_name;
+    }
+
+    public String getProject_tasks() {
+        return project_tasks;
+    }
+
+    public void setProject_tasks(String project_tasks) {
+        this.project_tasks = project_tasks;
     }
 
     public List<User> getTeam() {
@@ -99,6 +116,7 @@ public class Project implements Serializable {
         return "Project{" +
                 "project_id=" + project_id +
                 ", project_name='" + project_name + '\'' +
+                ", project_tasks='" + project_tasks + '\'' +
                 ", project_files='" + projectFiles + '\'' +
                 '}';
     }

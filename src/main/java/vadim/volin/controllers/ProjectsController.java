@@ -15,6 +15,7 @@ import vadim.volin.services.ProjectFileService;
 import vadim.volin.services.ProjectService;
 import vadim.volin.services.UserService;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -39,7 +40,7 @@ public class ProjectsController {
         if (user.getRoles() == null || user == null || !user.getRoles().contains("ROLE_USER")) {
             return "redirect:/login";
         }
-
+        user = userService.getByUserMail(user.getUsermail());
         model.addAttribute("pageName", "Projects");
         model.addAttribute("user", user);
         return "projects";
@@ -68,6 +69,7 @@ public class ProjectsController {
         if (project_id == null) {
             return "redirect:/projects";
         }
+        user = userService.getByUserMail(user.getUsermail());
         boolean hasProject = false;
         Project project = null;
         List<Project> projectList = user.getProjects();
@@ -77,6 +79,7 @@ public class ProjectsController {
                 project = projectList.get(i);
                 model.addAttribute("pageName", project.getProject_name());
                 model.addAttribute("project", project);
+                model.addAttribute("user", user);
                 break;
             }
         }
@@ -225,6 +228,95 @@ public class ProjectsController {
             }
         }
         return ResponseEntity.badRequest().body("Try again");
+    }
+
+
+    @GetMapping(value = "/tasks/{project_id}")
+    public String initPrjTasksPage(@PathVariable String project_id, @ModelAttribute User user, Model model) {
+        if (user.getRoles() == null || user == null || !user.getRoles().contains("ROLE_USER")) {
+            return "redirect:/login";
+        }
+        if (project_id == null || project_id.equals("")) {
+            return "redirect:/projects";
+        }
+
+        user = userService.getByUserMail(user.getUsermail());
+        for (int i = 0; i < user.getProjects().size(); i++) {
+            if (user.getProjects().get(i).getProject_id().equals(Integer.parseInt(project_id))) {
+                model.addAttribute("pageName", "" + user.getProjects().get(i).getProject_name() + "-tasks");
+                model.addAttribute("project", user.getProjects().get(i));
+                model.addAttribute("user", user);
+                return "project-tasks";
+            }
+        }
+        model.addAttribute("user", user);
+        return "redirect:/projects";
+    }
+
+//    TODO: sync updates tasks for team members;
+    @PostMapping(value = "/projects/{project_id}/save/tasks", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public ResponseEntity<String> saveProjectTasks(@RequestBody String jsonTasks, @PathVariable String project_id, @ModelAttribute User user, Model model) {
+        if (user.getRoles() == null || user == null || !user.getRoles().contains("ROLE_USER")) {
+            return ResponseEntity.badRequest().body("Try later");
+        }
+
+        for (int i = 0; i < user.getProjects().size(); i++) {
+            if (user.getProjects().get(i).getProject_id().equals(Integer.parseInt(project_id))) {
+                model.addAttribute("pageName", "" + user.getProjects().get(i).getProject_name() + "-tasks");
+                if (jsonTasks != null) {
+                    if (!jsonTasks.equals(user.getProjects().get(i).getProject_tasks())) {
+                        user.getProjects().get(i).setProject_tasks(jsonTasks);
+                        projectService.editProject(user.getProjects().get(i));
+                        user = userService.getByUserMail(user.getUsermail());
+                        model.addAttribute("user", user);
+                        return ResponseEntity.ok("Update!");
+                    }
+                    return ResponseEntity.status(HttpStatus.NOT_MODIFIED).body("Updated!");
+                }
+            }
+        }
+        model.addAttribute("user", user);
+        return ResponseEntity.badRequest().body("Try later");
+    }
+
+    @GetMapping(value = "/reports/{project_id}")
+    public void getProjectReport(@PathVariable String project_id, @ModelAttribute User user, Model model, HttpServletResponse response) {
+        // Прежде всего стоит проверить, если необходимо, авторизован ли пользователь и имеет достаточно прав на скачивание файла. Если нет, то выбрасываем здесь Exception
+        //Авторизованные пользователи смогут скачать файл
+        Path file = Paths.get(PathUtil.getUploadedFolder(), fileName);
+        if (Files.exists(file)) {
+            response.setHeader("Content-disposition", "attachment;filename=" + fileName);
+            response.setContentType("application/vnd.ms-excel");
+
+            try {
+                Files.copy(file, response.getOutputStream());
+                response.getOutputStream().flush();
+            } catch (IOException e) {
+                LOG.info("Error writing file to output stream. Filename was '{}'" + fileName, e);
+                throw new RuntimeException("IOError writing file to output stream");
+            }
+        }
+    }
+
+    @GetMapping(value = "/statistics/{project_id}")
+    public void getProjectReport(@PathVariable String project_id, @ModelAttribute User user, Model model) {
+        // Прежде всего стоит проверить, если необходимо, авторизован ли пользователь и имеет достаточно прав на скачивание файла. Если нет, то выбрасываем здесь Exception
+
+        //Авторизованные пользователи смогут скачать файл
+        Path file = Paths.get(PathUtil.getUploadedFolder(), fileName);
+        if (Files.exists(file)) {
+            response.setHeader("Content-disposition", "attachment;filename=" + fileName);
+            response.setContentType("application/vnd.ms-excel");
+
+            try {
+                Files.copy(file, response.getOutputStream());
+                response.getOutputStream().flush();
+            } catch (IOException e) {
+                LOG.info("Error writing file to output stream. Filename was '{}'" + fileName, e);
+                throw new RuntimeException("IOError writing file to output stream");
+            }
+        }
     }
 
 }
