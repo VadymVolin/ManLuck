@@ -9,7 +9,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import vadim.volin.model.Project;
+import vadim.volin.model.ProjectFile;
 import vadim.volin.model.User;
+import vadim.volin.services.ProjectFileService;
 import vadim.volin.services.ProjectService;
 import vadim.volin.services.UserService;
 
@@ -28,6 +30,9 @@ public class ProjectsController {
 
     @Autowired
     private ProjectService projectService;
+
+    @Autowired
+    private ProjectFileService projectFileService;
 
     @GetMapping("/projects")
     public String initPage(@ModelAttribute User user, Model model) {
@@ -106,17 +111,15 @@ public class ProjectsController {
         return new ResponseEntity("Deleted!", HttpStatus.OK);
     }
 
-
-    // TODO: add user to project
     @PostMapping(value = "/projects/{id}/add/user", produces = {MediaType.APPLICATION_JSON_VALUE})
     @ResponseBody
     public ResponseEntity<String> addUserToProject(
-            @RequestParam(name = "usermail", defaultValue = "") String usermail, @PathVariable String id, @ModelAttribute User user, Model model
+            @RequestParam(name = "membermail", defaultValue = "") String membermail, @PathVariable String id, @ModelAttribute User user, Model model
     ) {
-        if (user == null || usermail == null || usermail.equals("")) {
+        if (user == null || membermail == null || membermail.equals("")) {
             return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
-        User futureUser = userService.getByUserMail(usermail);
+        User futureUser = userService.getByUserMail(membermail);
         if (futureUser == null) {
             return ResponseEntity.badRequest().body("User not found");
         }
@@ -138,7 +141,6 @@ public class ProjectsController {
         return ResponseEntity.badRequest().body("Try later!");
     }
 
-    //    TODO: add file to projectшо там
     @PostMapping("/projects/{id}/upload/file")
     @ResponseBody
     public ResponseEntity<?> uploadProjectFile(
@@ -168,13 +170,18 @@ public class ProjectsController {
             Files.createDirectories(path.getParent());
 
             Files.write(path, bytes);
-//            user.setUser_img("/manluck_data/user_img/" + filename);
-            userService.editUser(user);
-            model.addAttribute("user", user);
+            ProjectFile projectFile = new ProjectFile("/manluck_data/projects/" + id + "/" + file.getOriginalFilename());
+            if (project.getProjectFiles().contains(projectFile)) {
+                return ResponseEntity.badRequest().body("File already upload");
+            } else {
+                project.getProjectFiles().add(projectFile);
+                projectFile.setProject(project);
+                projectFile = projectFileService.addProjectFile(projectFile);
+                model.addAttribute("user", user);
+            }
         } catch (IOException e) {
-//            model.addAttribute("message", "Server error, please, try again!");
             e.printStackTrace();
-            return new ResponseEntity("Please, select image for uploading!", HttpStatus.BAD_REQUEST);
+            return ResponseEntity.badRequest().body("Please, select file for uploading!");
         }
         return ResponseEntity.ok("Successfully upload!");
     }

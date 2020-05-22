@@ -19,7 +19,15 @@ public class Project implements Serializable {
     private String project_name;
 
     @ManyToMany(mappedBy = "projects")
-    List<User> team;
+    List<User> team = new ArrayList<>();
+
+    @OneToMany(
+            mappedBy = "project",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    private List<ProjectFile> projectFiles = new ArrayList<>();
+
 
     public Project() {
     }
@@ -27,6 +35,12 @@ public class Project implements Serializable {
     public Project(Integer project_id, String project_name) {
         this.project_id = project_id;
         this.project_name = project_name;
+    }
+
+    public Project(Integer project_id, String project_name, List<ProjectFile> projectFiles) {
+        this.project_id = project_id;
+        this.project_name = project_name;
+        this.projectFiles = projectFiles;
     }
 
     public Project(String project_name) {
@@ -57,6 +71,14 @@ public class Project implements Serializable {
         this.team = team;
     }
 
+    public List<ProjectFile> getProjectFiles() {
+        return projectFiles == null ? new ArrayList<>() : projectFiles;
+    }
+
+    public void setProjectFiles(List<ProjectFile> projectFiles) {
+        this.projectFiles = projectFiles;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -77,6 +99,7 @@ public class Project implements Serializable {
         return "Project{" +
                 "project_id=" + project_id +
                 ", project_name='" + project_name + '\'' +
+                ", project_files='" + projectFiles + '\'' +
                 '}';
     }
 }

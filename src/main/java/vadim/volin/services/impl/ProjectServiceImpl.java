@@ -18,9 +18,6 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public Project addProject(Project project) {
-        if (projectRepository.findById(project.getProject_id()) != null) {
-            return null;
-        }
         return projectRepository.saveAndFlush(project);
     }
 

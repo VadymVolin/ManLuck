@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="windows-1251">
     <title th:text="'ManLuck-' + ${project.project_name}"></title>
     <link rel="stylesheet" type="text/css" href="../../resources/css/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="../../resources/css/main-page.css">
@@ -40,8 +40,8 @@
                           method="POST" name="add-user">
                         <div class="user-add-row">
                             <label for="usermail">E-mail</label>
-                            <input id="usermail" type="email" name="usermail"
-                                   pattern="^[a-zA-Z0-9.!#$%&вЂ™*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
+                            <input id="usermail" type="email" name="membermail"
+                                   pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
                             >
                         </div>
                         <div class="user-add-row">
@@ -85,17 +85,21 @@
                 </div>
             </div>
         </div>
-
     </section>
     <section id="filebar">
-        <div class="row team-title">Files</div>
-        <!--        <div class="row" th:if="${project.files} != null">-->
-        <!--            <div class="project-file" th:each="file : ${project.files}">-->
-        <!--                <a th:href="@{file.file_path}">-->
-        <!--                    <i class="fa fa-file-text-o" aria-hidden="true"></i>-->
-        <!--                </a>-->
-        <!--            </div>-->
-        <!--        </div>-->
+        <div class="row file-title">Files</div>
+        <div class="row" th:if="${project.projectFiles} != null">
+            <div class="files">
+                <div class="project-file" th:each="file : ${project.projectFiles}">
+                    <a th:href="@{${file.file_path}}" target="_blank" download="true">
+                        <span class="file-part-1">
+                            <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                        </span>
+                        <span class="file-part-2" th:text="${file.getFileName()}"></span>
+                    </a>
+                </div>
+            </div>
+        </div>
     </section>
 </main>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -108,13 +112,12 @@
             data: {projectId: projectId, usermail: usermail},
             dataType: 'text',
             timeout: 600000,
-            success: function (data, status) { // РІ СЃР»СѓС‡Р°Рµ СѓСЃРїРµС€РЅРѕРіРѕ Р·Р°РІРµСЂС€РµРЅРёСЏ
+            success: function (data, status) { // в случае успешного завершения
                 let message = data;
                 $(".team").load(window.location.href + " .team");
-                // $(".team").reload();
                 alert(message);
             },
-            error: function (data, status) { // РІ СЃР»СѓС‡Р°Рµ РїСЂРѕРІР°Р»Р°
+            error: function (data, status) { // в случае провала
                 let message = data;
                 alert(message);
             }
@@ -133,22 +136,25 @@
         });
 
         $('form[name=file_upload]').change(function (e) {
-            e.preventDefault(); // РґРµР»Р°РµРј РѕС‚РјРµРЅСѓ РґРµР№СЃС‚РІРёСЏ Р±СЂР°СѓР·РµСЂР° Рё С„РѕСЂРјРёСЂСѓРµРј ajax
+            e.preventDefault(); // делаем отмену действия браузера и формируем ajax
             var formData = new FormData($('#file_upload')[0]);
             console.log(formData.keys())
             $.ajax({
-                type: 'POST', // С‚РёРї Р·Р°РїСЂРѕСЃР°
-                url: $(this).attr('action'), // РєСѓРґР° Р±СѓРґРµРј РѕС‚РїСЂР°РІР»СЏС‚СЊ, РјРѕР¶РЅРѕ СЏРІРЅРѕ СѓРєР°Р·Р°С‚СЊ
-                data: formData, // РґР°РЅРЅС‹Рµ, РєРѕС‚РѕСЂС‹Рµ РїРµСЂРµРґР°РµРј
-                cache: false, // РєСЌС€ Рё РїСЂРѕС‡РёРµ РЅР°СЃС‚СЂРѕР№РєРё РїРёСЃР°С‚СЊ РёРјРµРЅРЅРѕ С‚Р°Рє (РґР»СЏ С„Р°Р№Р»РѕРІ)
-                contentType: false, // РЅСѓР¶РЅРѕ СѓРєР°Р·Р°С‚СЊ С‚РёРї РєРѕРЅС‚РµРЅС‚Р° false РґР»СЏ РєР°СЂС‚РёРЅРєРё(С„Р°Р№Р»Р°)
-                processData: false, // РґР»СЏ РїРµСЂРµРґР°С‡Рё РєР°СЂС‚РёРЅРєРё(С„Р°Р№Р»Р°) РЅСѓР¶РЅРѕ false
+                type: 'POST', // тип запроса
+                url: $(this).attr('action'), // куда будем отправлять, можно явно указать
+                data: formData, // данные, которые передаем
+                cache: false, // кэш и прочие настройки писать именно так (для файлов)
+                contentType: false, // нужно указать тип контента false для картинки(файла)
+                processData: false, // для передачи картинки(файла) нужно false
                 timeout: 600000,
-                success: function (data) { // РІ СЃР»СѓС‡Р°Рµ СѓСЃРїРµС€РЅРѕРіРѕ Р·Р°РІРµСЂС€РµРЅРёСЏ
-                    console.log("SUCCESS : ", data);
+                success: function (data, status) { // в случае успешного завершения
+                    let message = data;
+                    $(".files").load(window.location.href + " .files");
+                    alert(message);
                 },
-                error: function (data) { // РІ СЃР»СѓС‡Р°Рµ РїСЂРѕРІР°Р»Р°
-                    console.log("ERROR : ", e);
+                error: function (data, status) { // в случае провала
+                    let message = data;
+                    alert(message);
                 }
             });
         });
@@ -161,21 +167,18 @@
                 data: $('form[name=add-user]').serializeArray(),
                 dataType: 'text',
                 timeout: 600000,
-                success: function (data, status) { // РІ СЃР»СѓС‡Р°Рµ СѓСЃРїРµС€РЅРѕРіРѕ Р·Р°РІРµСЂС€РµРЅРёСЏ
+                success: function (data, status) { // в случае успешного завершения
                     let message = data;
                     $(".team").load(window.location.href + " .team");
-                    // $(".team").reload();
                     alert(message);
                 },
-                error: function (data, status) { // РІ СЃР»СѓС‡Р°Рµ РїСЂРѕРІР°Р»Р°
+                error: function (data, status) { // в случае провала
                     let message = data;
                     alert(message);
                 }
             });
             document.getElementById('user-add').hidden = true;
         });
-
-
     });
 </script>
 </body>

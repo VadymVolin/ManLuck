@@ -25,7 +25,7 @@
     padding: 5px;
 }
 
-.user-add:last-child ,
+.user-add:last-child,
 .project-row:last-child {
     flex-flow: row wrap;
     justify-content: space-around;
@@ -252,12 +252,25 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+    transition: .6s;
 }
 
 .user-data-elem img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
+}
+
+.team-data > .user-data-elem:last-child {
+    font-size: 30px;
+}
+
+.team-data > .user-data-elem:last-child:hover {
+    transition: .6s;
+    color: #1db31d;
+    -webkit-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    transform: scale(1.1);
 }
 
 #filebar {
@@ -278,21 +291,37 @@
     width: 280px;
 }
 
+.file-title {
+    padding: 30px 0 10px 30px;
+    font-size: 24px;
+}
+
+.files {
+    padding: 0 25px;
+    display: flex;
+    flex-flow: row wrap;
+}
+
 .project-file {
-    color: #4caf50;
-    font-size: 60px;
-    margin: 5px;
+    font-size: 40px;
+    margin: 5px 20px 5px 5px;
     width: calc(25% - 10px);
     text-align: center;
+    transition: .6s;
+}
+
+.project-file a {
+    text-decoration: none;
+    color: #4caf50;
 }
 
 .project-file:hover,
 .project-file:active {
+    transition: .6s;
     color: #1db31d;
-    -webkit-transform: scale(.2);
-    -ms-transform: scale(.2);
-    transform: scale(.2);
-
+    -webkit-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    transform: scale(1.2);
 }
 
 #add-prj-file {
@@ -302,4 +331,13 @@
     overflow: hidden;
     position: absolute;
     z-index: -1;
+}
+
+.file-part-2 {
+    display: flex;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    font-size: 16px;
+    text-align: center;
 }
