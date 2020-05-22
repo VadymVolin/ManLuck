@@ -55,7 +55,7 @@ public class ProjectsController {
     }
 
     @GetMapping(value = "/projects/{user_id}/{project_id}")
-    public String loadProjectData(@PathVariable String user_id, @PathVariable String project_id, @ModelAttribute User user, Model model) {
+    public String loadPersonalProjectPage(@PathVariable String user_id, @PathVariable String project_id, @ModelAttribute User user, Model model) {
         if (user == null || user.getRoles() == null || !user.getRoles().contains("ROLE_USER")
                 || user_id == null) {
             return "redirect:/login";
@@ -122,21 +122,23 @@ public class ProjectsController {
         }
         for (int i = 0; i < user.getProjects().size(); i++) {
             if (user.getProjects().get(i).getProject_id().equals(Integer.parseInt(id))) {
-                if (user.getProjects().get(i).getTeam().contains(futureUser)) {
+                if (user.getProjects().get(i).getTeam().contains(futureUser)
+                        && futureUser.getProjects().contains(user.getProjects().get(i))) {
                     return ResponseEntity.badRequest().body("User already added!");
                 } else {
                     user.getProjects().get(i).getTeam().add(futureUser);
-                    User update = userService.editUser(user);
-                    model.addAttribute("user", update);
-                    System.out.println(update.getProjects().get(i).getTeam());
-                    return ResponseEntity.ok("User already added!");
+                    futureUser.getProjects().add(user.getProjects().get(i));
+                    futureUser = userService.editUser(futureUser);
+                    projectService.editProject(user.getProjects().get(i));
+                    model.addAttribute("user", user);
+                    return ResponseEntity.ok("User added!");
                 }
             }
         }
         return ResponseEntity.badRequest().body("Try later!");
     }
 
-    //    TODO: add file to project
+    //    TODO: add file to projectшо там
     @PostMapping("/projects/{id}/upload/file")
     @ResponseBody
     public ResponseEntity<?> uploadProjectFile(
@@ -175,6 +177,47 @@ public class ProjectsController {
             return new ResponseEntity("Please, select image for uploading!", HttpStatus.BAD_REQUEST);
         }
         return ResponseEntity.ok("Successfully upload!");
+    }
+
+    @PostMapping(value = "/projects/remove/user", produces = {MediaType.APPLICATION_JSON_VALUE})
+    @ResponseBody
+    public ResponseEntity<String> removeUserFromProject(
+            @RequestParam(name = "projectId", defaultValue = "") String projectId, @RequestParam(name = "usermail", defaultValue = "") String usermail, @ModelAttribute User user, Model model
+    ) {
+        if (user == null || projectId == null || projectId.equals("") || usermail == null || usermail.equals("")) {
+            return ResponseEntity.badRequest().body("Try later");
+        }
+        for (int i = 0; i < user.getProjects().size(); i++) {
+            if (user.getProjects().get(i).getProject_id().equals(Integer.parseInt(projectId))) {
+                User removedUser = userService.getByUserMail(usermail);
+                if (removedUser == null) {
+                    return ResponseEntity.badRequest().body("User not found!");
+                }
+
+                boolean removeProject = false;
+                for (int j = 0; j < removedUser.getProjects().size(); j++) {
+                    if (removedUser.getProjects().get(j).getProject_id().equals(Integer.parseInt(projectId))) {
+                        removeProject = removedUser.getProjects().remove(removedUser.getProjects().get(j));
+                        userService.editUser(removedUser);
+                    }
+                }
+                boolean removeUser = false;
+                for (int j = 0; j < user.getProjects().get(i).getTeam().size(); j++) {
+                    if (user.getProjects().get(i).getTeam().get(j).equals(removedUser)) {
+                        removeUser = user.getProjects().get(i).getTeam().remove(removedUser);
+                        projectService.editProject(user.getProjects().get(i));
+                    }
+                }
+                if (user.getProjects().get(i).getTeam().isEmpty()) {
+                    projectService.removeProject(user.getProjects().get(i));
+                }
+                model.addAttribute("user", user);
+                if (removeUser & removeProject) {
+                    return ResponseEntity.ok("Deleted!");
+                }
+            }
+        }
+        return ResponseEntity.badRequest().body("Try again");
     }
 
 }

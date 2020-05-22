@@ -52,29 +52,36 @@
                 </div>
             </div>
         </div>
-        <div class="row team">
-            <div class="row team-title">Team</div>
-            <div class="user-row">
-                <div class="user-data-set">
-                    <div class="user-data-elem">Image</div>
-                    <div class="user-data-elem">Name</div>
-                    <div class="user-data-elem">E-mail</div>
-                    <div class="user-data-elem">Phone</div>
-                    <div class="user-data-elem">Country</div>
-                    <div class="user-data-elem">City</div>
-                </div>
-            </div>
-            <div class="user-row" th:each="user : ${project.team}">
-                <div class="user-data-set">
-                    <div class="user-data-elem">
-                        <img src="#"
-                             th:src="(${user.user_img} eq null) ? @{/resources/manluck_data/user_img/default.png} : @{${user.user_img}}">
+        <div class="row">
+            <div class="team">
+                <div class="row team-title">Team</div>
+                <div class="user-row">
+                    <div class="user-data-set">
+                        <div class="user-data-elem">Image</div>
+                        <div class="user-data-elem">Name</div>
+                        <div class="user-data-elem">E-mail</div>
+                        <div class="user-data-elem">Phone</div>
+                        <div class="user-data-elem">Country</div>
+                        <div class="user-data-elem">City</div>
+                        <div class="user-data-elem">Delete?</div>
                     </div>
-                    <div class="user-data-elem" th:text="${user.username}"></div>
-                    <div class="user-data-elem" th:text="${user.usermail}"></div>
-                    <div class="user-data-elem" th:text="${user.userphone}"></div>
-                    <div class="user-data-elem" th:text="${user.country}"></div>
-                    <div class="user-data-elem" th:text="${user.city}"></div>
+                </div>
+                <div class="user-row" th:each="user : ${project.team}">
+                    <div class="user-data-set team-data">
+                        <div class="user-data-elem">
+                            <img src="#"
+                                 th:src="(${user.user_img} eq null) ? @{/resources/manluck_data/user_img/default.png} : @{${user.user_img}}">
+                        </div>
+                        <div class="user-data-elem" th:text="${user.username}"></div>
+                        <div class="user-data-elem" th:text="${user.usermail}"></div>
+                        <div class="user-data-elem" th:text="${user.userphone}"></div>
+                        <div class="user-data-elem" th:text="${user.country}"></div>
+                        <div class="user-data-elem" th:text="${user.city}"></div>
+                        <div class="user-data-elem"
+                             th:onclick="removeMember([[${project.project_id}]], [[${user.usermail}]]);">
+                            <i class="fa fa-window-close" aria-hidden="true"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -93,6 +100,27 @@
 </main>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script th:inline="javascript" type="text/javascript">
+    function removeMember(projectId = null, usermail = null) {
+        $.ajax({
+            type: "POST",
+            global: false,
+            url: '/projects/remove/user',
+            data: {projectId: projectId, usermail: usermail},
+            dataType: 'text',
+            timeout: 600000,
+            success: function (data, status) { // в случае успешного завершения
+                let message = data;
+                $(".team").load(window.location.href + " .team");
+                // $(".team").reload();
+                alert(message);
+            },
+            error: function (data, status) { // в случае провала
+                let message = data;
+                alert(message);
+            }
+        });
+    }
+
     $(document).ready(function (e) {
         document.getElementById('add-user').addEventListener('click', function () {
             document.getElementById('user-add').hidden = false;
@@ -105,6 +133,7 @@
         });
 
         $('form[name=file_upload]').change(function (e) {
+            e.preventDefault(); // делаем отмену действия браузера и формируем ajax
             var formData = new FormData($('#file_upload')[0]);
             console.log(formData.keys())
             $.ajax({
@@ -122,9 +151,9 @@
                     console.log("ERROR : ", e);
                 }
             });
-            e.preventDefault(); // делаем отмену действия браузера и формируем ajax
         });
         $('form[name=add-user]').submit(function (e) {
+            e.preventDefault();
             $.ajax({
                 type: "POST",
                 global: false,
@@ -134,7 +163,8 @@
                 timeout: 600000,
                 success: function (data, status) { // в случае успешного завершения
                     let message = data;
-                    $(".central").load(location.href + " .team");
+                    $(".team").load(window.location.href + " .team");
+                    // $(".team").reload();
                     alert(message);
                 },
                 error: function (data, status) { // в случае провала
@@ -143,8 +173,9 @@
                 }
             });
             document.getElementById('user-add').hidden = true;
-            e.preventDefault();
         });
+
+
     });
 </script>
 </body>

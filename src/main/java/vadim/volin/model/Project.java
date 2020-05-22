@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "project", schema = "manluck")
@@ -54,6 +55,21 @@ public class Project implements Serializable {
 
     public void setTeam(List<User> team) {
         this.team = team;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Project)) return false;
+        Project project = (Project) o;
+        return Objects.equals(getProject_id(), project.getProject_id()) &&
+                Objects.equals(getProject_name(), project.getProject_name()) &&
+                Objects.equals(getTeam(), project.getTeam());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getProject_id(), getProject_name(), getTeam());
     }
 
     @Override
