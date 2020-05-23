@@ -41,6 +41,11 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    public Project getProject(int id) {
+        return projectRepository.findById(id).get();
+    }
+
+    @Override
     public List<Project> getAll() {
         return projectRepository.findAll();
     }

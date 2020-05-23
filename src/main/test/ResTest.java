@@ -16,32 +16,19 @@ import vadim.volin.model.User;
 import vadim.volin.persistence.PersistenceJpaConfig;
 import vadim.volin.services.UserService;
 import vadim.volin.services.impl.UserServiceImpl;
+import vadim.volin.util.ProjectUtils;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@RunWith(SpringJUnit4ClassRunner.class)   // 1
-@SpringJUnitConfig({UserServiceImpl.class,PersistenceJpaConfig.class, Project.class, User.class, Role.class, SecurityConfiguration.class, CustomLoginSuccessHandler.class})
-@ContextConfiguration({"/applicationContext.xml", "/web.xml", "/dispatcher-servlet.xml"})
-@ActiveProfiles("dev")
-//@WebAppConfiguration   // 3
 public class ResTest {
 
-    @Autowired
-    ApplicationContext applicationContext;
-
-    @Autowired
-    private UserService userService;
 
     @Test
-    public void testManyToMany() {
-        Project project = new Project("ManLuck-Project");
-        List<Project> projects = new ArrayList<>();
-        projects.add(project);
-        System.out.println(userService);
-        User user = userService.getByUserMail("vadim@gmail.com");
-//        user.setProjects(projects);
-        userService.editUser(user);
+    public void testProjectJsonUtil() throws IOException {
+        String json = "{\"columns\":{\"idCounter\":2,\"title\":\"\",\"items\":[{\"id\":1,\"title\":\"manluck-c1\\n        \",\"notesId\":[1,2,6,4,5,7,9]},{\"id\":2,\"title\":\"manluck-c2\\n        \",\"notesId\":[3,8,10]}]},\"notes\":{\"idCounter\":10,\"items\":[{\"id\":1,\"content\":\"m1\"},{\"id\":2,\"content\":\"m2\"},{\"id\":6,\"content\":\"m6\"},{\"id\":4,\"content\":\"m4\"},{\"id\":5,\"content\":\"m5\"},{\"id\":7,\"content\":\"m7\"},{\"id\":9,\"content\":\"m10\"},{\"id\":3,\"content\":\"m3\"},{\"id\":8,\"content\":\"m8\"},{\"id\":10,\"content\":\"m9\"}]}}";
+        System.out.println(ProjectUtils.getTasksData(json));
     }
 
 }
