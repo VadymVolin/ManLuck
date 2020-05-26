@@ -235,37 +235,38 @@
             <plugins>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-war-plugin</artifactId>
-                    <version>3.2.2</version>
-                    <configuration>
-                        <failOnMissingWebXml>false</failOnMissingWebXml>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-war-plugin</artifactId>
-                    <version>3.2.2</version>
-                    <configuration>
-                        <failOnMissingWebXml>false</failOnMissingWebXml>
-                        <webappDirectory>${project.build.directory}/${project.artifactId}</webappDirectory>
-                        <warName>${project.artifactId}</warName>
-                    </configuration>
-                </plugin>
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-dependency-plugin</artifactId>
-                    <version>3.1.2</version>
                     <executions>
                         <execution>
-                            <phase>package</phase>
+                            <id>copy-dependencies</id>
+                            <phase>prepare-package</phase>
                             <goals>
-                                <goal>copy-dependencies</goal>
+                                <goal>copy</goal>
                             </goals>
                             <configuration>
-                                <includeArtifactIds>webapp-runner</includeArtifactIds>
+                                <artifactItems>
+                                    <artifactItem>
+                                        <groupId>[ group id ]</groupId>
+                                        <artifactId>[artifact id]</artifactId>
+                                        <version>[ version ]</version>
+                                        <outputDirectory>${project.build.directory}/${project.artifactId}</outputDirectory>
+                                    </artifactItem>
+                                </artifactItems>
+                                <!-- other configurations here -->
                             </configuration>
                         </execution>
                     </executions>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-war-plugin</artifactId>
+                    <version>3.2.2</version>
+                    <configuration>
+                        <failOnMissingWebXml>false</failOnMissingWebXml>
+                        <outputDirectory>${project.build.directory}</outputDirectory>
+                        <webappDirectory>${project.build.directory}/${project.artifactId}</webappDirectory>
+                        <warName>${project.artifactId}</warName>
+                    </configuration>
                 </plugin>
             </plugins>
         </pluginManagement>
