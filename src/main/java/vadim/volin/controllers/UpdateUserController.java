@@ -37,8 +37,8 @@ public class UpdateUserController {
         try {
             byte[] bytes = file.getBytes();
             String filename = user.getUsername().toLowerCase().replaceAll("\\s+", "") + ".png";
-//            Path path = Paths.get("/home/vadim/Documents/Spring/springMVC-courses/target/springMVC-courses/manluck_data/user_img/"
-            Path path = Paths.get("/manluck_data/user_img/"
+            Path path = Paths.get("/home/vadim/Documents/Spring/springMVC-courses/target/springMVC-courses/manluck_data/user_img/"
+//            Path path = Paths.get("/manluck_data/user_img/"
                     + filename);
             Files.createDirectories(path.getParent());
 
