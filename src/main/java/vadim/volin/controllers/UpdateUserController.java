@@ -39,6 +39,8 @@ public class UpdateUserController {
             String filename = user.getUsername().toLowerCase().replaceAll("\\s+", "") + ".png";
             Path path = Paths.get("/home/vadim/Documents/Spring/springMVC-courses/target/springMVC-courses/manluck_data/user_img/"
                     + filename);
+            Files.createDirectories(path.getParent());
+
             Files.write(path, bytes);
             user.setUser_img("/manluck_data/user_img/" + filename);
             userService.editUser(user);
