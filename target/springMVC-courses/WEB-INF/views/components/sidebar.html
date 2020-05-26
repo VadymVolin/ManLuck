@@ -1,0 +1,57 @@
+<section th:fragment="sidebar" class="sidebar" id="sidebar" xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="human-block">
+        <a href="/first">
+            <div class="human-info">
+                <div class="human-img">
+                    <img class="user-img"
+                         th:src="(${user.user_img} eq null) ? @{/resources/manluck_data/user_img/default.png} : ${user.user_img}">
+                </div>
+                <p class="human-name" th:text="${user.username}"></p>
+            </div>
+        </a>
+    </div>
+    <div class="nav-block">
+        <ul class="menu">
+            <li class="menu-item">
+                <a class="menu-link" href="/home">
+                    <i aria-hidden="true" class="fa fa-home"></i>
+                    <span class="item-text">Home</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a class="menu-link" href="/projects">
+                    <i aria-hidden="true" class="fa fa-briefcase"></i>
+                    <span class="item-text">Projects</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a class="menu-link" href="/dashboard">
+                    <i class="fa fa-th"></i>
+                    <span class="item-text">Dashboard</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a class="menu-link" href="/reports">
+                    <i aria-hidden="true" class="fa fa-file-text"></i>
+                    <span class="item-text">Reports</span>
+                </a>
+            </li>
+            <li class="menu-item">
+                <a class="menu-link" href="/statistics">
+                    <i aria-hidden="true" class="fa fa-bar-chart"></i>
+                    <span class="item-text">Statistics</span>
+                </a>
+            </li>
+
+        </ul>
+
+        <ul class="menu">
+            <li class="menu-item last-item">
+                <a href="/logout" class="menu-link">
+                    <i class="fa fa-sign-out" aria-hidden="true"></i>
+                    <span class="item-text">Go out</span>
+                </a>
+            </li>
+        </ul>
+    </div>
+</section>

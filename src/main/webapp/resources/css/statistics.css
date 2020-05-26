@@ -1,0 +1,96 @@
+/*#weeksChart,*/
+/*#pieChart,*/
+/*#canvas {*/
+/*    width: 15%;*/
+/*    height: 15%;*/
+/*}*/
+
+.content {
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    margin: 65px 20px 0 300px;
+}
+
+.chart-block {
+    width: calc(40% - 30px);
+    margin: 10px;
+}
+
+.project-time-chart-block {
+    margin: 10px;
+}
+
+.project-time-chart-block canvas {
+    /*width: 200;*/
+    /*height: 100%;*/
+}
+
+.user-data-elem {
+    width: 33%;
+}
+
+.stat-title {
+    padding: 20px 0;
+}
+
+.projects {
+    width: 100%;
+    background-color: #f5f5f5;
+    padding: 40px 10px 10px 10px;
+    color: #444444;
+}
+
+.project {
+    width: 100%;
+    margin: 20px 0;
+}
+
+.projects > .project-data-set:first-child {
+    padding-bottom: 30px;
+    border-bottom: 1px solid #444444;
+}
+
+.project-data-set {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 10px 0;
+}
+
+.project > .project-data-set > .project-dataset-elem:last-child {
+    font-size: 30px;
+}
+
+.project > .project-data-set > .project-dataset-elem:first-child {
+    font-size: 30px;
+}
+
+.project-dataset-elem {
+    margin: 5px;
+    width: calc(15% - 10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.statistic-link,
+.report-link{
+    color: #444444;
+    transition: .8s;
+    text-decoration: none;
+}
+
+.statistic-link:hover,
+.report-link:hover{
+    color: #1db31d;
+    transition: .8s;
+    transform: scale(1.2);
+}
+
+@media (max-width: 1440px) {
+    .chart-block,
+    .project-time-chart-block {
+        width: calc(50% - 30px);
+    }
+
+
+}

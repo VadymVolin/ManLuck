@@ -9,7 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 @Entity
-@Table(name = "user", schema = "manluck", uniqueConstraints = @UniqueConstraint(columnNames = "usermail"))
+@Table(name = "user", schema = "public", uniqueConstraints = @UniqueConstraint(columnNames = "usermail"))
 public class User implements Serializable {
 
     @Id

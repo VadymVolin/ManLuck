@@ -69,7 +69,7 @@ public class PersistenceJpaConfig {
         properties.put("hibernate.temp.use_jdbc_metadata_defaults", this.environment.getProperty("spring.jpa.properties.hibernate.temp.use_jdbc_metadata_defaults"));
         properties.put("hibernate.batch_versioned_data", "true");
         properties.put("hibernate.enable_lazy_load_no_trans", "true");
-        properties.put("hibernate.default_schema", "manluck");
+        properties.put("hibernate.default_schema", "public");
         return properties;
     }
 

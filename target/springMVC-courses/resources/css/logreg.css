@@ -1,0 +1,90 @@
+* {
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+    outline: none;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #E2E9F3;
+}
+
+form {
+    position: absolute;
+    z-index: 3;
+    right: 0;
+    margin-top: 150px;
+    margin-right: 150px;
+}
+
+.form__block {
+    display: flex;
+    flex-flow: column;
+    width: 450px;
+    padding: 20px;
+    align-content: center;
+    background-color: #fff;
+    box-shadow: 3px 4px 12px -2px #535353;
+    color: #535353;
+}
+
+.row {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: unset;
+}
+
+.last__row {
+    margin-top: 10px;
+    justify-content: space-around;
+}
+
+.last__row p{
+    font-size: 18px;
+}
+
+label, input, select {
+    padding: 5px;
+    border: 0;
+}
+
+.btn_reg,
+.btn_log{
+    padding: 5px;
+    border: 0;
+    width: 30%;
+    border-radius: 5px;
+    background-color: #535353;
+    color: #ffffff;
+    text-align: center;
+    font-size: 16px;
+}
+
+.btn_reg:hover,
+.btn_log:hover {
+    background-color: #6411D9;
+    color: #ffffff;
+}
+
+input, select {
+    background-color: #fff;
+    width: 70%;
+    border-bottom: 3px solid #535353;
+}
+
+label {
+    width: 30%;
+}
+
+input:focus,
+select:focus {
+    border-bottom: 3px solid #6411D9;
+    color: #6411D9;
+}
+
+input::placeholder {
+    color: #535353;
+}

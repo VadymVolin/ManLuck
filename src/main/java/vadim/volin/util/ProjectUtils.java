@@ -17,6 +17,9 @@ public class ProjectUtils {
 
         ObjectMapper mapper = new ObjectMapper();
         JsonFactory factory = mapper.getFactory();
+        if (JSON_TASKS == null || JSON_TASKS.equals("")) {
+            return columnsData;
+        }
         JsonParser parser = factory.createParser(JSON_TASKS);
         JsonNode rootObject = mapper.readTree(parser);
 //        {
@@ -25,7 +28,10 @@ public class ProjectUtils {
 //              "items":[
 //                  {"id":1,"title":"manluck-c1","notesId":[1,2,6,4,5,7,9]},
 //                  {"id":2,"title":"manluck-c2","notesId":[3,8,10]}]}
-//               ,"notes":{"idCounter":10,"items":[{"id":1,"content":"m1"},{"id":2,"content":"m2"},{"id":6,"content":"m6"},{"id":4,"content":"m4"},{"id":5,"content":"m5"},{"id":7,"content":"m7"},{"id":9,"content":"m10"},{"id":3,"content":"m3"},{"id":8,"content":"m8"},{"id":10,"content":"m9"}]}}
+//               ,"notes":{
+//                      "idCounter":10,
+//                      "items":[{"id":1,"content":"m1"},{"id":2,"content":"m2"},
+//                      {"id":6,"content":"m6"},{"id":4,"content":"m4"},{"id":5,"content":"m5"},{"id":7,"content":"m7"},{"id":9,"content":"m10"},{"id":3,"content":"m3"},{"id":8,"content":"m8"},{"id":10,"content":"m9"}]}}
 
         ArrayNode columnArray = (ArrayNode) rootObject.get("columns").get("items");
         for (int i = 0; i < columnArray.size(); i++) {
@@ -34,6 +40,20 @@ public class ProjectUtils {
             columnsData.put(notesCount, columnTitle);
         }
         return columnsData;
+    }
+
+    public static int getTaskCount(String JSON_TASKS) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        JsonFactory factory = mapper.getFactory();
+        if (JSON_TASKS == null || JSON_TASKS.equals("")) {
+            return 0;
+        }
+        JsonParser parser = factory.createParser(JSON_TASKS);
+        JsonNode rootObject = mapper.readTree(parser);
+
+        ArrayNode columnArray = (ArrayNode) rootObject.get("notes").get("items");
+
+        return columnArray.size();
     }
 
 }

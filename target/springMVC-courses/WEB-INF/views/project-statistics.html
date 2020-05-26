@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="'ManLuck-' + ${project.project_name}"></title>
+    <link href="../../resources/css/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="../../resources/css/main-page.css" rel="stylesheet" type="text/css">
+    <link href="../../resources/css/projects.css" rel="stylesheet" type="text/css">
+    <link href="../../resources/css/statistics.css" rel="stylesheet" type="text/css">
+    <link href="../../resources/css/dashboard-page.css" rel="stylesheet" type="text/css">
+    <script crossorigin="anonymous" integrity="sha256-xKeoJ50pzbUGkpQxDYHD7o7hxe0LaOGeguUidbq6vis="
+            src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+</head>
+
+<body>
+<!--<div th:replace="components/header :: header"></div>-->
+<main class="main">
+    <section th:replace="components/sidebar :: sidebar"></section>
+
+    <section class="content">
+        <div class="chart-block">
+            <canvas id="weeksChart"></canvas>
+        </div>
+        <div class="project-time-chart-block">
+            <canvas id="pieChart"></canvas>
+        </div>
+        <div class="chart-block">
+            <canvas id="team-week-prod"></canvas>
+        </div>
+        <div class="chart-block">
+            <canvas id="all-time-prod"></canvas>
+        </div>
+        <div class="chart-block">
+            <div class="user-row stat-title">Data statistic</div>
+            <div class="user-row">
+                <div class="user-data-set">
+                    <div class="user-data-elem">Team members</div>
+                    <div class="user-data-elem">Tasks</div>
+                    <div class="user-data-elem">Files</div>
+                </div>
+            </div>
+            <div class="user-row">
+                <div class="user-data-set">
+                    <div class="user-data-elem" th:text="${project.team.size()}">0</div>
+                    <div class="user-data-elem" th:text="${tasksCount}">0</div>
+                    <div class="user-data-elem" th:text="${project.projectFiles.size()}">0</div>
+                </div>
+            </div>
+            <div class="user-row stat-title">Tasks statistic</div>
+            <div class="user-row">
+                <div class="user-data-set">
+                    <div class="user-data-elem">Column</div>
+                    <div class="user-data-elem">Tasks</div>
+                </div>
+            </div>
+            <div class="user-row">
+                <div class="user-data-set" th:each="instance : ${taskMap}">
+                    <div class="user-data-elem" th:text="${instance.value}"></div>
+                    <div class="user-data-elem" th:text="${instance.key}"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script th:inline="javascript" type="text/javascript">
+    let randomScalingFactor = function () {
+        return Math.round(Math.random() * 100);
+    };
+
+    let ctx = document.getElementById('team-week-prod');
+    let line = new Chart(ctx, {
+        type: 'line',
+        data: {
+            labels: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+            datasets: [{
+                label: 'Vadym Volin',
+                fill: false,
+                backgroundColor: '#d0ff00',
+                borderColor: '#fcb9b9',
+                data: [
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor()
+                ]
+            }, {
+                label: 'Oleh Volkov',
+                fill: false,
+                backgroundColor: '#ff9800',
+                borderColor: '#444444',
+                data: [
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor()
+                ],
+            }]
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: 'Week team productivity'
+            },
+        }
+    });
+
+    let ctx1 = document.getElementById('all-time-prod');
+    let line1 = new Chart(ctx1, {
+        type: 'line',
+        data: {
+            labels: ['June', 'July', 'August', 'September', 'October', 'November', 'December', 'January', 'February', 'March', 'April', 'May'],
+            datasets: [{
+                label: 'Vadym Volin',
+                fill: false,
+                backgroundColor: '#d0ff00',
+                borderColor: '#fcb9b9',
+                data: [
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor()
+                ]
+            }, {
+                label: 'Oleh Volkov',
+                fill: false,
+                backgroundColor: '#ff9800',
+                borderColor: '#444444',
+                data: [
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor(),
+                    randomScalingFactor()
+                ],
+            }]
+        },
+        options: {
+            responsive: true,
+            title: {
+                display: true,
+                text: 'All time team productivity'
+            },
+        }
+    });
+
+    let lineChart = document.getElementById('weeksChart');
+    let pieChart = document.getElementById('pieChart');
+    let lineCharts = new Chart(lineChart, {
+        type: 'line',
+        data: {
+            datasets: [
+                {
+                    label: 'This week',
+                    data: [12, 222, 3, 5, 243, 34, 34, 234, 2, 3, 4, 234, 45, 34, 34, 234, 2, 55, 54, 43, 23],
+                    borderColor: [
+                        'RGB (255, 191, 0, 0.5)',
+                        '#ff9800',
+                        '#fff59d'
+                    ]
+                },
+                {
+                    label: 'Prev week',
+                    data: [45, 34, 342, 34, 234, 278, 34, 234, 452, 55, 54, 34, 34, 234, 2, 43, 23],
+                    borderColor: [
+                        '#388e3c',
+                        'RGB (128, 255, 0)',
+                        'RGB (0, 255, 191)'
+                    ]
+                }
+            ]
+        },
+        options: {
+            title: {
+                display: true,
+                text: 'Your weeks productivity'
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+
+    let pieCharts = new Chart(pieChart, {
+        "type": "doughnut",
+        "data": {
+            "labels":
+                [
+                    "Project1",
+                    "Project2",
+                    "Project3"
+                ],
+            "datasets": [
+                {
+                    "label": "My First Dataset",
+                    "data": [300, 50, 100],
+                    "backgroundColor": [
+                        "rgb(255, 99, 132)",
+                        "rgb(54, 162, 235)",
+                        "rgb(255, 205, 86)"
+                    ]
+                }]
+        },
+        options: {
+            title: {
+                display: true,
+                text: 'Project time'
+            },
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    });
+
+</script>
+
+</body>
+</html>

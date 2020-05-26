@@ -8,7 +8,7 @@ import java.nio.file.Paths;
 import java.util.Objects;
 
 @Entity
-@Table(name = "project_files", schema = "manluck")
+@Table(name = "project_files", schema = "public")
 public class ProjectFile implements Serializable {
 
     @Id

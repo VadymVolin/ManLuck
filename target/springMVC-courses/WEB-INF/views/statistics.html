@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Statistics</title>
+    <link href="../../resources/css/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="../../resources/css/main-page.css" rel="stylesheet" type="text/css">
+    <link href="../../resources/css/statistics.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<!--<div th:replace="components/header :: header"></div>-->
+<main class="main">
+    <section th:replace="components/sidebar :: sidebar"></section>
+    <section class="content">
+        <div class="projects" th:if="${user.projects} != null">
+            <div class="project-data-set">
+                <div class="project-dataset-elem"></div>
+                <div class="project-dataset-elem">Project</div>
+                <div class="project-dataset-elem">Files</div>
+                <div class="project-dataset-elem">Tasks</div>
+                <div class="project-dataset-elem">Team</div>
+                <div class="project-dataset-elem">Statistic</div>
+            </div>
+            <div class="project" th:each="project : ${user.projects}">
+                <div class="project-data-set">
+                    <div class="project-dataset-elem"><i class="fa fa-briefcase" aria-hidden="true"></i></div>
+                    <div class="project-dataset-elem" th:text="${project.project_name}">Name</div>
+                    <div class="project-dataset-elem" th:text="${project.projectFiles.size()}">Files</div>
+                    <div class="project-dataset-elem" th:text="${T(vadim.volin.util.ProjectUtils).getTaskCount(project.project_tasks)}">Tasks</div>
+                    <div class="project-dataset-elem" th:text="${project.team.size()}">Team</div>
+                    <div class="project-dataset-elem">
+                        <a th:href="@{'/statistics/' + ${project.project_id}}" class="statistic-link">
+                            <i class="fa fa-line-chart" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+</body>
+</html>

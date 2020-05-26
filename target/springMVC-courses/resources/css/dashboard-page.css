@@ -1,0 +1,207 @@
+.page-name {
+    margin-left: 130px;
+}
+
+.human-name {
+    display: none;
+}
+
+.human-img {
+    margin: 0;
+}
+
+.item-text {
+    display: none;
+}
+
+.sidebar {
+    width: auto;
+}
+
+.menu {
+    margin: 0;
+    text-align: center;
+}
+
+.menu-link {
+    padding: 15px 15px;
+}
+
+.content {
+    margin: 90px 20px 0 120px;
+}
+
+.container {
+    margin: 0 20px;
+}
+
+.adder {
+    position: fixed;
+    margin-bottom: 50px;
+}
+
+.columns {
+    margin-top: 50px;
+    display: flex;
+    flex-flow: row;
+    justify-content: flex-start;
+    overflow-x: auto;
+    overflow-y: hidden;
+
+}
+
+.column {
+    display: flex; /* value bottom work for notes-column :(*/
+    /*display: table;*/
+    cursor: grab;
+    flex-flow: column;
+    align-items: center;
+    padding: 5px;
+    width: 240px;
+    margin: 0 40px 25px 0;
+    height: fit-content;
+    border-radius: 5px;
+}
+
+.c-header {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+
+.c-header,
+.column-body,
+.column-header1 {
+    font-size: 14px;
+    font-weight: 100;
+    width: 100%;
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+}
+
+.column-header {
+    width: 95%;
+    color: #444444;
+    font-weight: bold;
+    box-shadow: 0px 5px 5px -9px #535353;
+}
+
+.column-remove {
+    font-size: 16px;
+    width: 5%;
+    color: #444444;
+    text-align: center;
+}
+
+.column-remove:hover {
+    cursor: pointer;
+    transform: sc;
+    color: #4caf50;
+}
+.column-remove:focus {
+    cursor: grabbing;
+    color: #1db31d;
+}
+
+.column-header:focus {
+    border-bottom: 1px solid #535353;
+}
+
+.action {
+    cursor: pointer;
+    padding: 10px 0;
+    display: block;
+    /*width: 100%;*/
+    margin: 0 auto;
+    font-weight: bold;
+    border: 2px solid #444444;
+    color: #444444;
+    border-radius: 5px;
+    text-align: center;
+    font-size: 12px;
+    user-select: none;
+}
+
+.add-column {
+    padding: 10px;
+}
+
+.action:hover {
+    transition: .6s;
+    border-color: #4caf50;
+    color: #4caf50;
+}
+
+.action:not(hover) {
+    transition: .6s;
+}
+
+.action:focus {
+    color: #1db31d;
+    border-color: #1db31d;
+}
+
+.action:active {
+    border-color: #1db31d;
+    color: #1db31d;
+    /*background-color: #1db31d;*/
+}
+
+.note {
+    border-radius: 5px;
+    border-left: 4px solid #4caf50;
+    padding: 15px;
+    margin-bottom: 10px;
+    font-size: 11px;
+    background-color: #f5f5f5;
+    color: #404040;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    word-wrap: break-word;
+    cursor: grab;
+}
+
+.note:hover {
+    transition: .6s;
+    -webkit-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    transform: scale(1.05);
+}
+
+.note:not(hover) {
+    transition: .6s;
+}
+
+.note:focus {
+    border-radius: 5px;
+    border-top: 1px solid #1db31d;
+    border-bottom: 1px solid #1db31d;
+}
+
+
+.column.dragged {
+    opacity: 0.4;
+    -moz-transform: rotate(15deg); /* Для Firefox */
+    -ms-transform: rotate(15deg); /* Для IE */
+    -webkit-transform: rotate(15deg); /* Для Safari, Chrome, iOS */
+    -o-transform: rotate(15deg); /* Для Opera */
+    transform: rotate(15deg);
+    cursor: grabbing;
+}
+
+.note.dragged {
+    -moz-transform: rotate(15deg); /* Для Firefox */
+    -ms-transform: rotate(15deg); /* Для IE */
+    -webkit-transform: rotate(15deg); /* Для Safari, Chrome, iOS */
+    -o-transform: rotate(15deg); /* Для Opera */
+    transform: rotate(15deg);
+    opacity: 0.4;
+    cursor: grabbing;
+}
+.column.under {
+    margin-top: 20px;
+}
+
+
+.note.under {
+    opacity: 0.5;
+}
