@@ -165,7 +165,8 @@ public class ProjectsController {
 
             byte[] bytes = file.getBytes();
             Path path = Paths.get(
-                    "/home/vadim/Documents/Spring/springMVC-courses/target/springMVC-courses/manluck_data/projects/"
+//                    "/home/vadim/Documents/Spring/springMVC-courses/target/springMVC-courses/manluck_data/projects/"
+                    "/manluck_data/projects/"
                             + id + "/"
                             + file.getOriginalFilename()
             );

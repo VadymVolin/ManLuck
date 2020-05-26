@@ -61,7 +61,8 @@ public class ReportsController {
             return ResponseEntity.badRequest().body("Project not found!");
         }
         PDDocument pdfDocument = null;
-        String fileName = "/home/vadim/Documents/Spring/springMVC-courses/target/springMVC-courses/manluck_data/projects/reports/" +
+//        String fileName = "/home/vadim/Documents/Spring/springMVC-courses/target/springMVC-courses/manluck_data/projects/reports/" +
+        String fileName = "/manluck_data/projects/reports/" +
                 project_id + "/" + project.getProject_name() + "_report.pdf";
         File pdfFile = new File(fileName);
         try {
