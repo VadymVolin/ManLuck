@@ -1,0 +1,28 @@
+.content {
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    margin: 65px 20px 0 300px;
+}
+
+.chart-block,.project-time-chart-block,.projects {
+    width: calc(50% - 30px);
+    margin: 10px;
+    background-color: #f5f5f5;
+    color: #444444;
+    font-size: 16px;
+}
+
+.projects {
+    padding: 30px;
+}
+
+.project-row {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
+
+.project-elem {
+    width: 30%;
+    padding: 10px;
+}

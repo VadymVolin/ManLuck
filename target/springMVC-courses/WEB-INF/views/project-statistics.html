@@ -31,7 +31,7 @@
             <canvas id="all-time-prod"></canvas>
         </div>
         <div class="chart-block">
-            <div class="user-row stat-title">Data statistic</div>
+            <div class="user-row stat-title" th:text="${project.project_name} + ' data'"></div>
             <div class="user-row">
                 <div class="user-data-set">
                     <div class="user-data-elem">Team members</div>
@@ -46,7 +46,7 @@
                     <div class="user-data-elem" th:text="${project.projectFiles.size()}">0</div>
                 </div>
             </div>
-            <div class="user-row stat-title">Tasks statistic</div>
+            <div class="user-row stat-title" th:text="${project.project_name} + ' tasks'"></div>
             <div class="user-row">
                 <div class="user-data-set">
                     <div class="user-data-elem">Column</div>
@@ -55,8 +55,8 @@
             </div>
             <div class="user-row">
                 <div class="user-data-set" th:each="instance : ${taskMap}">
-                    <div class="user-data-elem" th:text="${instance.value}"></div>
-                    <div class="user-data-elem" th:text="${instance.key}"></div>
+                    <div class="user-data-elem" th:text="(${instance.value} eq 0) ? '0' :${instance.value} ">0</div>
+                    <div class="user-data-elem" th:text="(${instance.key} eq '') ? '0' :${instance.key}">0</div>
                 </div>
             </div>
         </div>
@@ -93,7 +93,7 @@
                     randomScalingFactor()
                 ]
             }, {
-                label: 'Oleh Volkov',
+                label: 'Max Andreev',
                 fill: false,
                 backgroundColor: '#ff9800',
                 borderColor: '#444444',
@@ -147,7 +147,7 @@
                     randomScalingFactor()
                 ]
             }, {
-                label: 'Oleh Volkov',
+                label: 'Max Andreev',
                 fill: false,
                 backgroundColor: '#ff9800',
                 borderColor: '#444444',

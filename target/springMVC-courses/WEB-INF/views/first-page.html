@@ -5,21 +5,40 @@
     <title>PMOL</title>
     <link href="../../resources/css/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
     <link href="../../resources/css/main-page.css" rel="stylesheet" type="text/css">
-
+    <link href="../../resources/css/first-page.css" rel="stylesheet" type="text/css">
+    <script crossorigin="anonymous" integrity="sha256-xKeoJ50pzbUGkpQxDYHD7o7hxe0LaOGeguUidbq6vis="
+            src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
 </head>
 
 <body>
 <div id="first__page">
-<!--    <div th:replace="components/header :: header"></div>-->
+    <!--    <div th:replace="components/header :: header"></div>-->
     <main class="main">
         <section th:replace="components/sidebar :: sidebar"></section>
 
         <section class="content">
             <div class="chart-block">
-                <canvas height="400px" id="weeksChart" width="600px"></canvas>
+                <canvas id="weeksChart"></canvas>
             </div>
             <div class="project-time-chart-block">
-                <canvas height="400px" id="pieChart" width="500px"></canvas>
+                <canvas id="pieChart"></canvas>
+            </div>
+            <div class="projects">
+                <div class="project-title">Projects</div>
+                <div class="project-row">
+                    <div class="project-elem">Name</div>
+                    <div class="project-elem">Members</div>
+                    <div class="project-elem">Files</div>
+                </div>
+                <div class="project-row" th:each="project : ${user.projects}">
+                    <div class="project-elem" th:text="${project.project_name}">Name</div>
+                    <div class="project-elem" th:text="(${project.team.size()} eq 0) ? 0 : ${project.team.size()}">
+                        0
+                    </div>
+                    <div class="project-elem"
+                         th:text="(${project.projectFiles.size()} eq 0) ? 0 : ${project.projectFiles.size()}">0
+                    </div>
+                </div>
             </div>
         </section>
     </main>
@@ -28,7 +47,72 @@
 <script crossorigin="anonymous" integrity="sha256-xKeoJ50pzbUGkpQxDYHD7o7hxe0LaOGeguUidbq6vis="
         src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
 
-<script src="../../resources/js/charts-script.js"></script>
+<script>
+    let lineChart = document.getElementById('weeksChart');
+    let pieChart = document.getElementById('pieChart');
+    let lineCharts = new Chart(lineChart, {
+        type: 'line',
+        data: {
+            datasets: [
+                {
+                    label: 'This week',
+                    data: [12, 222, 3, 5, 243, 34, 34, 234, 2, 3, 4, 234, 45, 34, 34, 234, 2, 55, 54, 43, 23],
+                    borderColor: [
+                        'rgba(255, 191, 0, 0.5)',
+                        '#ff9800',
+                        '#fff59d'
+                    ]
+                },
+                {
+                    label: 'Prev week',
+                    data: [45, 34, 342, 34, 234, 278, 34, 234, 452, 55, 54, 34, 34, 12, 2, 43, 11],
+                    borderColor: [
+                        '#388e3c',
+                        'rgb(128, 255, 0)',
+                        'rgb(0, 255, 191)'
+                    ]
+                }
+            ]
+        },
+        options: {
+            title: {
+                display: true,
+                text: 'Compare your weeks productivity'
+            },
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true
+                    }
+                }]
+            }
+        }
+    });
+
+    let pieCharts = new Chart(pieChart, {
+        "type": "doughnut",
+        "data": {
+            "labels":
+                [
+                    "ManLuck",
+                    "ProjectFort",
+                    "BasePie"
+                ],
+            "datasets": [
+                {
+                    "label": "Your time in projects",
+                    "data": [130, 50, 80],
+                    "backgroundColor": [
+                        "rgb(255, 99, 132)",
+                        "rgb(54, 162, 235)",
+                        "rgb(255, 205, 86)"
+                    ]
+                }]
+        }
+    });
+
+</script>
+<!--<script src="../../resources/js/charts-script.js"></script>-->
 </body>
 
 </html>
