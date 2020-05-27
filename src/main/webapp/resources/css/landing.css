@@ -1,0 +1,103 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    outline: none;
+    font-family: 'Tahoma', 'Geneva', sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+
+.first {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/landing-img/first-bg-min.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+
+}
+
+.content {
+    backdrop-filter: blur(3px);
+    background-color: rgba(0, 0, 0, 0.37);
+    -webkit-backdrop-filter: blur(3px);
+    height: 100%;
+    width: 100%;
+}
+
+.container {
+    padding: 20% 0;
+    margin: 0 auto;
+    width: 940px;
+
+    display: flex;
+    flex-flow: column;
+    -ms-align-items: center;
+    align-items: center;
+}
+
+.service-name {
+    font-size: 60px;
+    color: hsla(0, 0%, 96%, .8);
+    margin-bottom: 30px;
+}
+
+.main-talk,
+.opportunities {
+    font-size: 24px;
+    color: hsla(0, 0%, 96%, 0.8);
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.opportunities {
+    font-size: 16px;
+    margin-bottom: 35px;
+}
+
+.actions {
+    width: 50%;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+    justify-content: space-around;
+}
+
+.action-btn {
+    text-align: center;
+    width: 150px;
+    padding: 10px;
+    background-color: #4caf50;
+    transition: 1s;
+    color: unset;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 3px;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -ms-backface-visibility: hidden;
+    backface-visibility: hidden;
+    -ms-transform: translateZ(0); /* IE 9 */
+    -webkit-transform: translateZ(0); /* Chrome, Safari, Opera */
+    transform: translateZ(0);
+}
+
+.action-btn:hover {
+    transition: 1s;
+    background-color: #1db31d;
+    -webkit-transform: scale(1.05);
+    transform: scale(1.05);
+}
+
+.action-btn:focus {
+    transition: .6s;
+    background-color: #199017;
+}
