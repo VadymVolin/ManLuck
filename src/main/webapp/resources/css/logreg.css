@@ -19,6 +19,7 @@ html, body, .blur {
     backdrop-filter: blur(3px);
     display: flex;
     flex-flow: column;
+    align-items: center;
     justify-content: center;
 }
 
@@ -34,14 +35,11 @@ body {
 form {
     position: absolute;
     z-index: 3;
-    right: 0;
-    margin-right: 5%;
 }
 
 .form__block {
     display: flex;
     flex-flow: column;
-    width: 380px;
     padding: 20px;
     align-content: center;
     background-color: hsla(0, 0%, 100%, .3);
