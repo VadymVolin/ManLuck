@@ -32,10 +32,17 @@ html, body {
 }
 
 .container {
-    padding: 20% 0;
     margin: 0 auto;
+    height: 100%;
     width: 940px;
+    display: flex;
+    flex-flow: column;
+    -ms-align-items: center;
+    align-items: center;
+    justify-content: center;
+}
 
+.main-block {
     display: flex;
     flex-flow: column;
     -ms-align-items: center;
@@ -100,4 +107,39 @@ html, body {
 .action-btn:focus {
     transition: .6s;
     background-color: #199017;
+}
+
+
+@media screen and (max-width: 940px) {
+
+    .container {
+        width: 90%;
+    }
+
+}
+
+@media screen and (max-width: 465px) {
+
+    .opportunities {
+        display: none;
+    }
+
+}
+
+@media screen and (max-width: 768px) {
+
+    .container {
+        width: 90%;
+    }
+
+    .actions {
+        flex-flow: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .action-btn {
+        margin-bottom: 20px;
+    }
+
 }
