@@ -10,12 +10,13 @@
 }
 
 
-html, body, .blur {
+html, body {
     height: 100%;
     width: 100%;
 }
 
 .blur {
+    width: 100%;
     backdrop-filter: blur(3px);
     display: flex;
     flex-flow: column;
