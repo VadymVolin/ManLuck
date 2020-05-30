@@ -9,10 +9,10 @@
     letter-spacing: 1px;
 }
 
-
-body, .blur {
+html, body, form, .blur, .bg,.form__block{
     height: 100%;
     width: 100%;
+    overflow: auto;
 }
 
 .blur {
@@ -23,13 +23,9 @@ body, .blur {
     justify-content: center;
 }
 
-body {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/landing-img/register-login.jpg);
-    background-position: center;
-    background-repeat: no-repeat;
+.bg {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/landing-img/register-login.jpg) no-repeat center;
     background-size: cover;
-    height: 100%;
-    width: 100%;
 }
 
 form {
