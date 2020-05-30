@@ -9,10 +9,13 @@
     letter-spacing: 1px;
 }
 
-
-body, .blur {
+html, body, .blur, .bg {
     height: 100%;
     width: 100%;
+}
+
+html, body, form, .blur, .bg, .form__block {
+    overflow: auto;
 }
 
 .blur {
@@ -23,13 +26,9 @@ body, .blur {
     justify-content: center;
 }
 
-body {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/landing-img/register-login.jpg);
-    background-position: center;
-    background-repeat: no-repeat;
+.bg {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(../img/landing-img/register-login.jpg) no-repeat center;
     background-size: cover;
-    height: 100%;
-    width: 100%;
 }
 
 form {
@@ -131,7 +130,6 @@ input::placeholder {
     transform: scale(1.05);
     transition: 1s;
 }
-
 
 @media screen and (max-width: 900px) and (min-width: 501px) {
 

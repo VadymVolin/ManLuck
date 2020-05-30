@@ -6,8 +6,10 @@
 
 .chart-block,.project-time-chart-block,.projects {
     width: calc(50% - 30px);
+    box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.1);
     margin: 10px;
     background-color: #f5f5f5;
+    border-radius: 3px;
     color: #444444;
     font-size: 16px;
 }

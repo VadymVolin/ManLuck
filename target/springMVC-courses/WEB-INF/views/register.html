@@ -1,95 +1,96 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-	"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
-	<title>Register</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link type="text/css" rel="stylesheet" href="../../resources/css/logreg.css"/>
+    <title>Register</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link type="text/css" rel="stylesheet" href="../../resources/css/logreg.css"/>
 </head>
 <body>
-	<!--*action="#"-->
-	<div class="blur">
-		<form method="POST" th:action="@{/register}" th:object="${user}">
-		<div class="form__block">
-			<div class="last__row row">
-				<p>Registration</p>
-			</div>
-			<span th:text="${error}"></span>
-			<span th:text="${message}"></span>
-			<div class="row">
-				<label for="username">Full name</label>
-				<input id="username" name="username" type="text" required
-				autocomplete="false"
-				placeholder="Tom Hagen"
-				th:field="${user.username}">
-			</div>
-			<div class="row">
-				<label for="usermail">E-mail</label>
-				<input id="usermail" name="usermail" type="email" required
-				autocomplete="false"
-				pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
-				placeholder="mail@mail.mail"
-				th:field="${user.usermail}">
-			</div>
-			<div class="row">
-				<label for="userphone">Telephone</label>
-				<input id="userphone" name="userphone" type="tel"
-				autocomplete="false"
-				pattern="^((8|\+7)[\- ]?)?(\(?\d{3,4}\)?[\- ]?)?[\d\- ]{5,10}$"
-				placeholder="+165.."
-				th:field="${user.userphone}">
-			</div>
-			<div class="row">
-				<label for="password">Password</label>
-				<input id="password" name="password" type="password" required
-				autocomplete="false"
-				pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,34}$"
-				placeholder="Password.."
-				th:field="${user.password}">
-			</div>
-			<div class="row">
-				<label for="confirmPassword">Password</label>
-				<input id="confirmPassword" name="confirmPassword" type="password" required
-				autocomplete="false"
-				pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,34}$"
-				placeholder="Confirm password.."
-				th:field="${user.confirmPassword}">
-			</div>
-			<div class="row">
-				<label for="country">Country</label>
-				<select id="country" name="country" autocomplete="false">
-					<option selected disabled>Choose country</option>
-					<option>Angola</option>
-					<option>France</option>
-					<option>USA</option>
-					<option>Russia</option>
-				</select>
-			</div>
-			<div class="row">
-				<label for="city">City</label>
-				<input id="city" name="city" type="text" autocomplete="false"
-				placeholder="City.."
-				th:field="${user.city}">
-			</div>
-			<div class="row">
-				<label for="company_name">Company name</label>
-				<input id="company_name" name="company" type="text"
-				autocomplete="false" placeholder="Company name.."
-				th:field="${user.company}">
-			</div>
-			<div class="row">
-				<label for="position">Position</label>
-				<input id="position" name="position" type="text"
-				autocomplete="false"
-				placeholder="Position.."
-				th:field="${user.position}">
-			</div>
-			<div class="last__row row">
-				<button class="btn_reg" type="submit">Sign up</button>
-				<a class="btn_log" href="/login">Sign in</a>
-			</div>
-		</div>
-	</form>
-	</div>
+<div class="bg">
+    <div class="blur">
+        <form method="POST" th:action="@{/register}" th:object="${user}">
+            <div class="form__block">
+                <div class="last__row row">
+                    <p>Registration</p>
+                </div>
+                <span th:text="${error}"></span>
+                <span th:text="${message}"></span>
+                <div class="row">
+                    <label for="username">Full name</label>
+                    <input id="username" name="username" type="text" required
+                           autocomplete="false"
+                           placeholder="Tom Hagen"
+                           th:field="${user.username}">
+                </div>
+                <div class="row">
+                    <label for="usermail">E-mail</label>
+                    <input id="usermail" name="usermail" type="email" required
+                           autocomplete="false"
+                           pattern="^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
+                           placeholder="mail@mail.mail"
+                           th:field="${user.usermail}">
+                </div>
+                <div class="row">
+                    <label for="userphone">Telephone</label>
+                    <input id="userphone" name="userphone" type="tel"
+                           autocomplete="false"
+                           pattern="^((8|\+7)[\- ]?)?(\(?\d{3,4}\)?[\- ]?)?[\d\- ]{5,10}$"
+                           placeholder="+165.."
+                           th:field="${user.userphone}">
+                </div>
+                <div class="row">
+                    <label for="password">Password</label>
+                    <input id="password" name="password" type="password" required
+                           autocomplete="false"
+                           pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,34}$"
+                           placeholder="Password.."
+                           th:field="${user.password}">
+                </div>
+                <div class="row">
+                    <label for="confirmPassword">Password</label>
+                    <input id="confirmPassword" name="confirmPassword" type="password" required
+                           autocomplete="false"
+                           pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,34}$"
+                           placeholder="Confirm password.."
+                           th:field="${user.confirmPassword}">
+                </div>
+                <div class="row">
+                    <label for="country">Country</label>
+                    <select id="country" name="country" autocomplete="false">
+                        <option selected disabled>Choose country</option>
+                        <option>Angola</option>
+                        <option>France</option>
+                        <option>USA</option>
+                        <option>Russia</option>
+                    </select>
+                </div>
+                <div class="row">
+                    <label for="city">City</label>
+                    <input id="city" name="city" type="text" autocomplete="false"
+                           placeholder="City.."
+                           th:field="${user.city}">
+                </div>
+                <div class="row">
+                    <label for="company_name">Company name</label>
+                    <input id="company_name" name="company" type="text"
+                           autocomplete="false" placeholder="Company name.."
+                           th:field="${user.company}">
+                </div>
+                <div class="row">
+                    <label for="position">Position</label>
+                    <input id="position" name="position" type="text"
+                           autocomplete="false"
+                           placeholder="Position.."
+                           th:field="${user.position}">
+                </div>
+                <div class="last__row row">
+                    <button class="btn_reg" type="submit">Sign up</button>
+                    <a class="btn_log" href="/login">Sign in</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 </body>
 </html>
