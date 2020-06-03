@@ -66,16 +66,13 @@ body {
 }
 
 .human-name {
+    transition: .6s;
     color: #4caf50;
     font-size: 16px;
 }
 
 .human-name:hover {
     color: #c0c0c0;
-    transition: .6s;
-}
-
-.human-name:not(hover) {
     transition: .6s;
 }
 
@@ -105,6 +102,7 @@ body {
 }
 
 .menu-link {
+    transition: 1s;
     display: block;
     margin: 10px 15px;
     padding: 15px 100px 15px 20px;
@@ -123,18 +121,10 @@ body {
     color: #f5f5f5;
 }
 
-.menu-link:not(hover) {
-    transition: 1s;
-}
-
 .menu-link:focus {
     transition: .6s;
     color: #f5f5f5;
     background-color: #4caf50;
-}
-
-.menu-link:not(focus) {
-    transition: .6s;
 }
 
 .notifications-panel {
@@ -170,10 +160,6 @@ body {
 .notification-link:hover {
     transition: 1s;
     fill: #4caf50;
-}
-
-.notification-link:not(hover) {
-    transition: 1s;
 }
 
 .notification-link:focus:active {
@@ -212,7 +198,6 @@ body {
 
 .user-card-1-sub:first-child {
     margin-bottom: 40px;
-    /*height: min-content;*/
 }
 
 .user-card-1-sub {
@@ -226,7 +211,6 @@ body {
     display: flex;
     flex-flow: column;
     width: 30%;
-    /*margin-bottom: 40px;*/
     justify-content: space-between;
 }
 
@@ -307,25 +291,23 @@ body {
 }
 
 #action {
+    transition: .6s;
     cursor: pointer;
-    padding: 10px;
+    padding: 10px 25px;
     text-align: center;
-    font-size: 14px;
-    font-weight: bold;
-    user-select: none;
-    border: 2px solid #444444;
-    color: #444444;
     border-radius: 5px;
+    background-color: #4CAF50; /* Green */
+    border: 2px solid #4CAF50;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
 }
 
 #action:hover {
     transition: .6s;
-    border: 2px solid #4caf50;
-    color: #4caf50;
-}
-
-#action:not(hover) {
-    transition: .6s;
+    border: 2px solid #444444;
+    background-color: #444444;
+    color: #f5f5f5;
 }
 
 #action:focus {
@@ -348,6 +330,7 @@ body {
 }
 
 #deactivate {
+    transition: .6s;
     cursor: pointer;
     padding: 10px;
     text-align: center;
@@ -363,10 +346,6 @@ body {
     transition: .6s;
     border: 2px solid #4caf50;
     color: #4caf50;
-}
-
-#deactivate:not(hover) {
-    transition: .6s;
 }
 
 #deactivate:focus {
