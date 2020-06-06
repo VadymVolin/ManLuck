@@ -159,7 +159,7 @@
     transition: color 1.2s;
     text-align: center;
     vertical-align: middle;
-    font-size: 80px;
+    font-size: 60px;
     background-color: #cccccc42;
     color: #4caf50;
     padding: 40px 0;
@@ -172,29 +172,57 @@
     flex-flow: row wrap;
 }
 
-a .project-action {
-    width: calc(33% - 30px);
-
+.large-tools {
+    justify-content: space-between;
+    margin-bottom: -40px;
 }
 
 .project-action {
+    width: calc(33% - 10px);
     transition: .6s;
     background-color: #f5f5f5;
-    color: #444444;
+    color: #f5f5f5;
+    border-radius: 5px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-    margin: 15px;
-    font-size: 35px;
+    font-size: 40px;
     align-content: center;
     align-items: center;
     display: flex;
     justify-content: center;
     align-self: center;
+    padding: 35px 30px;
 }
 
 .project-action:hover {
     transition: .6s;
-    color: #1db31d;
+    color: #444444;
     transform: scale(1.05);
+}
+
+.project-action > div {
+    width: 100%;
+}
+
+.project-action:nth-child(n){
+    background-color: #2685c9;
+}
+
+.project-action:nth-child(2n){
+    background-color: #e57027;
+}
+
+.project-action:nth-child(3n){
+    background-color: #63ce4c;
+}
+
+.project-action > div > div:nth-child(2n) {
+    font-size: 12px;
+    margin: 10px 0;
+}
+
+.project-action > div > div:nth-child(3n) {
+    font-size: 24px;
+    margin: 10px 0;
 }
 
 #action {

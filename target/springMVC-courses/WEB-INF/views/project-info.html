@@ -17,19 +17,31 @@
     <div th:replace="components/sidebar :: sidebar"></div>
     <section class="content central">
         <div class="row">
-            <div class="project-tools">
-                <a th:href="@{'/tasks/' + ${project.project_id}}">
-                    <div class="project-action"><i class="fa fa-th-large" aria-hidden="true"></i></div>
+            <div class="project-tools large-tools">
+                <a class="project-action" th:href="@{'/tasks/' + ${project.project_id}}">
+                    <div>
+                        <div><i class="fa fa-th-large" aria-hidden="true"></i></div>
+                        <div>Watch and create project tasks</div>
+                        <div>Watch task board</div>
+                    </div>
                 </a>
-                <a th:href="@{'/reports/' + ${project.project_id}}" target="_blank" download="true">
-                    <div class="project-action"><i class="fa fa-files-o" aria-hidden="true"></i></div>
+                <a class="project-action" th:href="@{'/reports/' + ${project.project_id}}" target="_blank"
+                   download="true">
+                    <div>
+                        <div><i class="fa fa-files-o" aria-hidden="true"></i></div>
+                        <div>Generate report for this project</div>
+                        <div>Get report</div>
+                    </div>
                 </a>
-                <a th:href="@{'/statistics/' + ${project.project_id}}">
-                    <div class="project-action"><i class="fa fa-area-chart" aria-hidden="true"></i></div>
+                <a class="project-action" th:href="@{'/statistics/' + ${project.project_id}}">
+                    <div>
+                        <div><i class="fa fa-area-chart" aria-hidden="true"></i></div>
+                        <div>Watch statistics for this project</div>
+                        <div>Watch statistics</div>
+                    </div>
                 </a>
             </div>
         </div>
-
         <div class="row">
             <div class="project-tools">
                 <span id="add-user" class="action"><i class="fa fa-plus-square" aria-hidden="true"></i> user</span>
